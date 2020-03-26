@@ -1,0 +1,70 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		// {
+		// 	"path": "pages/index/index",
+		// 	"style": {
+		// 		"navigationBarTitleText": "uni-app"
+		// 	}
+		// }
+		{
+			"path": "pages/views/login",
+			"style": {
+				// "navigationBarTitleText": "uni-app"
+			}
+		},
+		{
+			"path": "pages/views/register",
+			"style": {
+				"navigationBarTitleText": "注册"
+			}
+		},
+		{
+			"path":"pages/views/main",
+			"style":{
+				"navigationBarTitleText":"聊天"
+			}
+		},
+		{
+			"path":"pages/views/personal",
+			"style":{
+				"navigationBarTitleText":"个人中心"
+			}
+		},
+		{
+			"path":"pages/views/partner",
+			"style":{
+				"navigationBarTitleText":"对象中心"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		// "navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+	    "color": "#7A7E83",
+	    "selectedColor": "#000000",
+	    "borderStyle": "black",
+	    "backgroundColor": "#ffffff",
+	    "list": [{
+			"pagePath": "pages/views/partner",
+			"iconPath": "static/image/参赛对象-人.png",
+			"selectedIconPath": "static/image/参赛对象-人 (1).png",
+			"text": "对象"
+		},
+		{
+	        "pagePath": "pages/views/main",
+	        "iconPath": "static/image/聊天.png",
+	        "selectedIconPath": "static/image/聊天 (1).png",
+	        "text": "聊天"
+	    },
+		{ 
+	        "pagePath": "pages/views/personal",
+	        "iconPath": "static/image/个人.png",
+	        "selectedIconPath": "static/image/个人 (1).png",
+	        "text": "个人"
+	    }]
+	}
+}

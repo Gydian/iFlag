@@ -1,0 +1,42 @@
+{
+  "pages": [
+    "pages/views/login",
+    "pages/views/register",
+    "pages/views/main",
+    "pages/views/personal",
+    "pages/views/partner"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#000000",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/views/partner",
+        "iconPath": "static/image/参赛对象-人.png",
+        "selectedIconPath": "static/image/参赛对象-人 (1).png",
+        "text": "对象"
+      },
+      {
+        "pagePath": "pages/views/main",
+        "iconPath": "static/image/聊天.png",
+        "selectedIconPath": "static/image/聊天 (1).png",
+        "text": "聊天"
+      },
+      {
+        "pagePath": "pages/views/personal",
+        "iconPath": "static/image/个人.png",
+        "selectedIconPath": "static/image/个人 (1).png",
+        "text": "个人"
+      }
+    ]
+  },
+  "usingComponents": {}
+}
