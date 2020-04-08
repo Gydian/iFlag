@@ -59,7 +59,7 @@
 					'top': 0,
 					'left': 0,
 					'right': 0,
-					'backgroundColor': 'rgba(0, 0, 0, 0.2)'
+					'backgroundColor': 'rgba(0, 0, 0, 0.4)'
 				},
 				transClass: {
 					'position': 'fixed',

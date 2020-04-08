@@ -5,11 +5,11 @@
 		</view>
 		<view class="input-box">
 			<text class="text">邮箱：</text>
-			<input class="login-input" v-model="loginInfo.mail" focus placeholder="请输入邮箱" />
+			<input class="login-input" v-model="loginInfo.mail" focus placeholder="请输入邮箱"/>
 		</view>
 		<view class="input-box">
 			<text class="text">密码：</text>
-			<input class="login-input" v-model="loginInfo.password" focus placeholder="请输入密码" />
+			<input class="login-input" v-model="loginInfo.password" focus placeholder="请输入密码"/>
 		</view>
 		<view class="btn-box">
 			<button class="login-btn" type="default" @click="login()">登录</button>
@@ -45,25 +45,28 @@
 						showCancel:false
 					});
 				} else {
-					uni.request({
-						// url: 'http://localhost:9010/books/allBook/all',
-						url: 'http://192.168.0.112:9010/books/allBook/all',
-						// data: {
-						// 	mian: this.loginInfo.mail,
-						// 	password: this.loginInfo.password
-						// },
-						method: "GET",
-						sslVerify:false,
-						success: function(res) {
-							console.log(res.data);
-							uni.switchTab({
-							    url: '/pages/views/main'
-							});
-						},
-						fail: function(res) {
-							console.log(res.data);
-						}
+					uni.switchTab({
+					    url: '/pages/views/main'
 					});
+					// uni.request({
+					// 	// url: 'http://localhost:9010/books/allBook/all',
+					// 	url: 'http://192.168.0.112:9010/books/allBook/all',
+					// 	// data: {
+					// 	// 	mian: this.loginInfo.mail,
+					// 	// 	password: this.loginInfo.password
+					// 	// },
+					// 	method: "GET",
+					// 	sslVerify:false,
+					// 	success: function(res) {
+					// 		console.log(res.data);
+					// 		uni.switchTab({
+					// 		    url: '/pages/views/main'
+					// 		});
+					// 	},
+					// 	fail: function(res) {
+					// 		console.log(res.data);
+					// 	}
+					// });
 				}
 			},
 			register(){

@@ -6,18 +6,18 @@
 		// 		"navigationBarTitleText": "uni-app"
 		// 	}
 		// }
-		{
-			"path": "pages/views/login",
-			"style": {
-				// "navigationBarTitleText": "uni-app"
-			}
-		},
-		{
-			"path": "pages/views/register",
-			"style": {
-				"navigationBarTitleText": "注册"
-			}
-		},
+		// {
+		// 	"path": "pages/views/login",
+		// 	"style": {
+		// 		// "navigationBarTitleText": "uni-app"
+		// 	}
+		// },
+		// {
+		// 	"path": "pages/views/register",
+		// 	"style": {
+		// 		"navigationBarTitleText": "注册"
+		// 	}
+		// },
 		{
 			"path":"pages/views/main",
 			"style":{
@@ -35,6 +35,9 @@
 			"style":{
 				"navigationBarTitleText":"对象中心"
 			}
+		},
+		{
+			"path":"pages/personal/perDoc"
 		}
 	],
 	"globalStyle": {
@@ -52,19 +55,22 @@
 			"pagePath": "pages/views/partner",
 			"iconPath": "static/image/参赛对象-人.png",
 			"selectedIconPath": "static/image/参赛对象-人 (1).png",
-			"text": "对象"
+			"text": "对象",
+			"iconWidth":"24px"
 		},
 		{
 	        "pagePath": "pages/views/main",
 	        "iconPath": "static/image/聊天.png",
 	        "selectedIconPath": "static/image/聊天 (1).png",
-	        "text": "聊天"
+	        "text": "聊天",
+			"iconWidth":"20px"
 	    },
 		{ 
 	        "pagePath": "pages/views/personal",
 	        "iconPath": "static/image/个人.png",
 	        "selectedIconPath": "static/image/个人 (1).png",
-	        "text": "个人"
+	        "text": "个人",
+			"iconWidth":"20px"
 	    }]
 	}
 }

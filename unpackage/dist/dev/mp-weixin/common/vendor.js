@@ -8508,7 +8508,7 @@ module.exports = {"_from":"@dcloudio/uni-stat@alpha","_id":"@dcloudio/uni-stat@2
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/views/login": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/views/register": { "navigationBarTitleText": "注册", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/views/main": { "navigationBarTitleText": "聊天", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/views/personal": { "navigationBarTitleText": "个人中心", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/views/partner": { "navigationBarTitleText": "对象中心", "usingComponents": {}, "usingAutoImportComponents": {} } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/views/main": { "navigationBarTitleText": "聊天", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/views/personal": { "navigationBarTitleText": "个人中心", "usingComponents": { "uni-popup": "/components/uni-popup/uni-popup" }, "usingAutoImportComponents": {} }, "pages/views/partner": { "navigationBarTitleText": "对象中心", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/personal/perDoc": { "usingComponents": {}, "usingAutoImportComponents": {} } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
 
 /***/ }),
 /* 8 */
