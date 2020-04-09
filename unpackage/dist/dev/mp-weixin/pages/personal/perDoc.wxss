@@ -1,0 +1,64 @@
+
+.avatar {
+	height: 50px;
+	width: 50px;
+	border-radius: 50%;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	float: right;
+	margin: 3%;
+}
+.enter-icon {
+	height: 25px;
+	width: 25px;
+	float: right;
+	margin-top: 6%;
+}
+.avatar-view {
+	height: 70px;
+	padding-left: 14px;
+	padding-right: 14px;
+	border-bottom: 1px solid lightgray;
+	border-radius: 0;
+	background-color: #fff;
+}
+.text{
+	float: left;
+	margin-top: 7%;
+}
+.name-input{
+	float: right;
+	margin-top: 7%;
+	width: 200px;
+	text-align: right;
+}
+.sex-btn{
+	background-color: #fff;
+	border: none;
+	text-align: right;
+	float: right;
+	width: 200px;
+	margin-top: 3%;
+}
+button::after {
+	border: none;
+}
+.pop-view{
+	height: 200px;
+	background-color: #fff;
+	text-align: center;
+}
+.pop-text{
+	margin: 5%;
+	padding-top: 5%;
+	font-size: 18px;
+}
+.pop-btn{
+	text-align: left;
+	background-color: #fff;
+	margin-left: 14px;
+	margin-right: 14px;
+	border-radius: 0;
+	border-top: 1px solid lightgray;
+}
+

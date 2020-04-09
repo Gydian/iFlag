@@ -1,0 +1,40 @@
+
+.login-input {
+	border: 1px solid lightgray;
+	width: 60%;
+	height: 30px;
+	border-radius: 5px;
+	padding: 5px;
+}
+.text {
+	float: left;
+	padding: 7px;
+}
+.input-box {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	height: 50px;
+	padding-top: 2%;
+}
+.logo-box {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	margin: 10%;
+}
+.btn-box {
+	margin-top: 20%;
+}
+.login-btn {
+	width: 70%;
+	border: 1px solid lightgray;
+	margin-top: 5%;
+}
+

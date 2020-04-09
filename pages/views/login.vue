@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view class="logo-box">
-			<image style="width: 200px; height: 200px; background-color: #eeeeee;" :src="src" @error="imageError"></image>
+			<image style="width: 200px; height: 200px; background-color: #eeeeee;" :src="src"></image>
 		</view>
 		<view class="input-box">
 			<text class="text">邮箱：</text>

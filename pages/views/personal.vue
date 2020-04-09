@@ -10,17 +10,15 @@
 					<image class="enter-icon" src="../../static/image/向右.png"></image>
 				</view>
 			</view>
-			<navigator url="navigate/navigate?title=navigate">
-				<button class="navigate-btn" @click="checkUpdate()">
-					<view>
-						<image class="icon" src="../../static/image/更新.png"></image>
-					</view>
-					<view class="text">检查更新</view>
-					<view>
-						<image class="enter-icon" src="../../static/image/向右.png"></image>
-					</view>
-				</button>
-			</navigator>
+			<button class="navigate-btn" @click="checkUpdate()">
+				<view>
+					<image class="icon" src="../../static/image/更新.png"></image>
+				</view>
+				<view class="text">检查更新</view>
+				<view>
+					<image class="enter-icon" src="../../static/image/向右.png"></image>
+				</view>
+			</button>
 			<uni-popup ref="popup" type="bottom">
 				<view>
 					<button class="popup-btn">
@@ -100,8 +98,7 @@
 					url: '../personal/perDoc'
 				});
 			},
-			changeAvatar(){
-			}
+			changeAvatar() {}
 		}
 	}
 </script>

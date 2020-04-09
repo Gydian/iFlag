@@ -19,25 +19,31 @@
 		// 	}
 		// },
 		{
-			"path":"pages/views/main",
-			"style":{
-				"navigationBarTitleText":"聊天"
+			"path": "pages/views/main",
+			"style": {
+				"navigationBarTitleText": "聊天"
 			}
 		},
 		{
-			"path":"pages/views/personal",
-			"style":{
-				"navigationBarTitleText":"个人中心"
+			"path": "pages/views/personal",
+			"style": {
+				"navigationBarTitleText": "个人中心"
 			}
 		},
 		{
-			"path":"pages/views/partner",
-			"style":{
-				"navigationBarTitleText":"对象中心"
+			"path": "pages/views/partner",
+			"style": {
+				"navigationBarTitleText": "对象中心"
 			}
 		},
 		{
-			"path":"pages/personal/perDoc"
+			"path": "pages/personal/perDoc",
+			"style": {
+				"navigationStyle": "custom",
+				"app-plus": {
+					"titleNView": false
+				}
+			}
 		}
 	],
 	"globalStyle": {
@@ -47,30 +53,31 @@
 		"backgroundColor": "#F8F8F8"
 	},
 	"tabBar": {
-	    "color": "#7A7E83",
-	    "selectedColor": "#000000",
-	    "borderStyle": "black",
-	    "backgroundColor": "#ffffff",
-	    "list": [{
-			"pagePath": "pages/views/partner",
-			"iconPath": "static/image/参赛对象-人.png",
-			"selectedIconPath": "static/image/参赛对象-人 (1).png",
-			"text": "对象",
-			"iconWidth":"24px"
-		},
-		{
-	        "pagePath": "pages/views/main",
-	        "iconPath": "static/image/聊天.png",
-	        "selectedIconPath": "static/image/聊天 (1).png",
-	        "text": "聊天",
-			"iconWidth":"20px"
-	    },
-		{ 
-	        "pagePath": "pages/views/personal",
-	        "iconPath": "static/image/个人.png",
-	        "selectedIconPath": "static/image/个人 (1).png",
-	        "text": "个人",
-			"iconWidth":"20px"
-	    }]
+		"color": "#7A7E83",
+		"selectedColor": "#000000",
+		"borderStyle": "black",
+		"backgroundColor": "#ffffff",
+		"list": [{
+				"pagePath": "pages/views/partner",
+				"iconPath": "static/image/参赛对象-人.png",
+				"selectedIconPath": "static/image/参赛对象-人 (1).png",
+				"text": "对象",
+				"iconWidth": "24px"
+			},
+			{
+				"pagePath": "pages/views/main",
+				"iconPath": "static/image/聊天.png",
+				"selectedIconPath": "static/image/聊天 (1).png",
+				"text": "聊天",
+				"iconWidth": "20px"
+			},
+			{
+				"pagePath": "pages/views/personal",
+				"iconPath": "static/image/个人.png",
+				"selectedIconPath": "static/image/个人 (1).png",
+				"text": "个人",
+				"iconWidth": "20px"
+			}
+		]
 	}
 }
