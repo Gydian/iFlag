@@ -1,0 +1,41 @@
+
+.text {
+	height: 50px;
+	text-align: left;
+	padding-top: 25px;
+	padding-left: 14px;
+	border-bottom: 1px solid lightgray;
+}
+.navigate-btn {
+	border-bottom: 1px solid lightgray;
+	border-radius: 0;
+	height: 50px;
+	background-color: #fff;
+	text-align: left;
+}
+button::after {
+	border: none;
+}
+.enter-icon {
+	height: 22px;
+	width: 22px;
+	float: right;
+	margin-right: 5%;
+	margin-top: -34px;
+}
+.feedback-icon {
+	height: 22px;
+	width: 22px;
+	margin-right: 3%;
+	margin-top: 3%;
+	margin-left: 35%;
+	float: left;
+}
+.feedback-btn {
+	border: 1px solid lightgray;
+	margin-top: 80%;
+}
+.feedback-text{
+	float: left;
+}
+

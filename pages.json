@@ -44,6 +44,24 @@
 					"titleNView": false
 				}
 			}
+		},
+		{
+			"path":"pages/personal/help",
+			"style": {
+				"navigationBarTitleText": "帮助与反馈"
+			}
+		},
+		{
+			"path":"pages/personal/helpDetail",
+			"style": {
+				"navigationBarTitleText": "常见问题"
+			}
+		},
+		{
+			"path":"pages/personal/feedback",
+			"style": {
+				"navigationBarTitleText": "用户反馈"
+			}
 		}
 	],
 	"globalStyle": {

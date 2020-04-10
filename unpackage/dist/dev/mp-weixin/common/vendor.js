@@ -8616,6 +8616,33 @@ main();
 
 /***/ }),
 
+/***/ 57:
+/*!****************************************************************************!*\
+  !*** /Users/aris/Documents/HBuilderProjects/iFlag/static/json/question.js ***!
+  \****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+var data = [
+{
+  'question': '怎么修改角色头像?',
+  'answer': '&emsp;&emsp;我与父亲不相见已二年余了，我最不能忘记的是他的背影。\n\n&emsp;&emsp;那年冬天，祖母死了，父亲的差使也交卸了，正是祸不单行的日子，我从北京到徐州，打算跟着父亲奔丧回家。' },
+
+{
+  'question': '怎么新建Flag?',
+  'answer': '&emsp;&emsp;我与父亲不相见已二年余了，我最不能忘记的是他的背影。\n\n&emsp;&emsp;那年冬天，祖母死了，父亲的差使也交卸了，正是祸不单行的日子，我从北京到徐州，打算跟着父亲奔丧回家。' },
+
+{
+  'question': '怎么设置提醒打卡?',
+  'answer': '&emsp;&emsp;我与父亲不相见已二年余了，我最不能忘记的是他的背影。\n\n&emsp;&emsp;那年冬天，祖母死了，父亲的差使也交卸了，正是祸不单行的日子，我从北京到徐州，打算跟着父亲奔丧回家。' }];
+
+
+module.exports = {
+  data: data };
+
+/***/ }),
+
 /***/ 6:
 /*!******************************************************!*\
   !*** ./node_modules/@dcloudio/uni-stat/package.json ***!
@@ -8635,11 +8662,23 @@ module.exports = {"_from":"@dcloudio/uni-stat@alpha","_id":"@dcloudio/uni-stat@2
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/views/main": { "navigationBarTitleText": "聊天", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/views/personal": { "navigationBarTitleText": "个人中心", "usingComponents": { "uni-popup": "/components/uni-popup/uni-popup" }, "usingAutoImportComponents": {} }, "pages/views/partner": { "navigationBarTitleText": "对象中心", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/personal/perDoc": { "navigationStyle": "custom", "usingComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "uni-popup": "/components/uni-popup/uni-popup" }, "usingAutoImportComponents": {} }, "pages/views/login": { "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/views/register": { "navigationBarTitleText": "注册", "usingComponents": {}, "usingAutoImportComponents": {} } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/views/main": { "navigationBarTitleText": "聊天", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/views/personal": { "navigationBarTitleText": "个人中心", "usingComponents": { "uni-popup": "/components/uni-popup/uni-popup" }, "usingAutoImportComponents": {} }, "pages/views/partner": { "navigationBarTitleText": "对象中心", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/personal/perDoc": { "navigationStyle": "custom", "usingComponents": { "uni-nav-bar": "/components/uni-nav-bar/uni-nav-bar", "uni-popup": "/components/uni-popup/uni-popup" }, "usingAutoImportComponents": {} }, "pages/personal/help": { "navigationBarTitleText": "帮助与反馈", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/personal/helpDetail": { "navigationBarTitleText": "常见问题", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/personal/feedback": { "navigationBarTitleText": "用户反馈" } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
 
 /***/ }),
 
-/***/ 74:
+/***/ 8:
+/*!*******************************************************************************!*\
+  !*** /Users/aris/Documents/HBuilderProjects/iFlag/pages.json?{"type":"stat"} ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "appid": "" };exports.default = _default;
+
+/***/ }),
+
+/***/ 93:
 /*!**********************************************************************************!*\
   !*** /Users/aris/Documents/HBuilderProjects/iFlag/components/uni-icons/icons.js ***!
   \**********************************************************************************/
@@ -8742,18 +8781,6 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   'closefill': "\uE589",
   'sound': "\uE590",
   'scan': "\uE612" };exports.default = _default;
-
-/***/ }),
-
-/***/ 8:
-/*!*******************************************************************************!*\
-  !*** /Users/aris/Documents/HBuilderProjects/iFlag/pages.json?{"type":"stat"} ***!
-  \*******************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "appid": "" };exports.default = _default;
 
 /***/ })
 

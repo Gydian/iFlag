@@ -26,7 +26,7 @@
 					</button>
 				</view>
 			</uni-popup>
-			<navigator url="redirect/redirect?title=redirect" open-type="redirect">
+			<navigator url="../personal/help" open-type="navigate">
 				<button class="navigate-btn">
 					<view>
 						<image class="icon" src="../../static/image/帮助.png"></image>

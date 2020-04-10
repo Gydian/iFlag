@@ -3,7 +3,10 @@
     "pages/views/main",
     "pages/views/personal",
     "pages/views/partner",
-    "pages/personal/perDoc"
+    "pages/personal/perDoc",
+    "pages/personal/help",
+    "pages/personal/helpDetail",
+    "pages/personal/feedback"
   ],
   "subPackages": [],
   "window": {

@@ -1,0 +1,1 @@
+<view><view class="header"><text decode="true">{{''+str.data[index].question+''}}</text></view><view class="answer"><text decode="true">{{''+str.data[index].answer+''}}</text></view></view>
