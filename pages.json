@@ -31,12 +31,6 @@
 			}
 		},
 		{
-			"path": "pages/views/partner",
-			"style": {
-				"navigationBarTitleText": "对象中心"
-			}
-		},
-		{
 			"path": "pages/personal/perDoc",
 			"style": {
 				"navigationStyle": "custom",
