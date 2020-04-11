@@ -48,7 +48,7 @@
 					</view>
 				</button>
 			</navigator>
-			<navigator url="redirect/redirect?title=redirect" open-type="redirect">
+			<navigator url="../personal/about" open-type="navigate">
 				<button class="navigate-btn">
 					<view>
 						<image class="icon" src="../../static/image/关于.png"></image>

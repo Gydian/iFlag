@@ -1,0 +1,47 @@
+
+.qinmidu{
+		/* 定义flex容器 */
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+         /*设置容器内部容器的排列方向*/	
+		-webkit-box-orient: horizontal;	
+		-webkit-box-direction: normal;	
+		-webkit-flex-direction: row;	
+		        flex-direction: row; 
+		margin-top: 10%;
+		text-align: center;
+		margin-left: 10%;
+}
+.avatar {
+		height: 150px;
+		width: 150px;
+		border-radius: 50%;
+		-webkit-border-radius: 50%;
+		-moz-border-radius: 50%;
+		margin-top: 15%;
+}
+.name {
+		margin-top: 10%;
+}
+.tips{
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-box-orient: horizontal;
+		-webkit-box-direction: normal;
+		-webkit-flex-direction: row;
+		        flex-direction: row; 
+		-webkit-box-align: center; 
+		-webkit-align-items: center; 
+		        align-items: center;
+		-webkit-box-pack: center;
+		-webkit-justify-content: center;
+		        justify-content: center;
+		margin-top: 10%;
+		margin-left: 10%;
+		margin-right: 10%;
+		/* width: 90%; */
+}
+	
+

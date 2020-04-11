@@ -1,0 +1,38 @@
+
+.logo {
+	width: 100px;
+	height: 100px;
+}
+.logo-view {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	margin: 5%;
+}
+.version-view {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	margin: 5%;
+	border-bottom: 1px solid lightgray;
+}
+.about-view {
+	padding: 14px;
+}
+.author-view{
+	font-size: 12px;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	margin-top: 70%;
+}
+

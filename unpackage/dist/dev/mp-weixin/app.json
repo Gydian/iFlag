@@ -7,7 +7,11 @@
     "pages/personal/help",
     "pages/personal/helpDetail",
     "pages/personal/feedback",
-    "pages/personal/remind"
+    "pages/personal/remind",
+    "pages/personal/about",
+    "pages/views/partner",
+    "pages/partner/editPartner",
+    "pages/partner/intimacy"
   ],
   "subPackages": [],
   "window": {
