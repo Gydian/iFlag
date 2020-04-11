@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "用户反馈",
-  "usingComponents": {}
+  "usingComponents": {
+    "sunui-upimg": "/components/sunui-upimg/sunui-upimg"
+  }
 }
