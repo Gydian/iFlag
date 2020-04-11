@@ -73,6 +73,12 @@
 			}
 		},
 		{
+			"path": "pages/personal/achievement",
+			"style": {
+				"navigationBarTitleText": "我的成就"
+			}
+		},
+		{
 			"path": "pages/views/partner",
 			"style": {
 				"navigationBarTitleText": "对象中心",

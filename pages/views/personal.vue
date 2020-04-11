@@ -59,7 +59,7 @@
 					</view>
 				</button>
 			</navigator>
-			<navigator url="redirect/redirect?title=redirect" open-type="redirect">
+			<navigator url="../personal/achievement" open-type="navigate">
 				<button class="navigate-btn">
 					<view>
 						<image class="icon" src="../../static/image/分享－理财成就.png"></image>
