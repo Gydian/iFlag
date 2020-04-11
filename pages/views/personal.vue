@@ -37,7 +37,7 @@
 					</view>
 				</button>
 			</navigator>
-			<navigator url="redirect/redirect?title=redirect" open-type="redirect">
+			<navigator url="../personal/remind" open-type="navigate">
 				<button class="navigate-btn">
 					<view>
 						<image class="icon" src="../../static/image/闹钟.png"></image>

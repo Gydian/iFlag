@@ -1,0 +1,43 @@
+
+.text-view {
+	border-bottom: 1px solid lightgray;
+	border-radius: 0;
+	height: 18px;
+	background-color: #fff;
+	text-align: left;
+	padding: 20px;
+	font-size: 18px;
+}
+.switch {
+	float: right;
+	margin-top: -6px;
+}
+.enter-icon {
+	height: 25px;
+	width: 25px;
+	float: right;
+	margin-top: -2px;
+}
+.time-text {
+	float: right;
+	margin-right: 2%;
+}
+.pop-view {
+	height: 200px;
+	background-color: #fff;
+	text-align: center;
+}
+.pop-text {
+	margin: 5%;
+	padding-top: 5%;
+	font-size: 18px;
+}
+.pop-btn {
+	text-align: left;
+	background-color: #fff;
+	margin-left: 14px;
+	margin-right: 14px;
+	border-radius: 0;
+	border-top: 1px solid lightgray;
+}
+

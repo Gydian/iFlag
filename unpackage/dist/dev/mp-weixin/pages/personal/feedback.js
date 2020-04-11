@@ -133,7 +133,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var sunUiUpimg = function sunUiUpimg() {return Promise.all(/*! import() | components/sunui-upimg/sunui-upimg */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/sunui-upimg/sunui-upimg")]).then(__webpack_require__.bind(null, /*! @/components/sunui-upimg/sunui-upimg.vue */ 82));};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var sunUiUpimg = function sunUiUpimg() {return Promise.all(/*! import() | components/sunui-upimg/sunui-upimg */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/sunui-upimg/sunui-upimg")]).then(__webpack_require__.bind(null, /*! @/components/sunui-upimg/sunui-upimg.vue */ 90));};var _default =
 
 
 

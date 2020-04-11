@@ -6,7 +6,8 @@
     "pages/personal/perDoc",
     "pages/personal/help",
     "pages/personal/helpDetail",
-    "pages/personal/feedback"
+    "pages/personal/feedback",
+    "pages/personal/remind"
   ],
   "subPackages": [],
   "window": {

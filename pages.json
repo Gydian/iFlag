@@ -62,6 +62,15 @@
 			"style": {
 				"navigationBarTitleText": "用户反馈"
 			}
+		},
+		{
+			"path": "pages/personal/remind",
+			"style": {
+				"navigationStyle": "custom",
+				"app-plus": {
+					"titleNView": false
+				}
+			}
 		}
 	],
 	"globalStyle": {
