@@ -5,19 +5,19 @@
 		// 	"style": {
 		// 		"navigationBarTitleText": "uni-app"
 		// 	}
-		// }
-		// {
-		// 	"path": "pages/views/login",
-		// 	"style": {
-		// 		// "navigationBarTitleText": "uni-app"
-		// 	}
 		// },
-		// {
-		// 	"path": "pages/views/register",
-		// 	"style": {
-		// 		"navigationBarTitleText": "注册"
-		// 	}
-		// },
+		{
+			"path": "pages/views/login",
+			"style": {
+				// "navigationBarTitleText": "uni-app"
+			}
+		},
+		{
+			"path": "pages/views/register",
+			"style": {
+				"navigationBarTitleText": "注册"
+			}
+		},
 		{
 			"path": "pages/views/main",
 			"style": {
