@@ -21,7 +21,19 @@
 		{
 			"path": "pages/views/main",
 			"style": {
-				"navigationBarTitleText": "聊天"
+				"navigationBarTitleText": "聊天",
+				"app-plus": {
+					"bounce": "none", //关闭窗口回弹效果
+					"titleNView": {
+						"buttons": [ //原生标题栏按钮配置,
+							{
+								"text": "\ue6a5",
+								"fontSrc": "/static/iconfont_cal.ttf",
+								"float": "right"
+							}
+						]
+					}
+				}
 			}
 		},
 		{
@@ -106,6 +118,30 @@
 			"path": "pages/partner/intimacy",
 			"style": {
 				"navigationBarTitleText": "亲密度"
+			}
+		},
+		{
+			"path": "pages/main/addFlag",
+			"style": {
+				"navigationStyle": "custom",
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/main/addPerFlag",
+			"style": {
+				"navigationStyle": "custom",
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		{
+			"path": "pages/main/calendar",
+			"style": {
+				"navigationBarTitleText": "日历"
 			}
 		}
 	],
