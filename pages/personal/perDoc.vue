@@ -6,10 +6,11 @@
 		<view class="avatar-view">
 			<view class="text">头像</view>
 			<view>
-				<image class="enter-icon" src="../../static/image/向右.png"></image>
+				<image class="enter-icon" @click="clk(1)" src="../../static/image/向右.png"></image>
 			</view>
 			<view>
-				<image class="avatar" src="../../static/logo.png"></image>
+				<image class="avatar" :src="urls[1]"></image>
+				<avatar @upload="doUpload" quality="1" ref="avatar"></avatar>
 			</view>
 		</view>
 		<view class="avatar-view">
@@ -17,7 +18,7 @@
 			<input class="name-input" v-model="info.name"/>
 		</view>
 		<view class="avatar-view">
-			<view class="text">性别</view>
+			<view class="text">性别</view> 
 			<button class="sex-btn" @click="choosePop()">{{info.sex}}</button>
 		</view>
 		<uni-popup ref="popup" type="bottom">
@@ -34,6 +35,7 @@
 <script>
 	import uniNavBar from "@/components/uni-nav-bar/uni-nav-bar.vue"
 	import uniPopup from "@/components/uni-popup/uni-popup.vue"
+	import avatar from "../../components/yq-avatar/yq-avatar.vue";
 	export default {
 		data() {
 			return {
@@ -41,12 +43,13 @@
 					name:'这是个昵称',
 					avatar:'',
 					sex:'女'
-				}
+				},
+				urls: ["../../static/logo.png","../../static/logo.png"],
 			}
 		},
 		components: {
 			uniNavBar,
-			uniPopup
+			uniPopup,avatar
 		},
 		onLoad: function() {
 			// 获取个人信息
@@ -62,6 +65,32 @@
 			},
 			chooseSex(sex){
 				this.info.sex=sex
+			},
+			clk(index) {
+				this.$refs.avatar.fChooseImg(index,{
+					selWidth: '350upx', selHeight: '350upx', 
+					expWidth: '260upx', expHeight: '260upx',
+					inner: index ? 'true' : 'false'
+				});
+			},
+			doUpload(rsp) {
+				console.log(rsp);
+				this.$set(this.urls, rsp.index, rsp.path);
+				return;
+				uni.uploadFile({
+					url: '', //仅为示例，非真实的接口地址
+					filePath: rsp.path,
+					name: 'avatar',
+					formData: {
+						'avatar': rsp.path
+					},
+					success: (uploadFileRes) => {
+						console.log(uploadFileRes.data);   //临时路径，怎么上传加书签了，到时候再看
+					},
+					complete(res) {
+						console.log(res)
+					}
+				});
 			}
 		}
 	}

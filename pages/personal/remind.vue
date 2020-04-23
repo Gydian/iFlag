@@ -140,6 +140,9 @@
 		float: right;
 		margin-top: -2px;
 	}
+	button::after {
+		border: none;
+	}
 
 	.time-text {
 		float: right;

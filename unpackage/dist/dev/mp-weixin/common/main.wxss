@@ -14,4 +14,28 @@
 
 
 /*每个页面公共css */
+@font-face {font-family: "iconfont";
+  src: url('//at.alicdn.com/t/font_1743407_df5t446j9vg.eot?t=1586407421834'); /* IE9 */
+  src: url('//at.alicdn.com/t/font_1743407_df5t446j9vg.eot?t=1586407421834#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAMkAAsAAAAAB4AAAALYAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCCfgqCaIJMATYCJAMMCwgABCAFhG0HQBuUBhHVk19kXyTYnC249otmZJxl+v3GUYfABwaXQiwGV9VmaPBM8DyNo96fmRWQKKSte5A7qHjXhAgYLN1u64vPjJ6bMTNi4EiwAk+C8SgQEpiwGLettXzCojApukP5tuRRlXf5IDu5XEmqjq+qUIgqXAqkJzqILJFsof/ncnp3lfj8QLnMMbF31AswDmjzWJMiK5FAPABpGLvyIg5DAFsCxZOi06omHIMxSgCZcqP9eMqDwbC4NYJlyUKDrNMQa7U83gRr/c/Lawk5KCw0xsS6keIh6ovrv5k33o2LiDueCWDLQAPxwIC0lFrqIIzE09gqESMc6+ol8OLG+M+L664OWesPT4FYYuTaAxANVYoz4toSTo0Ll6AA0ABYgtg0YgskuadotL1NuHX5zJ13uv20u998ry8rPubtXbl//r6OFf/Rm/em7Tt3e201u563W3nOu5C0Yo87m6s6R+R0DzvudioOppwwHz7YJ2K6LKck9hQ7uvjjCzY4/Oy9LqutHVXRDm+673zlnmXp4lDtv8Vvcy3/yqJ8a6sZZuyKgP9jP3H+NwQQeDa847zXKeur9dwA8PDE91/g/j+jvQ7rk7cK/AhuyzKjysFSI3Nsjm7TpN+YSQFkcTv/GQ5XT/vLPFqHQLBOcRkorAgAjTXhqCHFgwV2JIEl1uSCLXFKl9vhZhoQYwPEWgxAcHYYFI5cBo2zW6ghPQELPL0FS5wD+JnrtjecO8zNjkg9spLw9AZOYK0tPc+C/HNl2vKRknyffK2ocX7I4jQbP1O1ojGmNM8mZ9agCSs4BcepskQIhF4Jji1zWCWJLntRLLDqzBwhyiOmSODJG+AIqKbd6myWe/85xWiVHlENrsJ4TSENVz/IxNIW6JmkboW7lmcaz4wcYxrQCKqAU2BSSjOCQCjv5ykCi9keoWAlQZV0W0k8v6x6vjVIibGcYiCYxvdYm3fbLvz0SGB463QA') format('woff2'),
+  url('//at.alicdn.com/t/font_1743407_df5t446j9vg.woff?t=1586407421834') format('woff'),
+  url('//at.alicdn.com/t/font_1743407_df5t446j9vg.ttf?t=1586407421834') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  url('//at.alicdn.com/t/font_1743407_df5t446j9vg.svg?t=1586407421834#iconfont') format('svg'); /* iOS 4.1- */
+}
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+/* .icon-bangzhu:before {
+  content: "\e8c3";
+} */
+.icon-bangzhu-copy:before {
+  content: "\E8C4";
+}
+.icon-bangzhu2:before {
+  content: "\E8C3";
+}
 

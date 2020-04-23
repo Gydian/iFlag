@@ -2,7 +2,7 @@
 	<view>
 		<view>
 			<view class="avatar-view">
-				<view @click="changeAvatar">
+				<view @click="changeDoc">
 					<image class="avatar" src="../../static/logo.png"></image>
 				</view>
 				<view class="name" @click="changeDoc">{{name}}</view>
@@ -59,7 +59,7 @@
 					</view>
 				</button>
 			</navigator>
-			<navigator url="redirect/redirect?title=redirect" open-type="redirect">
+			<navigator url="../personal/achievement" open-type="navigate">
 				<button class="navigate-btn">
 					<view>
 						<image class="icon" src="../../static/image/分享－理财成就.png"></image>
@@ -72,7 +72,7 @@
 			</navigator>
 		</view>
 		<view>
-			<button class="logout-btn">退出登录</button>
+			<button class="logout-btn" @click="logout()">退出登录</button>
 		</view>
 	</view>
 </template>
@@ -98,7 +98,21 @@
 					url: '../personal/perDoc'
 				});
 			},
-			changeAvatar() {}
+			logout() {
+				uni.showModal({
+					content: '确定要退出登录吗？',
+					success: function(res) {
+						if (res.confirm) {
+							uni.redirectTo({
+								url: './login'
+							})
+						} else if (res.cancel) {
+							
+						}
+					}
+				})
+			}
+
 		}
 	}
 </script>
