@@ -5,11 +5,15 @@
 		// 	"style": {
 		// 		"navigationBarTitleText": "uni-app"
 		// 	}
-		// },
+		// }
+		
 		{
 			"path": "pages/views/login",
 			"style": {
-				// "navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "登录",
+				"app-plus": {  
+				    "softinputMode": "adjustResize"   // 没有效果，没有弹出软键盘
+				}
 			}
 		},
 		{
@@ -42,6 +46,7 @@
 				"navigationBarTitleText": "个人中心"
 			}
 		},
+
 		{
 			"path": "pages/personal/perDoc",
 			"style": {

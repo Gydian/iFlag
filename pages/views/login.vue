@@ -7,9 +7,12 @@
 			<text class="text">邮箱：</text>
 			<input class="login-input" v-model="loginInfo.mail" focus placeholder="请输入邮箱"/>
 		</view>
-		<view class="input-box">
+<!-- 		<input class="line" /> -->
+		<view class="input-box2">
 			<text class="text">密码：</text>
-			<input class="login-input" v-model="loginInfo.password" placeholder="请输入密码"/>
+			<input class="login-input" style="outline:none;" v-model="loginInfo.password" placeholder="请输入密码" password="true">
+			</input>
+		<!--   <view class="iconfont icon-eye"></view> -->
 		</view>
 		<view class="btn-box">
 			<button class="login-btn" type="default" @click="login()">登录</button>
@@ -26,11 +29,11 @@
 				loginInfo: {
 					mail: '',
 					password: ''
-				}
+				},
+				icon:"\ue602"
 			}
 		},
 		onLoad() {
-
 		},
 		methods: {
 			login() {
@@ -45,16 +48,9 @@
 						showCancel:false
 					});
 				} else {
-					uni.setStorage({
-						key:'email',
-						data:this.loginInfo.mail,
-						success:function(){
-							uni.switchTab({
-							    url: '/pages/views/main'
-							});
-						}
-					})
-					
+					uni.switchTab({
+					    url: '/pages/views/main'
+					});
 					// uni.request({
 					// 	// url: 'http://localhost:9010/books/allBook/all',
 					// 	url: 'http://192.168.0.112:9010/books/allBook/all',
@@ -93,32 +89,47 @@
 		border-radius: 5px;
 		padding: 5px;
 	}
-
 	.text {
 		float: left;
 		padding: 7px;
 	}
-
 	.input-box {
 		display: flex;
+		flex-direction: row; 
 		justify-content: center;
 		height: 50px;
 		padding-top: 2%;
+		align-items:center;
+/* 		border-bottom: 1px solid lightgray;
+		border-top: 1px solid lightgray; */
 	}
-
+	
+	.input-box2 {
+		display: flex;
+		flex-direction: row; 
+		justify-content: center;
+		height: 50px;
+		padding-top: 2%;
+		align-items:center;
+	/* 	border-bottom: 1px solid lightgray; */
+	}
 	.logo-box {
 		display: flex;
 		justify-content: center;
 		margin: 10%;
 	}
-
 	.btn-box {
 		margin-top: 20%;
 	}
-
 	.login-btn {
 		width: 70%;
 		border: 1px solid lightgray;
 		margin-top: 5%;
+	}
+	
+	.line {
+		width: 1;
+		height: 1;
+		border: 1px solid lightgray; 
 	}
 </style>
