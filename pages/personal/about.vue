@@ -50,6 +50,6 @@
 		font-size: 12px;
 		display: flex;
 		justify-content: center;
-		margin-top: 70%;
+		margin-top: 60%;
 	}
 </style>

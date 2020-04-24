@@ -98,6 +98,10 @@
 						success: function(res) {
 							console.log(res.data);
 							if (res.data.StatusCode==0) {
+								uni.showToast({
+								    title: '注册成功！',
+								    duration: 2000
+								});
 								uni.switchTab({
 									url: '/pages/views/main'
 								});

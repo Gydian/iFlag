@@ -134,8 +134,17 @@
 							success: function(response) {
 								console.log(response)
 								that.info.name = response.data.username
-								that.urls[1] = response.data.photo
-								that.info.sex = response.data.sex
+								if(response.data.photo==''||response.data.photo==null){
+									that.urls[1]= '../../static/logo.png'
+								}
+								else{
+									that.urls[1] = response.data.photo
+								}
+								if(response.data.sex==''||response.data.sex==null){
+									that.info.sex='未知'
+								}else{
+									that.info.sex = response.data.sex
+								}
 							},
 							fail: function(response) {
 								console.log(response.data);

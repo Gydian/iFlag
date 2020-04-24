@@ -126,7 +126,12 @@
 							success: function(response) {
 								console.log(response)
 								that.name=response.data.username
-								that.photo=response.data.photo
+								if(response.data.photo==''||response.data.photo==null){
+									that.photo= '../../static/logo.png'
+								}
+								else{
+									that.photo = response.data.photo
+								}
 							},
 							fail: function(response) {
 								console.log(response.data);
