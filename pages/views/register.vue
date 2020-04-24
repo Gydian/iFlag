@@ -2,7 +2,7 @@
 	<view class="register-box">
 		<view class="input-box">
 			<text class="text">昵称：</text>
-			<input class="register-input" v-model="registerInfo.name" focus placeholder="请输入邮箱" />
+			<input class="register-input" v-model="registerInfo.name" focus placeholder="请输入昵称" />
 		</view>
 		<view class="input-box">
 			<text class="text">邮箱：</text>
@@ -14,11 +14,11 @@
 		</view>
 		<view class="input-box">
 			<text class="text">确认密码：</text>
-			<input class="register-input" v-model="registerInfo.checkPass" focus placeholder="请输入密码" />
+			<input class="register-input" v-model="registerInfo.checkPass" focus placeholder="请再次输入密码" />
 		</view>
 		<view class="input-box">
 			<text class="text">验证码：</text>
-			<input class="register-input" v-model="registerInfo.password" focus placeholder="请输入密码" />
+			<input class="register-input" v-model="registerInfo.password" focus placeholder="请输入验证码" />
 		</view>
 		<view class="btn-box">
 			<button class="register-btn" type="default" @click="l">获取验证码</button>

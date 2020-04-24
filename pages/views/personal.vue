@@ -3,7 +3,7 @@
 		<view>
 			<view class="avatar-view">
 				<view @click="changeDoc">
-					<image class="avatar" src="../../static/logo.png"></image>
+					<image class="avatar" :src="photo"></image>
 				</view>
 				<view class="name" @click="changeDoc">{{name}}</view>
 				<view @click="changeDoc">
@@ -83,7 +83,8 @@
 	export default {
 		data() {
 			return {
-				name: '昵称'
+				name: '昵称',
+				photo:'../../static/logo.png'
 			}
 		},
 		components: {
@@ -111,8 +112,35 @@
 						}
 					}
 				})
+			},
+			getInfo(){
+				var that = this
+				uni.getStorage({
+					key:'email',
+					success:function(res){
+						console.log('这是key中的内容：'+res.data)
+						uni.request({
+							url: 'http://59.110.64.233:8080/user/findByEmail/'+res.data,
+							method: "GET",
+							sslVerify:false,
+							success: function(response) {
+								console.log(response)
+								that.name=response.data.username
+								that.photo=response.data.photo
+							},
+							fail: function(response) {
+								console.log(response.data);
+							}
+						});
+					}
+				})
 			}
-
+		},
+		onLoad : function(){
+			this.getInfo()
+		},
+		onShow:function(){
+			this.getInfo()
 		}
 	}
 </script>

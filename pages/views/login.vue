@@ -9,7 +9,7 @@
 		</view>
 		<view class="input-box">
 			<text class="text">密码：</text>
-			<input class="login-input" v-model="loginInfo.password" focus placeholder="请输入密码"/>
+			<input class="login-input" v-model="loginInfo.password" placeholder="请输入密码"/>
 		</view>
 		<view class="btn-box">
 			<button class="login-btn" type="default" @click="login()">登录</button>
@@ -45,9 +45,16 @@
 						showCancel:false
 					});
 				} else {
-					uni.switchTab({
-					    url: '/pages/views/main'
-					});
+					uni.setStorage({
+						key:'email',
+						data:this.loginInfo.mail,
+						success:function(){
+							uni.switchTab({
+							    url: '/pages/views/main'
+							});
+						}
+					})
+					
 					// uni.request({
 					// 	// url: 'http://localhost:9010/books/allBook/all',
 					// 	url: 'http://192.168.0.112:9010/books/allBook/all',
