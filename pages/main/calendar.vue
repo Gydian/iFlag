@@ -59,7 +59,7 @@
 				//if (this.info.selected.length > 5) return
 				this.info.selected.push({
 					date: e.fulldate,
-					info: '未完成'
+					info: ''
 				})
 			},
 			monthSwitch(e) {

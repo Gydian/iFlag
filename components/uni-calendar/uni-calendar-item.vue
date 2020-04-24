@@ -114,7 +114,7 @@
 		width: 8px;
 		height: 8px;
 		border-radius: 8px;
-		background-color: $uni-color-error;
+		// background-color: $uni-color-error;
 
 	}
 
@@ -134,7 +134,7 @@
 	}
 
 	.uni-calendar-item--extra {
-		color: $uni-color-error;
+		// color: $uni-color-error;
 		opacity: 0.8;
 	}
 

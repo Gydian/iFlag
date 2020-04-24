@@ -24,7 +24,7 @@
 		<uni-popup ref="popup" type="bottom">
 			<view class="pop-view">
 				<view class="pop-text">性别</view>
-				<button class="pop-btn" @click="chooseSex('nan')">男</button>
+				<button class="pop-btn" @click="chooseSex('男')">男</button>
 				<button class="pop-btn" @click="chooseSex('女')">女</button>
 				<button class="pop-btn" @click="chooseSex('未知')">未知</button>
 			</view>
