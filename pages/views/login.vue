@@ -22,6 +22,7 @@
 </template>
 
 <script>
+	import md5 from 'js-md5';
 	export default {
 		data() {
 			return {
@@ -49,28 +50,39 @@
 						showCancel:false
 					});
 				} else {
-					uni.switchTab({
-					    url: '/pages/views/main'
+					uni.request({
+						url: 'http://iflag.icube.fun:8080/user/login/',
+						data: {
+							email: this.loginInfo.mail,
+							password: md5(this.loginInfo.password)
+						},
+						method: "POST",			
+						header: {
+							"Content-Type": "application/x-www-form-urlencoded"
+						},
+						success: function(res) {
+							console.log(res.data);
+							if (res.data.StatusCode==0) {
+								uni.switchTab({
+									url: '/pages/views/main'
+								});
+								console.log("success");
+							}
+							else{
+								uni.showModal({
+									content: res.data.Messenger,
+									showCancel:false
+								})
+							}
+						},
+						fail: function(res) {
+							console.log(res.data);
+							uni.showModal({
+								content: '登录失败，请重试！',
+								showCancel:false
+							})
+						}
 					});
-					// uni.request({
-					// 	// url: 'http://localhost:9010/books/allBook/all',
-					// 	url: 'http://192.168.0.112:9010/books/allBook/all',
-					// 	// data: {
-					// 	// 	mian: this.loginInfo.mail,
-					// 	// 	password: this.loginInfo.password
-					// 	// },
-					// 	method: "GET",
-					// 	sslVerify:false,
-					// 	success: function(res) {
-					// 		console.log(res.data);
-					// 		uni.switchTab({
-					// 		    url: '/pages/views/main'
-					// 		});
-					// 	},
-					// 	fail: function(res) {
-					// 		console.log(res.data);
-					// 	}
-					// });
 				}
 			},
 			register(){

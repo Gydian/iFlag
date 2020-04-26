@@ -29,7 +29,6 @@
 </template>
 
 <script>
-	import md5 from 'js-md5';
 	export default {
 		data() {
 			return {
@@ -82,7 +81,7 @@
 				}
 				else{
 					console.log(this.registerInfo.password);
-					console.log(md5(this.registerInfo.password));
+					// console.log(md5(this.registerInfo.password));
 					uni.request({
 						url: 'http://iflag.icube.fun:8080/user/signup/',
 						data: {
@@ -98,8 +97,8 @@
 						success: function(res) {
 							console.log(res.data);
 							if (res.data.StatusCode==0) {
-								uni.switchTab({
-									url: '/pages/views/main'
+								uni.redirectTo({
+									url: '../partner/editPartner'
 								});
 							}
 							else{

@@ -116,7 +116,7 @@
 		{
 			"path": "pages/partner/editPartner",
 			"style": {
-				"navigationBarTitleText": "编辑"
+				"navigationBarTitleText": "编辑对象"
 			}
 		},
 		{
