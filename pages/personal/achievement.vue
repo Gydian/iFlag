@@ -76,6 +76,30 @@
 		components: {
 			uniCard
 		},
+		onLoad:function(){
+			var that = this
+			uni.getStorage({
+				key: 'email',
+				success: function(res) {
+					uni.request({
+						url: 'http://59.110.64.233:8080/user/achievements/' + res.data,
+						method: "GET",
+						sslVerify: false,
+						success: function(response) {
+							console.log(response)
+							that.list=response.data
+							for(let i=0;i<that.list.length;i++){
+								that.list[i].thumbnail="http://iflag.icube.fun:8080/"+response.data[i].thumbnail
+							}
+							console.log(that.list)
+						},
+						fail: function(response) {
+							console.log(response.data);
+						}
+					});
+				}
+			})
+		},
 		methods: {
 			share() {
 				const that = this;
