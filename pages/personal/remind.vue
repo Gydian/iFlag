@@ -66,13 +66,13 @@
 	export default {
 		data() {
 			return {
-				checked1: '',
-				checkedVal1: 1,
+				checked1: 'false',
+				checkedVal1: 0,
 				time1: '08:00:00',
 				cycle1: '每天',
 				cycleVal1: '',
-				checked2: '',
-				checkedVal2: 1,
+				checked2: 'false',
+				checkedVal2: 0,
 				time2: '20:00:00',
 				cycle2: '每天',
 				cycleVal2: ''
@@ -148,6 +148,10 @@
 				}
 			})
 		},
+		onLoad:function(){
+			this.checked1=false;
+			this.checked2=false;
+		},
 		methods: {
 			save() {
 				switch (this.checked1) {
@@ -193,6 +197,7 @@
 					key: 'email',
 					success: function(res) {
 						console.log('这是key中的内容：' + res.data)
+						console.log(that.checkedVal1)
 						uni.request({
 							url: 'http://59.110.64.233:8080/notice/add?delRemindTime=' + that.time2 +
 								'&delRepeadPeriod=' + that.cycleVal2 + '&isDelFlag=' + that.checkedVal2 + '&isSetFlag=' + that.checkedVal1 +

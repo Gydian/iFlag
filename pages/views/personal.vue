@@ -130,7 +130,8 @@
 									that.photo= '../../static/logo.png'
 								}
 								else{
-									that.photo = response.data.photo
+									that.photo = "http://iflag.icube.fun:8080/"+response.data.photo
+									console.log(that.photo)
 								}
 							},
 							fail: function(response) {
@@ -140,9 +141,6 @@
 					}
 				})
 			}
-		},
-		onLoad : function(){
-			this.getInfo()
 		},
 		onShow:function(){
 			this.getInfo()

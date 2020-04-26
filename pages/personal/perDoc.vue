@@ -44,7 +44,9 @@
 					sex: '女'
 				},
 				urls: ["../../static/logo.png", "../../static/logo.png"],
-				email: ''
+				email: '',
+				photo:'',
+				isChange:false,
 			}
 		},
 		components: {
@@ -78,15 +80,59 @@
 				});
 			},
 			doUpload(rsp) {
-				console.log("rsp" + rsp);
+				this.isChange=true;
+				console.log(rsp);
 				this.$set(this.urls, rsp.index, rsp.path);
+				this.photo=rsp.path
 				return;
+			},
+			save() {
+				console.log(this.email)
+				var that = this
+				if(this.isChange==true){
+					this.updateAvatar();
+				}
+				uni.request({
+					url: 'http://59.110.64.233:8080/user/update',
+					data: {
+						email: this.email,
+						username: this.info.name,
+						sex: this.info.sex
+					},
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					method: "PUT",
+					sslVerify: false,
+					success: function(response) {
+						console.log("成功")
+						console.log(response)
+						uni.showToast({
+							title: '保存成功！',
+							duration: 2000
+						});
+					},
+					fail: function(response) {
+						console.log(response.data);
+						uni.showModal({
+							content: '失败请重试！',
+							showCancel: false
+						})
+					}
+				})
+			},
+			updateAvatar(){
+				console.log(this.photo)
 				uni.uploadFile({
-					url: '', //仅为示例，非真实的接口地址
-					filePath: rsp.path,
-					name: 'avatar',
+					// url: 'http://2547m30z96.wicp.vip/user/updatePhoto/' ,
+					url: 'http://59.110.64.233:8080/user/updatePhoto/' + this.email ,
+					filePath: this.photo,
+					name: 'photo',
+					header:{
+						'Content-Type': 'multipart/form-data'
+					},
 					formData: {
-						'avatar': rsp.path
+						'photo': this.photo
 					},
 					success: (uploadFileRes) => {
 						console.log(uploadFileRes.data); //临时路径，怎么上传加书签了，到时候再看
@@ -95,30 +141,6 @@
 						console.log(res)
 					}
 				});
-			},
-			save() {
-				var that = this
-				uni.request({
-					url: 'http://59.110.64.233:8080/user/update/' + this.email + '?email='+this.email+'&username=' +
-						this.info.name + '&sex=' + this.info.sex + '&photo=' + this.urls[0],
-					method: "PUT",
-					sslVerify: false,
-					success: function(response) {
-						console.log("成功")
-						console.log(response)
-						uni.showToast({
-						    title: '保存成功！',
-						    duration: 2000
-						});
-					},
-					fail: function(response) {
-						console.log(response.data);
-						uni.showModal({
-							content: '失败请重试！',
-							showCancel:false
-						})
-					}
-				})
 			},
 			getInfo() {
 				var that = this
@@ -134,15 +156,14 @@
 							success: function(response) {
 								console.log(response)
 								that.info.name = response.data.username
-								if(response.data.photo==''||response.data.photo==null){
-									that.urls[1]= '../../static/logo.png'
+								if (response.data.photo == '' || response.data.photo == null) {
+									that.urls[1] = '../../static/logo.png'
+								} else {
+									that.urls[1] = "http://iflag.icube.fun:8080/"+response.data.photo
 								}
-								else{
-									that.urls[1] = response.data.photo
-								}
-								if(response.data.sex==''||response.data.sex==null){
-									that.info.sex='未知'
-								}else{
+								if (response.data.sex == '' || response.data.sex == null) {
+									that.info.sex = '未知'
+								} else {
 									that.info.sex = response.data.sex
 								}
 							},
@@ -152,7 +173,7 @@
 						});
 					}
 				})
-			}
+			},
 		}
 	}
 </script>

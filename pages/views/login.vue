@@ -22,6 +22,7 @@
 </template>
 
 <script>
+	import md5 from 'js-md5';
 	export default {
 		data() {
 			return {
@@ -43,39 +44,51 @@
 					})
 				} else if (this.loginInfo.password == '' || this.loginInfo.password == null) {
 					uni.showModal({
-						content: '请输入密码！',
-						showCancel: false
+						content:'请输入密码！',
+						showCancel:false
 					});
 				} else {
-					uni.setStorage({
-						key: 'email',
-						data: this.loginInfo.mail,
-						success: function() {
-							uni.switchTab({
-								url: '/pages/views/main'
-							});
+					var that = this;
+					uni.request({
+						url: 'http://iflag.icube.fun:8080/user/login/',
+						data: {
+							email: that.loginInfo.mail,
+							password: md5(that.loginInfo.password)
+						},
+						method: "POST",			
+						header: {
+							"Content-Type": "application/x-www-form-urlencoded"
+						},
+						success: function(res) {
+							console.log(res.data);
+							if (res.data.StatusCode==0) {
+								
+								uni.setStorage({
+									key: 'email',
+									data: that.loginInfo.mail,
+									success: function() {
+										uni.switchTab({
+											url: '/pages/views/main'
+										});
+									}
+								})
+							}
+							else{
+								uni.showModal({
+									content: res.data.Messenger,
+									showCancel:false
+								})
+							}
+						},
+						fail: function(res) {
+							console.log(res.data);
+							uni.showModal({
+								content: '登录失败，请重试！',
+								showCancel:false
+							})
 						}
-					})
-					// uni.request({
-					// 	// url: 'http://localhost:9010/books/allBook/all',
-					// 	url: 'http://192.168.0.112:9010/books/allBook/all',
-					// 	// data: {
-					// 	// 	mian: this.loginInfo.mail,
-					// 	// 	password: this.loginInfo.password
-					// 	// },
-					// 	method: "GET",
-					// 	sslVerify:false,
-					// 	success: function(res) {
-					// 		console.log(res.data);
-					// 		uni.switchTab({
-					// 		    url: '/pages/views/main'
-					// 		});
-					// 	},
-					// 	fail: function(res) {
-					// 		console.log(res.data);
-					// 	}
-					// });
-				}
+					});
+				} 
 			},
 			register() {
 				uni.redirectTo({
@@ -94,12 +107,10 @@
 		border-radius: 5px;
 		padding: 5px;
 	}
-
 	.text {
 		float: left;
 		padding: 7px;
 	}
-
 	.input-box {
 		display: flex;
 		flex-direction: row;
@@ -110,7 +121,6 @@
 		/* 		border-bottom: 1px solid lightgray;
 		border-top: 1px solid lightgray; */
 	}
-
 	.input-box2 {
 		display: flex;
 		flex-direction: row;
@@ -120,23 +130,19 @@
 		align-items: center;
 		/* 	border-bottom: 1px solid lightgray; */
 	}
-
 	.logo-box {
 		display: flex;
 		justify-content: center;
 		margin: 10%;
 	}
-
 	.btn-box {
 		margin-top: 20%;
 	}
-
 	.login-btn {
 		width: 70%;
 		border: 1px solid lightgray;
 		margin-top: 5%;
 	}
-
 	.line {
 		width: 1;
 		height: 1;
