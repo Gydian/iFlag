@@ -48,6 +48,7 @@
 						showCancel:false
 					});
 				} else {
+					let thisMail = this.loginInfo.mail;
 					uni.request({
 						url: 'http://iflag.icube.fun:8080/user/login/',
 						data: {
@@ -60,20 +61,17 @@
 						},
 						success: function(res) {
 							console.log(res.data);
-							if (res.data.StatusCode==0) {
+							if (res.data.StatusCode==0) {								
 								uni.setStorage({
 									key: 'email',
-									data: this.loginInfo.mail,
+									data: thisMail,
 									success: function() {
 										uni.switchTab({
 											url: '/pages/views/main'
 										});
 									}
 								})
-								uni.switchTab({
-									url: '/pages/views/main'
-								});
-								console.log("success");
+								console.log(thisMail);
 							}
 							else{
 								uni.showModal({
