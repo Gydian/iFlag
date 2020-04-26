@@ -97,6 +97,10 @@
 						success: function(res) {
 							console.log(res.data);
 							if (res.data.StatusCode==0) {
+								uni.showToast({
+								    title: '注册成功！',
+								    duration: 2000
+								});
 								uni.redirectTo({
 									url: '../partner/editPartner'
 								});
@@ -167,21 +171,18 @@
 		border-radius: 5px;
 		padding: 5px;
 	}
-
 	.text {
 		float: left;
 		padding: 10px;
 		width: 100px;
 		font-size: 18px;
 	}
-
 	.input-box {
 		display: flex;
 		justify-content: center;
 		height: 50px;
 		padding-top: 2%;
 	}
-
 	.register-box {
 		margin-top: 15%;
 	}

@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view>
-			<uni-nav-bar left-icon="back" left-text="返回" right-text="保存" title="个人信息" @clickLeft="back()"></uni-nav-bar>
+			<uni-nav-bar left-icon="back" left-text="返回" right-text="保存" title="个人信息" @clickLeft="back()" @clickRight="save()"></uni-nav-bar>
 		</view>
 		<view class="avatar-view">
 			<view class="text">头像</view>
@@ -15,10 +15,10 @@
 		</view>
 		<view class="avatar-view">
 			<view class="text">昵称</view>
-			<input class="name-input" v-model="info.name"/>
+			<input class="name-input" v-model="info.name" />
 		</view>
 		<view class="avatar-view">
-			<view class="text">性别</view> 
+			<view class="text">性别</view>
 			<button class="sex-btn" @click="choosePop()">{{info.sex}}</button>
 		</view>
 		<uni-popup ref="popup" type="bottom">
@@ -39,20 +39,22 @@
 	export default {
 		data() {
 			return {
-				info:{
-					name:'这是个昵称',
-					avatar:'',
-					sex:'女'
+				info: {
+					name: '这是个昵称',
+					sex: '女'
 				},
-				urls: ["../../static/logo.png","../../static/logo.png"],
+				urls: ["../../static/logo.png", "../../static/logo.png"],
+				email: ''
 			}
 		},
 		components: {
 			uniNavBar,
-			uniPopup,avatar
+			uniPopup,
+			avatar
 		},
 		onLoad: function() {
 			// 获取个人信息
+			this.getInfo()
 		},
 		methods: {
 			back() {
@@ -60,21 +62,23 @@
 					delta: 1
 				});
 			},
-			choosePop(){
+			choosePop() {
 				this.$refs.popup.open()
 			},
-			chooseSex(sex){
-				this.info.sex=sex
+			chooseSex(sex) {
+				this.info.sex = sex
 			},
 			clk(index) {
-				this.$refs.avatar.fChooseImg(index,{
-					selWidth: '350upx', selHeight: '350upx', 
-					expWidth: '260upx', expHeight: '260upx',
+				this.$refs.avatar.fChooseImg(index, {
+					selWidth: '350upx',
+					selHeight: '350upx',
+					expWidth: '260upx',
+					expHeight: '260upx',
 					inner: index ? 'true' : 'false'
 				});
 			},
 			doUpload(rsp) {
-				console.log(rsp);
+				console.log("rsp" + rsp);
 				this.$set(this.urls, rsp.index, rsp.path);
 				return;
 				uni.uploadFile({
@@ -85,12 +89,69 @@
 						'avatar': rsp.path
 					},
 					success: (uploadFileRes) => {
-						console.log(uploadFileRes.data);   //临时路径，怎么上传加书签了，到时候再看
+						console.log(uploadFileRes.data); //临时路径，怎么上传加书签了，到时候再看
 					},
 					complete(res) {
 						console.log(res)
 					}
 				});
+			},
+			save() {
+				var that = this
+				uni.request({
+					url: 'http://59.110.64.233:8080/user/update/' + this.email + '?email='+this.email+'&username=' +
+						this.info.name + '&sex=' + this.info.sex + '&photo=' + this.urls[0],
+					method: "PUT",
+					sslVerify: false,
+					success: function(response) {
+						console.log("成功")
+						console.log(response)
+						uni.showToast({
+						    title: '保存成功！',
+						    duration: 2000
+						});
+					},
+					fail: function(response) {
+						console.log(response.data);
+						uni.showModal({
+							content: '失败请重试！',
+							showCancel:false
+						})
+					}
+				})
+			},
+			getInfo() {
+				var that = this
+				uni.getStorage({
+					key: 'email',
+					success: function(res) {
+						that.email = res.data
+						console.log('这是key中的内容：' + that.email)
+						uni.request({
+							url: 'http://59.110.64.233:8080/user/findByEmail/' + that.email,
+							method: "GET",
+							sslVerify: false,
+							success: function(response) {
+								console.log(response)
+								that.info.name = response.data.username
+								if(response.data.photo==''||response.data.photo==null){
+									that.urls[1]= '../../static/logo.png'
+								}
+								else{
+									that.urls[1] = response.data.photo
+								}
+								if(response.data.sex==''||response.data.sex==null){
+									that.info.sex='未知'
+								}else{
+									that.info.sex = response.data.sex
+								}
+							},
+							fail: function(response) {
+								console.log(response.data);
+							}
+						});
+					}
+				})
 			}
 		}
 	}
@@ -122,42 +183,47 @@
 		border-radius: 0;
 		background-color: #fff;
 	}
-	
-	.text{
+
+	.text {
 		float: left;
 		margin-top: 7%;
 	}
-	
-	.name-input{
+
+	.name-input {
 		float: right;
 		margin-top: 7%;
 		width: 200px;
 		text-align: right;
+		font-size: 18px;
 	}
-	
-	.sex-btn{
+
+	.sex-btn {
 		background-color: #fff;
+		padding-right: 0;
 		border: none;
 		text-align: right;
 		float: right;
 		width: 200px;
 		margin-top: 3%;
 	}
+
 	button::after {
 		border: none;
 	}
-	
-	.pop-view{
+
+	.pop-view {
 		height: 200px;
 		background-color: #fff;
 		text-align: center;
 	}
-	.pop-text{
+
+	.pop-text {
 		margin: 5%;
 		padding-top: 5%;
 		font-size: 18px;
 	}
-	.pop-btn{
+
+	.pop-btn {
 		text-align: left;
 		background-color: #fff;
 		margin-left: 14px;

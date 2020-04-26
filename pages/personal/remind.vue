@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view>
-			<uni-nav-bar left-icon="back" left-text="返回" right-text="保存" title="打卡提醒" @clickLeft="back()"></uni-nav-bar>
+			<uni-nav-bar left-icon="back" left-text="返回" right-text="保存" title="打卡提醒" @clickLeft="back()" @clickRight="save()"></uni-nav-bar>
 		</view>
 		<view class="text-view">
 			主Flag提醒
@@ -33,14 +33,14 @@
 			消灭Flag提醒
 			<evan-switch class="switch" @change="onChagne2" v-model="checked2"></evan-switch>
 		</view>
-		
+
 		<view class="text-view" @tap="showPicker('time2')">
 			提醒时间
 			<image class="enter-icon" src="../../static/image/向右.png"></image>
-			<text class="time-text">{{time2}}</text> 
+			<text class="time-text">{{time2}}</text>
 		</view>
 		<w-picker mode="time" value="18:08:05" :current="true" @confirm="onConfirm2($event,'time2')" ref="time2"></w-picker>
-		
+
 		<view class="text-view" @tap="showPop('cycle2')">
 			重复周期
 			<image class="enter-icon" src="../../static/image/向右.png"></image>
@@ -66,12 +66,16 @@
 	export default {
 		data() {
 			return {
-				checked1: true,
+				checked1: '',
+				checkedVal1: 1,
 				time1: '08:00:00',
 				cycle1: '每天',
-				checked2:true,
+				cycleVal1: '',
+				checked2: '',
+				checkedVal2: 1,
 				time2: '20:00:00',
 				cycle2: '每天',
+				cycleVal2: ''
 			}
 		},
 		components: {
@@ -80,7 +84,131 @@
 			wPicker,
 			uniPopup
 		},
+		onShow: function() {
+			var that = this
+			uni.getStorage({
+				key: 'email',
+				success: function(res) {
+					console.log('这是key中的内容：' + res.data)
+					uni.request({
+						url: 'http://59.110.64.233:8080/notice/findByUserEmail/' + res.data,
+						method: "GET",
+						sslVerify: false,
+						success: function(response) {
+							console.log(response)
+							that.time1 = response.data.setRemindTime
+							that.checkedVal1 = response.data.isSetFlag
+							that.cycleVal1 = response.data.setRepeatPeriod
+							that.time2 = response.data.delRemindTime
+							that.checkedVal2 = response.data.isDelFlag
+							that.cycleVal2 = response.data.delRepeatPeriod
+							switch (that.cycleVal1) {
+								case 'once':
+									that.cycle1 = '仅一次'
+									break;
+								case 'everyday':
+									that.cycle1 = '每天'
+									break;
+								case 'weekday':
+									that.cycle1 = '周一至周五'
+									break;
+							}
+							switch (that.cycleVal2) {
+								case 'once':
+									that.cycle2 = '仅一次'
+									break;
+								case 'everyday':
+									that.cycle2 = '每天'
+									break;
+								case 'weekday':
+									that.cycle2 = '周一至周五'
+									break;
+							}
+							switch (that.checkedVal1) {
+								case 0:
+									that.checked1 = false
+									break;
+								case 1:
+									that.checked1 = true
+									break;
+							}
+							switch (that.checkedVal2) {
+								case 0:
+									that.checked2 = false
+									break;
+								case 1:
+									that.checked2 = true
+									break;
+							}
+						},
+						fail: function(response) {
+							console.log(response.data);
+						}
+					});
+				}
+			})
+		},
 		methods: {
+			save() {
+				switch (this.checked1) {
+					case false:
+						this.checkedVal1 = 0
+						break;
+					case true:
+						this.checkedVal1 = 1
+						break;
+				}
+				switch (this.checked2) {
+					case false:
+						this.checkedVal2 = 0
+						break;
+					case true:
+						this.checkedVal2 = 1
+						break;
+				}
+				switch (this.cycle1) {
+					case '每天':
+						this.cycleVal1 = 'everyday'
+						break;
+					case '仅一次':
+						this.cycleVal1 = 'once'
+						break;
+					case '周一至周五':
+						this.cycleVal1 = 'weekday'
+						break;
+				}
+				switch (this.cycle2) {
+					case '每天':
+						this.cycleVal2 = 'everyday'
+						break;
+					case '仅一次':
+						this.cycleVal2 = 'once'
+						break;
+					case '周一至周五':
+						this.cycleVal2 = 'weekday'
+						break;
+				}
+				var that = this
+				uni.getStorage({
+					key: 'email',
+					success: function(res) {
+						console.log('这是key中的内容：' + res.data)
+						uni.request({
+							url: 'http://59.110.64.233:8080/notice/add?delRemindTime=' + that.time2 +
+								'&delRepeadPeriod=' + that.cycleVal2 + '&isDelFlag=' + that.checkedVal2 + '&isSetFlag=' + that.checkedVal1 +
+								'&setRemindTime=' + that.time1 + '&setRepeatPeriod=' + that.cycleVal1 + '&userEmail=' + res.data,
+							method: "POST",
+							sslVerify: false,
+							success: function(response) {
+								console.log(response)
+							},
+							fail: function(response) {
+								console.log(response.data);
+							}
+						});
+					}
+				})
+			},
 			back() {
 				uni.navigateBack({
 					delta: 1
@@ -140,6 +268,7 @@
 		float: right;
 		margin-top: -2px;
 	}
+
 	button::after {
 		border: none;
 	}

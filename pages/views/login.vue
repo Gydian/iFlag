@@ -5,14 +5,14 @@
 		</view>
 		<view class="input-box">
 			<text class="text">邮箱：</text>
-			<input class="login-input" v-model="loginInfo.mail" focus placeholder="请输入邮箱"/>
+			<input class="login-input" v-model="loginInfo.mail" focus placeholder="请输入邮箱" />
 		</view>
-<!-- 		<input class="line" /> -->
+		<!-- 		<input class="line" /> -->
 		<view class="input-box2">
 			<text class="text">密码：</text>
-			<input class="login-input" style="outline:none;" v-model="loginInfo.password" focus placeholder="请输入密码" password="true">
+			<input class="login-input" style="outline:none;" v-model="loginInfo.password" placeholder="请输入密码" password="true">
 			</input>
-		<!--   <view class="iconfont icon-eye"></view> -->
+			<!--   <view class="iconfont icon-eye"></view> -->
 		</view>
 		<view class="btn-box">
 			<button class="login-btn" type="default" @click="login()">登录</button>
@@ -31,18 +31,16 @@
 					mail: '',
 					password: ''
 				},
-				icon:"\ue602"
+				icon: "\ue602"
 			}
 		},
-		onLoad() {
-
-		},
+		onLoad() {},
 		methods: {
 			login() {
 				if (this.loginInfo.mail == '' || this.loginInfo.mail == null) {
 					uni.showModal({
 						content: '请输入邮箱！',
-						showCancel:false
+						showCancel: false
 					})
 				} else if (this.loginInfo.password == '' || this.loginInfo.password == null) {
 					uni.showModal({
@@ -63,6 +61,15 @@
 						success: function(res) {
 							console.log(res.data);
 							if (res.data.StatusCode==0) {
+								uni.setStorage({
+									key: 'email',
+									data: this.loginInfo.mail,
+									success: function() {
+										uni.switchTab({
+											url: '/pages/views/main'
+										});
+									}
+								})
 								uni.switchTab({
 									url: '/pages/views/main'
 								});
@@ -83,11 +90,11 @@
 							})
 						}
 					});
-				}
+				} 
 			},
-			register(){
+			register() {
 				uni.redirectTo({
-				    url: 'register'
+					url: 'register'
 				});
 			}
 		}
@@ -110,23 +117,23 @@
 
 	.input-box {
 		display: flex;
-		flex-direction: row; 
+		flex-direction: row;
 		justify-content: center;
 		height: 50px;
 		padding-top: 2%;
-		align-items:center;
-/* 		border-bottom: 1px solid lightgray;
+		align-items: center;
+		/* 		border-bottom: 1px solid lightgray;
 		border-top: 1px solid lightgray; */
 	}
-	
+
 	.input-box2 {
 		display: flex;
-		flex-direction: row; 
+		flex-direction: row;
 		justify-content: center;
 		height: 50px;
 		padding-top: 2%;
-		align-items:center;
-	/* 	border-bottom: 1px solid lightgray; */
+		align-items: center;
+		/* 	border-bottom: 1px solid lightgray; */
 	}
 
 	.logo-box {
@@ -144,10 +151,10 @@
 		border: 1px solid lightgray;
 		margin-top: 5%;
 	}
-	
+
 	.line {
 		width: 1;
 		height: 1;
-		border: 1px solid lightgray; 
+		border: 1px solid lightgray;
 	}
 </style>
