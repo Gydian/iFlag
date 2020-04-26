@@ -107,10 +107,12 @@
 		border-radius: 5px;
 		padding: 5px;
 	}
+
 	.text {
 		float: left;
 		padding: 7px;
 	}
+
 	.input-box {
 		display: flex;
 		flex-direction: row;
@@ -121,6 +123,7 @@
 		/* 		border-bottom: 1px solid lightgray;
 		border-top: 1px solid lightgray; */
 	}
+
 	.input-box2 {
 		display: flex;
 		flex-direction: row;
@@ -130,19 +133,23 @@
 		align-items: center;
 		/* 	border-bottom: 1px solid lightgray; */
 	}
+
 	.logo-box {
 		display: flex;
 		justify-content: center;
 		margin: 10%;
 	}
+
 	.btn-box {
 		margin-top: 20%;
 	}
+
 	.login-btn {
 		width: 70%;
 		border: 1px solid lightgray;
 		margin-top: 5%;
 	}
+
 	.line {
 		width: 1;
 		height: 1;
