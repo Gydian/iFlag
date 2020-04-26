@@ -29,7 +29,6 @@
 </template>
 
 <script>
-	import md5 from 'js-md5';
 	export default {
 		data() {
 			return {
@@ -82,7 +81,7 @@
 				}
 				else{
 					console.log(this.registerInfo.password);
-					console.log(md5(this.registerInfo.password));
+					// console.log(md5(this.registerInfo.password));
 					uni.request({
 						url: 'http://iflag.icube.fun:8080/user/signup/',
 						data: {
@@ -102,8 +101,8 @@
 								    title: '注册成功！',
 								    duration: 2000
 								});
-								uni.switchTab({
-									url: '/pages/views/main'
+								uni.redirectTo({
+									url: '../partner/editPartner'
 								});
 							}
 							else{
