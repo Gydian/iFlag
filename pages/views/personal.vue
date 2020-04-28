@@ -126,7 +126,9 @@
 							success: function(response) {
 								console.log(response)
 								that.name=response.data.username
+								that.photo=''
 								that.photo='http://59.110.64.233:8080/user/image/'+response.data.token
+								console.log(that.photo)
 							},
 							fail: function(response) {
 								console.log(response.data);
