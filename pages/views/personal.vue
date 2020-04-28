@@ -84,7 +84,7 @@
 		data() {
 			return {
 				name: '昵称',
-				photo:'../../static/logo.png'
+				photo:'../../static/logo.png',
 			}
 		},
 		components: {
@@ -126,13 +126,7 @@
 							success: function(response) {
 								console.log(response)
 								that.name=response.data.username
-								if(response.data.photo==''||response.data.photo==null){
-									that.photo= '../../static/logo.png'
-								}
-								else{
-									that.photo = "http://iflag.icube.fun:8080/"+response.data.photo
-									console.log(that.photo)
-								}
+								that.photo='http://59.110.64.233:8080/user/image/'+response.data.token
 							},
 							fail: function(response) {
 								console.log(response.data);

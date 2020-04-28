@@ -159,7 +159,7 @@
 								if (response.data.photo == '' || response.data.photo == null) {
 									that.urls[1] = '../../static/logo.png'
 								} else {
-									that.urls[1] = "http://iflag.icube.fun:8080/"+response.data.photo
+									that.urls[1]='http://59.110.64.233:8080/user/image/'+response.data.token
 								}
 								if (response.data.sex == '' || response.data.sex == null) {
 									that.info.sex = '未知'
