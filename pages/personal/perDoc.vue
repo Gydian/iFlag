@@ -159,7 +159,7 @@
 								if (response.data.photo == '' || response.data.photo == null) {
 									that.urls[1] = '../../static/logo.png'
 								} else {
-									that.urls[1]='http://59.110.64.233:8080/user/image/'+response.data.token
+									that.urls[1]='http://59.110.64.233:8080/user/image/'+response.data.token+'?pwd='+getRandom(0, 100)
 								}
 								if (response.data.sex == '' || response.data.sex == null) {
 									that.info.sex = '未知'
@@ -175,6 +175,12 @@
 				})
 			},
 		}
+	}
+	
+	function getRandom(start, end, fixed=0) {
+	            let differ = end - start
+	            let random = Math.random()
+	            return (start + differ * random).toFixed(fixed)
 	}
 </script>
 

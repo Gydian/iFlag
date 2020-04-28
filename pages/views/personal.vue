@@ -126,8 +126,7 @@
 							success: function(response) {
 								console.log(response)
 								that.name=response.data.username
-								that.photo=''
-								that.photo='http://59.110.64.233:8080/user/image/'+response.data.token
+								that.photo='http://59.110.64.233:8080/user/image/'+response.data.token+'?pwd='+getRandom(0, 100)
 								console.log(that.photo)
 							},
 							fail: function(response) {
@@ -142,6 +141,13 @@
 			this.getInfo()
 		}
 	}
+
+
+function getRandom(start, end, fixed=0) {
+            let differ = end - start
+            let random = Math.random()
+            return (start + differ * random).toFixed(fixed)
+}
 </script>
 
 <style>
