@@ -1,5 +1,6 @@
 <template>
 	<view>
+		
 		<image class="avatar" :src="partnerHead"></image>
 		<uni-fab
 		    :pattern="pattern"
@@ -10,6 +11,8 @@
 		    @trigger="trigger"
 			@fabClick="fabClick"
 		></uni-fab>
+		
+		
 	</view>
 </template>
 
@@ -17,12 +20,12 @@
 	import uniFab from '@/components/uni-fab/uni-fab.vue';
 	export default {
 	    components: {
-	        uniFab
+	        uniFab,		// 悬浮按钮
 	    },
 		data(){
 			return{
 				partnerHead:"../../static/logo.png",
-				title: '聊天',
+				title: 'main',
 				horizontal: 'right',
 				vertical: 'bottom',
 				direction: 'horizontal',
@@ -38,9 +41,12 @@
 						text: '周期性',
 						active: false
 					},
-				]
+				],
+				
 			}
 		},
+		
+		
 		methods:{
 			onNavigationBarButtonTap(e) {
 			    console.log("success");
@@ -80,6 +86,10 @@
 					});
 				}
 			},
+			
+			
+			
+			
 		},
 		
 	}
@@ -95,4 +105,6 @@
 		margin-top: 10%;
 		margin-left: 5%;
 	}
+	
+	
 </style>

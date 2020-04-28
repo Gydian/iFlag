@@ -7,11 +7,17 @@
 		<view class="text-view">
 			截止时间
 			<image class="enter-icon" src="../../static/image/向右.png"></image>
-			<picker mode="date" :value="date" :start="startDate" :end="endDate" @change="bindDateChange">
+			<!-- <picker mode="date" :value="date" :start="startDate" :end="endDate" @change="bindDateChange">
 			    <view class="enddate-view">{{date}}</view>
-			</picker>
+			</picker> -->
+			<KXDateTime class="enddate-view" :data='date' :end='endDate' :start='startDate' @rundata='kxdatetime'></KXDateTime>
 		</view>
-		<view class="text-view" @tap="showPicker('time1')">
+		<view class="text-view">
+			是否提醒
+			<evan-switch class="switch" @change="onChagne2" v-model="checked2"></evan-switch>
+		</view>
+		
+		<view v-if="viewre == true" class="text-view" @tap="showPicker('time1')">
 			提醒时间
 			<image class="enter-icon" src="../../static/image/向右.png"></image>
 			<text class="time-text">{{time1}}</text>
@@ -22,6 +28,20 @@
 			多次提醒
 			<evan-switch class="switch" @change="onChagne1" v-model="checked1"></evan-switch>
 		</view>
+		
+		<view v-if="viewvi == true" class="text-view"  @tap="showPop('cycle1')" id="alarmInterval">
+			提醒间隔
+			<image class="enter-icon" src="../../static/image/向右.png"></image>
+			<text class="time-text">{{cycle1}}</text>
+		</view>
+		<uni-popup ref="cycle1" type="bottom">
+			<view class="pop-view">
+				<view class="pop-text">提醒间隔</view>
+				<button class="pop-btn" @click="chooseCycle1('仅一次')">仅一次</button>
+				<button class="pop-btn" @click="chooseCycle1('每天')">每天</button>
+				<button class="pop-btn" @click="chooseCycle1('周一至周五')">周一至周五</button>
+			</view>
+		</uni-popup>
 	</view>
 </template>
 
@@ -30,6 +50,7 @@
 	import EvanSwitch from "@/components/evan-switch/evan-switch.vue"
 	import wPicker from "@/components/w-picker/w-picker.vue";
 	import uniPopup from "@/components/uni-popup/uni-popup.vue"
+	import KXDateTime from "@/components/kx-datetime/kx-datetime.vue"
 	
 	export default{
 		data(){
@@ -43,14 +64,19 @@
 				changeValue: '',
 				date: currentDate,
 				checked1: false,
+				checked2: false,
 				time1: '08:00:00',
+				cycle1: '每天',
+				viewvi: false,	// 是否显示提醒间隔
+				viewre: false,	// 是否提醒
 			}
 		},
 		components: {
 			uniNavBar,
 			EvanSwitch,
 			wPicker,
-			uniPopup
+			uniPopup,
+			KXDateTime
 		},
 		computed: {
 		    startDate() {
@@ -66,6 +92,9 @@
 					delta: 1
 				});
 			},
+			kxdatetime(e){
+			    this.date=e
+			},
 			bindDateChange: function(e) {
 			    this.date = e.target.value
 			},
@@ -78,7 +107,7 @@
 			    if (type === 'start') {
 			        year = year - 60;
 			    } else if (type === 'end') {
-			        year = year + 2;
+			        year = year + 10;
 			    }
 			    month = month > 9 ? month : '0' + month;;
 			    day = day > 9 ? day : '0' + day;
@@ -86,13 +115,43 @@
 			},
 			onChagne1(e) {
 				console.log(e)
+				if(this.checked1 == true){
+					this.viewvi = true;
+					console.log("viewvi = true");
+				}
+				else if(this.checked1 == false){
+					this.viewvi = false;
+					console.log("viewvi = false");
+				}
+			},
+			onChagne2(e) {
+				console.log(e)
+				if(this.checked2 == true){
+					this.viewre = true;
+					console.log("viewre = true");
+				}
+				else if(this.checked2 == false){
+					this.viewre = false;
+					console.log("viewre = false");
+				}
 			},
 			onConfirm1(res, type) {
 				this.time1 = res.result;
 			},
+			chooseCycle1(msg) {
+				this.cycle1 = msg;
+			},
 			showPicker(type) {
 				this.$refs[type].show();
 			},
+			showPop(type) {
+				if (type == 'cycle1') {
+					this.$refs.cycle1.open()
+				} else if (type == 'cycle2') {
+					this.$refs.cycle2.open()
+				}
+			}
+			
 			
 		}
 	}
@@ -108,10 +167,20 @@
 		padding: 20px;
 		font-size: 18px;
 	}
+	.text-view-hide {
+		border-bottom: 1px solid lightgray;
+		border-radius: 0;
+		height: 18px;
+		background-color: #fff;
+		text-align: left;
+		padding: 20px;
+		font-size: 18px;
+		/* display: none; */
+	}
 	.enddate-view {
 		float: right;
 		margin-right: 2%;
-		margin-top: -6%;
+		margin-top: 0%;
 	}
 	.enter-icon {
 		height: 25px;
