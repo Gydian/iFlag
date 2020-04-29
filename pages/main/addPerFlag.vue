@@ -1,8 +1,8 @@
 <template>
 	<view>
-		<uni-nav-bar left-icon="back" left-text="返回" right-text="保存" title="周期性任务" @clickLeft="back()"></uni-nav-bar>
+		<uni-nav-bar left-icon="back" left-text="返回" right-text="保存" title="周期性任务" @clickLeft="back()" @clickRight="save()"></uni-nav-bar>
 		<view class="text-view">
-		    <input class="uni-input" focus placeholder="请输入FLAG内容" />
+		    <input class="uni-input" v-model="inputFlag" focus placeholder="请输入FLAG内容" />
 		</view>
 		<view class="text-view"  @tap="showPop('cycle1')">
 			周期时长
@@ -76,18 +76,21 @@
 			})
 			return{
 				title: 'periodic flag',
-				inputValue: '',
-				changeValue: '',
-				checked1: false,
-				checked2: false,
-				checked3: false,
-				cycle1: '每天',
-				cycle2: '每天',
-				date: currentDate,
-				time1: '08:00:00',
+				inputFlag: '',
+				checked1: false,	// 是否提醒
+				checked2: false,	// 多次提醒
+				checked3: false,	// 是否终止
+				cycle1: '每天',		// 周期时长
+				cycle2: null,		// 多次提醒周期
+				cycleVal1: '',
+				cycleVal2: null,
+				date: null,	// 终止时间
+				currentDate: currentDate,	// 当前时间
+				time1: null,	// 提醒时间
 				viewre: false,
 				viewvi: false,
 				viewen: false,
+				isfinished: false,
 			}
 		},
 		components: {
@@ -110,6 +113,112 @@
 				uni.navigateBack({
 					delta: 1
 				});
+			},
+			save(){
+				console.log("点击保存")
+				if(this.inputFlag == '' || this.inputFlag == null){
+					uni.showModal({
+						content: 'flag内容不能为空！',
+						showCancel: false
+					})
+				}
+				else if(this.checked2 == true && this.checked1 == false){
+					uni.showModal({
+						content: '请选择提醒时间！',
+						showCancel: false
+					})
+				}
+				else{
+					switch (this.cycle1) {
+						case '每天':
+							this.cycleVal1 = 'everyday'
+							break;
+						case '仅一次':
+							this.cycleVal1 = 'once'
+							break;
+						case '周一至周五':
+							this.cycleVal1 = 'weekday'
+							break;
+					}
+					switch (this.cycle2) {
+						case '每天':
+							this.cycleVal2 = 'everyday'
+							break;
+						case '仅一次':
+							this.cycleVal2 = 'once'
+							break;
+						case '周一至周五':
+							this.cycleVal2 = 'weekday'
+							break;
+					}
+					var that = this;
+					uni.getStorage({
+						key: 'email',
+						success: function(res) {
+							console.log('这是key中的内容：' + res.data),
+							console.log(that.currentDate),
+							console.log(that.inputFlag),
+							console.log(that.date),
+							console.log(that.cycleVal2),
+							console.log(that.time1),
+							console.log(that.checked3),
+							console.log(that.cycleVal1),
+							console.log(that.checked2),
+							console.log(that.checked1),
+							console.log(that.isfinished),
+							uni.request({
+								
+								url: 'http://iflag.icube.fun:8080/periodic/save',
+								//dataType:"JSON",
+								data: {
+									userid: res.data,
+									date: that.currentDate,
+									content: that.inputFlag,
+									endtime: that.date,
+									repeatPeriod: that.cycleVal2,
+									remindTime: that.time1,
+									hasEndtime: that.checked3,
+									period: that.cycleVal1,
+									repeat: that.checked2,
+									remind: that.checked1,
+									finish: that.isfinished
+								},
+								method: "POST",
+								header: {
+									"Content-Type": "application/json"
+								},
+								
+								sslVerify: false,
+								success: function(response) {
+									console.log(response)
+									uni.showModal({
+										content: '保存成功！',
+										showCancel:false
+									})
+								},
+								fail: function(response) {
+									console.log(response.data);
+									uni.showModal({
+										content: '保存失败，请重试！',
+										showCancel:false
+									})
+								}
+							});
+						},
+						fail: function(res) {
+							console.log(res.data);
+							uni.showModal({
+								content: '保存失败，请重试！',
+								showCancel:false
+							})
+						}
+					})
+					
+				}
+			},
+			
+			kxdatetime(e){
+			    this.date=e
 			},
 			onChagne1(e) {
 				console.log(e)

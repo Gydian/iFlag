@@ -1,17 +1,16 @@
 <template>
 	<view>
-		<uni-nav-bar left-icon="back" left-text="返回" right-text="保存" title="一次性任务" @clickLeft="back()"></uni-nav-bar>
+		
+		<uni-nav-bar left-icon="back" left-text="返回" right-text="保存" title="一次性任务" @clickLeft="back()" @clickRight="save()"></uni-nav-bar>
 		<view class="text-view">
-		    <input class="uni-input" focus placeholder="请输入FLAG内容" />
+		    <input class="uni-input" v-model="inputFlag" focus placeholder="请输入FLAG内容" />
 		</view>
 		<view class="text-view">
 			截止时间
 			<image class="enter-icon" src="../../static/image/向右.png"></image>
-			<!-- <picker mode="date" :value="date" :start="startDate" :end="endDate" @change="bindDateChange">
-			    <view class="enddate-view">{{date}}</view>
-			</picker> -->
 			<KXDateTime class="enddate-view" :data='date' :end='endDate' :start='startDate' @rundata='kxdatetime'></KXDateTime>
 		</view>
+		
 		<view class="text-view">
 			是否提醒
 			<evan-switch class="switch" @change="onChagne2" v-model="checked2"></evan-switch>
@@ -28,7 +27,6 @@
 			多次提醒
 			<evan-switch class="switch" @change="onChagne1" v-model="checked1"></evan-switch>
 		</view>
-		
 		<view v-if="viewvi == true" class="text-view"  @tap="showPop('cycle1')" id="alarmInterval">
 			提醒间隔
 			<image class="enter-icon" src="../../static/image/向右.png"></image>
@@ -42,6 +40,7 @@
 				<button class="pop-btn" @click="chooseCycle1('周一至周五')">周一至周五</button>
 			</view>
 		</uni-popup>
+		
 	</view>
 </template>
 
@@ -60,13 +59,15 @@
 			return{
 				title: 'one-time flag',
 				focus: false,
-				inputValue: '',
-				changeValue: '',
-				date: currentDate,
+				inputFlag: '',
+				currentDate: currentDate,
+				date: currentDate,	// endTime
 				checked1: false,
 				checked2: false,
-				time1: '08:00:00',
-				cycle1: '每天',
+				isfinished: false,
+				time1: null,
+				cycle1: null,
+				cycleVal1: null,
 				viewvi: false,	// 是否显示提醒间隔
 				viewre: false,	// 是否提醒
 			}
@@ -87,11 +88,100 @@
 		    }
 		},
 		methods:{
-			back() {
+			back() {	// 导航栏左侧按钮点击返回上一页
 				uni.navigateBack({
 					delta: 1
 				});
 			},
+			
+			save(){		// 导航栏右侧按钮点击保存flag
+				console.log("点击保存")
+				if(this.inputFlag == '' || this.inputFlag == null){
+					uni.showModal({
+						content: 'flag内容不能为空！',
+						showCancel: false
+					})
+				}
+				else if(this.checked1 == true && this.checked2 == false){
+					uni.showModal({
+						content: '请选择提醒时间！',
+						showCancel: false
+					})
+				}
+				else{
+					switch (this.cycle1) {
+						case '每天':
+							this.cycleVal1 = 'everyday'
+							break;
+						case '仅一次':
+							this.cycleVal1 = 'once'
+							break;
+						case '周一至周五':
+							this.cycleVal1 = 'weekday'
+							break;
+					}
+					var that = this;
+					console.log("到这儿了没");
+					uni.getStorage({
+						key: 'email',
+						success: function(res) {
+							console.log('这是key中的内容：' + res.data),
+							console.log(that.currentDate),
+							console.log(that.inputFlag),
+							console.log(that.date),
+							console.log(that.cycleVal1),
+							console.log(that.time1),
+							console.log(that.checked1),
+							console.log(that.checked2),
+							console.log(that.isfinished),
+							uni.request({
+								
+								url: 'http://iflag.icube.fun:8080/onetime/save',
+								//dataType:"JSON",
+								data: {
+									userid: res.data,
+									date: that.currentDate,
+									content: that.inputFlag,
+									endtime: that.date,
+									repeatPeriod: that.cycleVal1,
+									remindTime: that.time1,
+									repeat: that.checked1,
+									remind: that.checked2,
+									finish: that.isfinished
+								},
+								method: "POST",
+								header: {
+									"Content-Type": "application/json"
+								},
+								
+								sslVerify: false,
+								success: function(response) {
+									console.log(response)
+									uni.showModal({
+										content: '保存成功！',
+										showCancel:false
+									})
+								},
+								fail: function(response) {
+									console.log(response.data);
+									uni.showModal({
+										content: '保存失败，请重试！',
+										showCancel:false
+									})
+								}
+							});
+						},
+						fail: function(res) {
+							console.log(res.data);
+							uni.showModal({
+								content: '保存失败，请重试！',
+								showCancel:false
+							})
+						}
+					})
+				}
+			},
+			
 			kxdatetime(e){
 			    this.date=e
 			},
@@ -113,7 +203,7 @@
 			    day = day > 9 ? day : '0' + day;
 			    return `${year}-${month}-${day}`;
 			},
-			onChagne1(e) {
+			onChagne1(e) {		// 是否多次提醒
 				console.log(e)
 				if(this.checked1 == true){
 					this.viewvi = true;
@@ -124,7 +214,7 @@
 					console.log("viewvi = false");
 				}
 			},
-			onChagne2(e) {
+			onChagne2(e) {		// 是否提醒
 				console.log(e)
 				if(this.checked2 == true){
 					this.viewre = true;
@@ -135,10 +225,10 @@
 					console.log("viewre = false");
 				}
 			},
-			onConfirm1(res, type) {
+			onConfirm1(res, type) {	// 选择提醒时间
 				this.time1 = res.result;
 			},
-			chooseCycle1(msg) {
+			chooseCycle1(msg) {		// 选择多次提醒周期
 				this.cycle1 = msg;
 			},
 			showPicker(type) {
