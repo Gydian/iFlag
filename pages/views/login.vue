@@ -62,10 +62,11 @@
 						success: function(res) {
 							console.log(res.data);
 							if (res.data.StatusCode==0) {
-								
 								uni.setStorage({
 									key: 'email',
-									data: that.loginInfo.mail,
+									data: {mail:that.loginInfo.mail,
+										token:res.data.Messenger.token},
+									    
 									success: function() {
 										uni.switchTab({
 											url: '/pages/views/main'

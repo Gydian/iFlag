@@ -118,9 +118,9 @@
 				uni.getStorage({
 					key:'email',
 					success:function(res){
-						console.log('这是key中的内容：'+res.data)
+						console.log('这是key中的内容：'+res.data.mail)
 						uni.request({
-							url: 'http://59.110.64.233:8080/user/findByEmail/'+res.data,
+							url: 'http://59.110.64.233:8080/user/findByEmail/'+res.data.mail,
 							method: "GET",
 							sslVerify:false,
 							success: function(response) {

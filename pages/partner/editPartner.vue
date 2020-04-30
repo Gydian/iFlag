@@ -4,7 +4,6 @@
 			<view class="shenfen">
 				<view>身份</view>
 			  <button class="button" @tap="handleTap('picker1')">{{ value1 }}</button>
-			  <!-- <view>{{ value1 }}</view> -->
 			  <lb-picker ref="picker1"
 			    v-model="value1"
 			    mode="selector"
@@ -16,7 +15,7 @@
 			</view>
 			<view class="nicheng">
 				<view class="name">昵称</view>
-				<input class="input-box"></input>
+				<input class="input-box" v-model="name"></input>
 			</view>
 			<view class="image">
 				<view class="name">头像</view>
@@ -36,6 +35,10 @@
 	export default {
 	        data() {
 	            return {
+					token:'',
+					photo:'',
+					isChange:false,
+					name:"",
 					value1: '请选择对象身份',
 					list1: [
 						{
@@ -58,6 +61,32 @@
 				LbPicker,
 				avatar
 			},
+			onLoad: function() {
+				var that = this;
+				uni.getStorage({
+					key:'email',
+					success:function(res){
+						console.log('这是key中的内容：'+res.data.token)
+						that.token = res.data.token;
+						uni.request({
+							url: 'http://iflag.icube.fun:8080/ObjectCenter/'+res.data.token,
+							method: "GET",
+							sslVerify:false,
+							success: function(response) {
+								console.log(response.data)
+								if(response.data.StatusCode==0){
+									that.value1 = response.data.Messenger.identity;
+									that.name = response.data.Messenger.nickname;
+									that.urls[1] = "http://59.110.64.233:8080/user/object/"+that.token;
+								}					
+							},
+							fail: function(response) {
+								console.log(response.data);
+							}
+						});
+					}
+				})
+			},
 	        methods: {
 				handleTap (name) {
 					this.$refs[name].show()
@@ -72,9 +101,72 @@
 					// console.log('cancle::', item)
 				},
 				formSubmit(){
-					console.log("提交")
-					wx.switchTab({
-						url: '../views/partner'
+					var that = this;
+					console.log(this.value1)
+					console.log(this.name)
+					if(this.isChange==true){
+						this.updateAvatar();
+					}
+					else{
+						uni.uploadFile({
+							url: 'http://59.110.64.233:8080/ObjectCenter/modify/',
+							filePath: this.photo,
+							name: 'avatar',
+							header:{
+								'Content-Type': 'multipart/form-data'
+							},
+							formData: {
+								'token': this.token,
+								'identity': this.value1,
+								'nickname':this.name
+							},
+							success: function(uploadFileRes){
+								console.log(uploadFileRes.data.StatusCode); 
+								console.log(JSON.parse(uploadFileRes.data));
+								if(JSON.parse(uploadFileRes.data).StatusCode==0){
+									wx.switchTab({
+										url: '../views/partner',
+									});
+								}
+								else{
+									uni.showModal({
+										content: uploadFileRes.errMsg,
+										showCancel:false
+									})
+								}							
+							}
+						});
+					}				
+				},
+				updateAvatar(){
+					console.log(this.photo)
+					uni.uploadFile({
+						url: 'http://59.110.64.233:8080/ObjectCenter/modify/',
+						filePath: this.photo,
+						name: 'avatar',
+						header:{
+							'Content-Type': 'multipart/form-data'
+						},
+						formData: {
+							'token': this.token,
+							'avatar': this.photo,
+							'identity': this.value1,
+							'nickname':this.name
+						},
+						success: (uploadFileRes) => {
+							console.log(uploadFileRes.data); 
+							if(JSON.parse(uploadFileRes.data).StatusCode==0){
+								wx.switchTab({
+									url: '../views/partner',
+								});
+							}
+							else{
+								uni.showModal({
+									content: uploadFileRes.errMsg,
+									showCancel:false
+								})
+							}
+						}
 					});
 				},
 				doBefore() {
@@ -88,23 +180,11 @@
 					});
 				},
 				doUpload(rsp) {
+					this.isChange=true;
 					console.log(rsp);
 					this.$set(this.urls, rsp.index, rsp.path);
+					this.photo=rsp.path
 					return;
-					uni.uploadFile({
-						url: '', //仅为示例，非真实的接口地址
-						filePath: rsp.path,
-						name: 'avatar',
-						formData: {
-							'avatar': rsp.path
-						},
-						success: (uploadFileRes) => {
-							console.log(uploadFileRes.data);   //临时路径，怎么上传加书签了，到时候再看
-						},
-						complete(res) {
-							console.log(res)
-						}
-					});
 				}
 	        }
 	    }

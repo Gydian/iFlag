@@ -1,7 +1,8 @@
 <template>
 	<view style="text-align: center;">
-		<image class="avatar" :src="partnerHead"></image>
-		<view class="name">昵称：{{name}}</view>
+		<image class="avatar" :src="this.partnerHead"></image>
+	<!-- 	<image class="avatar"></image> -->
+		<view class="name">昵称：{{this.name}}</view>
 		<view class="qinmidu">
 			<text class="iconfont icon-bangzhu2" @click="detail"></text>
 			亲密度
@@ -27,10 +28,11 @@
 	export default {
 		data() {
 			return {
-				name: '某某某',
+				token:'',
+				name: '请右上角编辑昵称',
 				width: 0,
-				tips: '您和您的对象的亲密度还有提升的空间，要继续加油打卡、完成flag哦',
-				percent:80,
+				tips: '请右上角编辑对象',
+				percent:0,
 				partnerHead:"../../static/logo.png"
 			}
 		},
@@ -48,22 +50,89 @@
 		    console.log("111")
 		},
 		onShow(){
-			console.log("222");     //这里写初始化
-			// uni.request({
-			// 	url: '',
-			// 	method: "GET",
-			// 	success: function(res) {
-			// 		console.log(res.data);
-			// 	}
-			// });
+			console.log("onshow")
+			this.init();
 		},
 		methods: {
 			detail(){
 				uni.navigateTo({
 					url: '../partner/intimacy'
 				});
+			},
+			init(){
+				var that = this;
+				uni.getStorage({
+					key:'email',
+					success:function(res){
+						// console.log('这是key中的内容：'+res.data.token)
+						that.token = res.data.token;
+						// that.partnerHead = "http://59.110.64.233:8080/user/object/"+that.token;
+						uni.request({
+							url: 'http://iflag.icube.fun:8080/ObjectCenter/'+res.data.token,
+							method: "GET",
+							sslVerify:false,
+							success: function(response) {
+								console.log(response)
+								if(response.data.StatusCode==0){
+									that.name = response.data.Messenger.nickname;
+									that.percent = response.data.Messenger.intimateNumber;
+									if(that.percent==100){
+										that.tips = "您的亲密度很高，要继续加油打卡、完成flag哦!";
+									}
+									if(that.percent<100&&that.percent>=60){
+										that.tips = "您和您的对象的亲密度还有提升的空间，要继续加油打卡、完成flag哦!";
+									}
+									if(that.percent<60){
+										that.tips = "您和您的对象的亲密度太低了，要坚持打卡、完成flag哦!";
+									}
+								}
+								else if(response.data.StatusCode==-13){
+									uni.showModal({
+										content: "请右上角编辑对象",
+										showCancel:false,
+										// 这个注释别删
+										// success: function (res) {
+										//         if (res.confirm) {
+										//             uni.navigateTo({
+										//             	url: '../partner/editPartner'
+										//             });
+										//         }
+										//     }
+									})
+								}
+								else{
+									uni.showModal({
+										content: response.data.Messenger,
+										showCancel:false,
+									})
+								}
+							},
+							fail: function(response) {
+								// console.log(response.data);
+							}
+						});
+						uni.request({
+							url: 'http://iflag.icube.fun:8080/user/object/'+res.data.token,
+							method: "GET",
+							sslVerify:false,
+							success: function(response) {
+								console.log(response.data);
+								that.partnerHead = "http://59.110.64.233:8080/user/object/"+res.data.token+'?pwd='+getRandom(0, 100);
+								console.log(that.partnerHead);
+							},
+							fail: function(response) {
+								// console.log(response.data);
+							}
+						});
+					}
+				})
 			}
 		}
+	}
+	function getRandom(start, end, fixed=0) {
+	            let differ = end - start
+	            let random = Math.random()
+	            return (start + differ * random).toFixed(fixed)
 	}
 </script>
 

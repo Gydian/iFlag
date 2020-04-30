@@ -102,7 +102,7 @@
 								    duration: 2000
 								});
 								uni.redirectTo({
-									url: '../partner/editPartner'
+									url: './login'
 								});
 							}
 							else{
