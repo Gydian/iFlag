@@ -65,7 +65,8 @@
 								uni.setStorage({
 									key: 'email',
 									data: {mail:that.loginInfo.mail,
-										token:res.data.Messenger.token},
+										token:res.data.Messenger.token,
+										userid: res.data.Messenger.id},
 									    
 									success: function() {
 										uni.switchTab({

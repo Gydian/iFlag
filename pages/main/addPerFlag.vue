@@ -70,11 +70,20 @@
 	import KXDateTime from "@/components/kx-datetime/kx-datetime.vue"
 	
 	export default{
+		onLoad: function (option) { //option为object类型，会序列化上个页面传递的参数
+		        console.log(option.id); //打印出上个页面传递的参数。
+				this.pageid = option.id;
+				this.flagid = option.flagid;
+				console.log(this.flagid)
+		        // console.log(option.name); //打印出上个页面传递的参数。
+		    },
 		data(){
 			const currentDate = this.getDate({
 			    format: true
 			})
 			return{
+				flagid : 0,
+				pageid:0,
 				title: 'periodic flag',
 				inputFlag: '',
 				checked1: false,	// 是否提醒
@@ -93,6 +102,31 @@
 				isfinished: false,
 			}
 		},
+		onShow: function(){
+			if(this.pageid == 11){
+				var that = this;
+				uni.request({
+					url: 'http://iflag.icube.fun:8080/periodic/findById/'+that.flagid,
+					method: "GET",
+					sslVerify: false,
+					success: function(response) {
+						that.currentDate = response.data.date;
+						that.inputFlag = response.data.content;
+						that.date = response.data.endtime;
+						that.cycleVal2 = response.data.repeatPeriod;
+						that.time1 = response.data.remindTime;
+						that.checked3 = response.data.hasEndtime;
+						that.cycleVal1 = response.data.period;
+						that.checked2 = response.data.repeat;
+						that.checked1 = response.data.remind;
+						that.isfinished = response.data.finish;						
+					},
+					fail: function(response) {
+						console.log(response.data);
+					}
+				});
+			}			
+		},
 		components: {
 			uniNavBar,
 			EvanSwitch,
@@ -110,9 +144,22 @@
 		},
 		methods:{
 			back() {
-				uni.navigateBack({
-					delta: 1
-				});
+				var that = this;
+					console.log(that.pageid);
+					if(that.pageid == 11){
+						uni.redirectTo({
+							url: './calendar'
+						});
+					}
+					else{
+						// uni.navigateBack({
+						// 	delta: 1
+						// });
+						uni.switchTab({
+							url: '/pages/views/main'
+						});
+					}
+					this.pageid = 0;
 			},
 			save(){
 				console.log("点击保存")
@@ -158,52 +205,94 @@
 							console.log('这是key中的内容：' + res.data),
 							console.log(that.currentDate),
 							console.log(that.inputFlag),
-							console.log(that.date),
+							console.log('date:'+that.date),
 							console.log(that.cycleVal2),
 							console.log(that.time1),
 							console.log(that.checked3),
 							console.log(that.cycleVal1),
 							console.log(that.checked2),
 							console.log(that.checked1),
-							console.log(that.isfinished),
-							uni.request({
-								
-								url: 'http://iflag.icube.fun:8080/periodic/save',
-								//dataType:"JSON",
-								data: {
-									userid: res.data,
-									date: that.currentDate,
-									content: that.inputFlag,
-									endtime: that.date,
-									repeatPeriod: that.cycleVal2,
-									remindTime: that.time1,
-									hasEndtime: that.checked3,
-									period: that.cycleVal1,
-									repeat: that.checked2,
-									remind: that.checked1,
-									finish: that.isfinished
-								},
-								method: "POST",
-								header: {
-									"Content-Type": "application/json"
-								},
-								
-								sslVerify: false,
-								success: function(response) {
-									console.log(response)
-									uni.showModal({
-										content: '保存成功！',
-										showCancel:false
-									})
-								},
-								fail: function(response) {
-									console.log(response.data);
-									uni.showModal({
-										content: '保存失败，请重试！',
-										showCancel:false
-									})
-								}
-							});
+							console.log(that.isfinished);
+							if(that.pageid == 11){
+								uni.request({
+									url: 'http://iflag.icube.fun:8080/periodic/update',
+									dataType:"JSON",
+									data: {
+										id:that.flagid,
+										userid: res.data.userid,
+										date: that.currentDate,
+										content: that.inputFlag,
+										endtime: that.date,
+										repeatPeriod: that.cycleVal2,
+										remindTime: that.time1,
+										hasEndtime: that.checked3,
+										period: that.cycleVal1,
+										repeat: that.checked2,
+										remind: that.checked1,
+										finish: that.isfinished
+									},
+									method: "PUT",
+									header: {
+										"Content-Type": "application/json"
+									},
+									
+									sslVerify: false,
+									success: function(response) {
+										console.log(response)
+										uni.showModal({
+											content: '修改成功！',
+											showCancel:false
+										})
+									},
+									fail: function(response) {
+										console.log(response.data);
+										uni.showModal({
+											content: '修改失败，请重试！',
+											showCancel:false
+										})
+									}
+								});
+							}
+							else{
+								uni.request({
+									
+									url: 'http://iflag.icube.fun:8080/periodic/save',
+									dataType:"JSON",
+									data: {
+										userid: res.data.userid,
+										date: that.currentDate,
+										content: that.inputFlag,
+										endtime: that.date,
+										repeatPeriod: that.cycleVal2,
+										remindTime: that.time1,
+										hasEndtime: that.checked3,
+										period: that.cycleVal1,
+										repeat: that.checked2,
+										remind: that.checked1,
+										finish: that.isfinished
+									},
+									method: "POST",
+									header: {
+										"Content-Type": "application/json"
+									},
+									
+									sslVerify: false,
+									success: function(response) {
+										console.log(response)
+										uni.showModal({
+											content: '保存成功！',
+											showCancel:false
+										})
+									},
+									fail: function(response) {
+										console.log(response.data);
+										uni.showModal({
+											content: '保存失败，请重试！',
+											showCancel:false
+										})
+									}
+								});
+							}							
 						},
 						fail: function(res) {
 							console.log(res.data);
