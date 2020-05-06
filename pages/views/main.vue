@@ -15,11 +15,25 @@
 							<image src="../../static/logo.png" style="width:40px;height:40px;border-radius:50%;border:1px solid #aaa;" />
 						</view>
 						<view style="margin-left:10px;">
-							<view style="font-size:12px;color:#999;">{{ item.ss }}</view>
-							<view class="langcon">{{ item.con }}</view>
+							<view style="font-size:12px;color:#999;">{{ header }}</view>
+							<view class="langcon">{{ item.content }}</view>
 						</view>
 					</view>
 				</view>
+				<!-- 注释 -->
+				<!-- <view class="zs">点击对方头像可进入私聊模式</view> -->
+				<view v-for="(item, key) in list2" :key="key">
+					<view class="left">
+						<view>
+							<image src="../../static/logo.png" style="width:40px;height:40px;border-radius:50%;border:1px solid #aaa;" />
+						</view>
+						<view style="margin-left:10px;">
+							<view style="font-size:12px;color:#999;">{{ header }}</view>
+							<view class="langcon">{{ item.content }}</view>
+						</view>
+					</view>
+				</view>
+				
 			</view>
 		</view>
 	</view>
@@ -67,6 +81,13 @@
 					con: '你今日打卡内容为:'
 					}, 
 				],
+				list2: [
+					{
+					ss: '对象',
+					con: '你今日打卡内容为:'
+					},
+				],
+				header: '对象',
 			}
 		},
 		onShow: function(){
@@ -75,18 +96,29 @@
 			uni.getStorage({
 				key: 'email',
 				success: function(res) {
-					console.log('这是key中的内容：' + res.data)
+					console.log('这是key中的内容：' + res.data.mail)
 					uni.request({
-						url: 'http://iflag.icube.fun:8080/onetime/findById/' + res.data,
+						url: 'http://iflag.icube.fun:8080/onetime/findByUserid/' + res.data.mail,
 						method: "GET",
 						sslVerify: false,
 						success: function(response) {
 							console.log(response)
 							console.log("试一试")
-							//that.list.add(response.data.content)
-							// that.list.ss = '对象'
-							// that.list.con = response.data.content
-							// console.log("试完了")
+							that.list = response.data
+						},
+						fail: function(response) {
+							console.log(response.data);
+						}
+					});
+					
+					uni.request({
+						url: 'http://iflag.icube.fun:8080/periodic/findByUserid/' + res.data.mail,
+						method: "GET",
+						sslVerify: false,
+						success: function(response) {
+							console.log(response)
+							console.log("试一试2")
+							that.list2 = response.data
 						},
 						fail: function(response) {
 							console.log(response.data);
@@ -124,38 +156,6 @@
 				}
 			},
 
-
-			Init() {
-				var that = this;
-				//接口
-				uni.getStorage({
-					key: 'email',
-					success: function(res) {
-						console.log('这是key中的内容：' + res.data)
-						uni.request({
-							url: 'http://iflag.icube.fun:8080/onetime/findById/' + res.data,
-							method: "GET",
-							sslVerify: false,
-							success: function(response) {
-								console.log(response)
-								console.log("试一试")
-								that.list.add(response.data.content)
-								// that.time1 = response.data.setRemindTime
-								// that.checkedVal1 = response.data.isSetFlag
-								// that.cycleVal1 = response.data.setRepeatPeriod
-								// that.time2 = response.data.delRemindTime
-								// that.checkedVal2 = response.data.isDelF
-								// that.cycleVal2 = response.data.delRepeatPeriod
-							},
-							fail: function(response) {
-								console.log(response.data);
-							}
-						});
-					}
-				})
-			},
-
-			
 
 
 		},

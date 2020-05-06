@@ -6,10 +6,10 @@
 		</view>
 		<uni-section title="今日" type="line"></uni-section>
 		<checkbox-group class="uni-list" @change="checkboxChange">
-		    <label class="uni-list-cell uni-list-cell-pd" v-for="item in checkboxItems" :key="item.name">
+		    <label class="uni-list-cell uni-list-cell-pd" v-for="item in checkboxItems" :key="item">
 		        <view class="label-view">
-		            <checkbox :value="item.name" :checked="item.checked"></checkbox>
-					{{item.value}}
+		            <checkbox :value="item" :checked="item.checked"></checkbox>
+					{{item.content}}
 					<!-- <button type="default" plain="true" size="mini">按钮</button> -->
 		        </view>
 		        <!-- <view>{{item.value}}</view> -->
@@ -81,15 +81,17 @@
 			uni.getStorage({
 				key: 'email',
 				success: function(res) {
-					console.log('这是key中的内容：' + res.data)
+					console.log('这是key中的内容：' + res.data.mail)
 					uni.request({
-						url: 'http://iflag.icube.fun:8080/onetime/findByDate/' + res.data + '/' + that.currentDate,
+						url: 'http://iflag.icube.fun:8080/onetime/findByDate/' + res.data.mail + '/' + that.currentDate,
 						method: "GET",
 						sslVerify: false,
 						success: function(response) {
 							console.log(response)
 							console.log("试一试")
 							console.log(that.currentDate)
+							
+							that.checkboxItems = response.data
 						},
 						fail: function(response) {
 							console.log(response.data);
@@ -97,7 +99,7 @@
 					});
 					
 					uni.request({
-						url: 'http://iflag.icube.fun:8080/periodic/findByDate/' + res.data + '/' + that.currentDate,
+						url: 'http://iflag.icube.fun:8080/periodic/findByDate/' + res.data.mail + '/' + that.currentDate,
 						method: "GET",
 						sslVerify: false,
 						success: function(response) {
@@ -130,23 +132,24 @@
 				uni.getStorage({
 					key: 'email',
 					success: function(res){
-						console.log('这是key中的内容：' + res.data)
+						console.log('这是key中的内容：' + res.data.mail)
 						uni.request({
-							url: 'http://iflag.icube.fun:8080/onetime/findByDate/' + res.data + '/' + that.selectedDate,
+							url: 'http://iflag.icube.fun:8080/onetime/findByDate/' + res.data.mail + '/' + that.selectedDate,
 							method: "GET",
 							sslVerify: false,
 							success: function(response) {
 								console.log(response)
 								console.log("显示选择当天的一次性flag")
 								console.log(that.selectedDate)
+								that.checkboxItems = response.data
 							},
 							fail: function(response) {
 								console.log(response.data);
 							}
 						});
-						console.log('这是key中的内容：' + res.data)
+						console.log('这是key中的内容：' + res.data.mail)
 						uni.request({
-							url: 'http://iflag.icube.fun:8080/onetime/findByDate/' + res.data + '/' + that.selectedDate,
+							url: 'http://iflag.icube.fun:8080/periodic/findByDate/' + res.data.mail + '/' + that.selectedDate,
 							method: "GET",
 							sslVerify: false,
 							success: function(response) {

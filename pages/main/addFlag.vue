@@ -125,7 +125,7 @@
 					uni.getStorage({
 						key: 'email',
 						success: function(res) {
-							console.log('这是key中的内容：' + res.data),
+							console.log('这是key中的内容：' + res.data.mail),
 							console.log(that.currentDate),
 							console.log(that.inputFlag),
 							console.log(that.date),
@@ -139,7 +139,7 @@
 								url: 'http://iflag.icube.fun:8080/onetime/save',
 								//dataType:"JSON",
 								data: {
-									userid: res.data,
+									userid: res.data.mail,
 									date: that.currentDate,
 									content: that.inputFlag,
 									endtime: that.date,
@@ -172,7 +172,7 @@
 							});
 						},
 						fail: function(res) {
-							console.log(res.data);
+							console.log(res.data.mail);
 							uni.showModal({
 								content: '保存失败，请重试！',
 								showCancel:false
