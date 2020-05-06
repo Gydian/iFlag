@@ -5,16 +5,7 @@
 			<uni-calendar :selected="info.selected" :showMonth="false" @change="change" @monthSwitch="monthSwitch" />
 		</view>
 		<uni-section title="今日" type="line"></uni-section>
-		<!-- <checkbox-group class="uni-list" @change="checkboxChange">
-		    <label class="uni-list-cell uni-list-cell-pd" v-for="item in checkboxItems" :key="item.name">
-		        <view class="label-view">
-		            <checkbox :value="item.name" :checked="item.checked"></checkbox>
-					{{item.value}}
-		
-		        </view>
-		
-		    </label>
-		</checkbox-group> -->
+
 		<view class="index" v-bind:style="[{'min-height': secondHeight + 'px' }]">
 			<uni-section title="一次性任务" type="line"></uni-section>
 			<!-- 数据列表 -->
@@ -259,6 +250,7 @@
 				//接口
 				uni.getStorage({
 					key: 'email',
+
 					success: function(res) {
 						console.log('这是key中的内容：' + res.data)
 						uni.request({
@@ -275,14 +267,17 @@
 									that.$set(item,'slide_x',0)
 								})
 								console.log(that.list1)
+
 							},
 							fail: function(response) {
 								console.log(response.data);
 							}
 						});
+
 						
 						uni.request({
 							url: 'http://iflag.icube.fun:8080/periodic/findByDate/'+res.data.userid + '/' + mydate,
+
 							method: "GET",
 							sslVerify: false,
 							success: function(response) {

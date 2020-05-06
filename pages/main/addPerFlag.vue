@@ -202,7 +202,7 @@
 					uni.getStorage({
 						key: 'email',
 						success: function(res) {
-							console.log('这是key中的内容：' + res.data),
+							console.log('这是key中的内容：' + res.data.mail),
 							console.log(that.currentDate),
 							console.log(that.inputFlag),
 							console.log('date:'+that.date),
@@ -212,6 +212,7 @@
 							console.log(that.cycleVal1),
 							console.log(that.checked2),
 							console.log(that.checked1),
+
 							console.log(that.isfinished);
 							if(that.pageid == 11){
 								uni.request({
@@ -295,7 +296,7 @@
 							}							
 						},
 						fail: function(res) {
-							console.log(res.data);
+							console.log(res.data.mail);
 							uni.showModal({
 								content: '保存失败，请重试！',
 								showCancel:false

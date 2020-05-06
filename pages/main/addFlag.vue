@@ -172,7 +172,7 @@
 					uni.getStorage({
 						key: 'email',
 						success: function(res) {
-							console.log('这是key中的内容：' + res.data),
+							console.log('这是key中的内容：' + res.data.mail),
 							console.log(that.currentDate),
 							console.log(that.inputFlag),
 							console.log(that.date),
@@ -180,6 +180,7 @@
 							console.log(that.time1),
 							console.log(that.checked1),
 							console.log(that.checked2),
+
 							console.log(that.isfinished);
 							if(this.pageid = 11){
 								uni.request({
@@ -265,7 +266,7 @@
 							// 	content: '保存失败，请重试！',
 							// 	showCancel:false
 							// })
-						}
+						},
 					})
 				}
 			},
