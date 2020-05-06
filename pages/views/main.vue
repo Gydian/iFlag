@@ -69,8 +69,33 @@
 				],
 			}
 		},
-
-
+		onShow: function(){
+			var that = this;
+			//接口
+			uni.getStorage({
+				key: 'email',
+				success: function(res) {
+					console.log('这是key中的内容：' + res.data)
+					uni.request({
+						url: 'http://iflag.icube.fun:8080/onetime/findById/' + res.data,
+						method: "GET",
+						sslVerify: false,
+						success: function(response) {
+							console.log(response)
+							console.log("试一试")
+							//that.list.add(response.data.content)
+							// that.list.ss = '对象'
+							// that.list.con = response.data.content
+							// console.log("试完了")
+						},
+						fail: function(response) {
+							console.log(response.data);
+						}
+					});
+				}
+			})
+		},
+		
 		methods: {
 			onNavigationBarButtonTap(e) {
 				console.log("success");
@@ -84,18 +109,7 @@
 			},
 			trigger(e) {
 				console.log(e)
-				// this.content[e.index].active = !e.item.active
-				// uni.showModal({
-				// 	title: '提示',
-				// 	content: `您${this.content[e.index].active ? '选中了' : '取消了'}${e.item.text}`,
-				// 	success: function(res) {
-				// 		if (res.confirm) {
-				// 			console.log('用户点击确定')
-				// 		} else if (res.cancel) {
-				// 			console.log('用户点击取消')
-				// 		}
-				// 	}
-				// })
+				
 				this.content[e.index].active = true
 				if (e.item.text == "一次性") {
 					console.log("11");
@@ -114,8 +128,34 @@
 			Init() {
 				var that = this;
 				//接口
+				uni.getStorage({
+					key: 'email',
+					success: function(res) {
+						console.log('这是key中的内容：' + res.data)
+						uni.request({
+							url: 'http://iflag.icube.fun:8080/onetime/findById/' + res.data,
+							method: "GET",
+							sslVerify: false,
+							success: function(response) {
+								console.log(response)
+								console.log("试一试")
+								that.list.add(response.data.content)
+								// that.time1 = response.data.setRemindTime
+								// that.checkedVal1 = response.data.isSetFlag
+								// that.cycleVal1 = response.data.setRepeatPeriod
+								// that.time2 = response.data.delRemindTime
+								// that.checkedVal2 = response.data.isDelF
+								// that.cycleVal2 = response.data.delRepeatPeriod
+							},
+							fail: function(response) {
+								console.log(response.data);
+							}
+						});
+					}
+				})
 			},
 
+			
 
 
 		},
