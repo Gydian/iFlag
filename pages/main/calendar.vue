@@ -469,7 +469,7 @@
 			recover2(index) {
 				this.list2[index].slide_x = 0;
 			},
-			// 分享
+			// 编辑
 			top1(id) {
 				uni.redirectTo({
 					url: './addFlag?id=11&flagid='+id
@@ -483,6 +483,7 @@
 			},
 			// 删除
 			removeM1(index, id) {
+				console.log(id)
 				let self = this
 				console.log('点击删除')
 				uni.showModal({
@@ -493,19 +494,40 @@
 					success: function (res) {
 						if (res.confirm) {
 							console.log('用户点击确定')
-							self.list1.splice(index, 1)
-							uni.showToast({
-								icon: "success",
-								title: '操作成功!',
-								duration: 2000
+							uni.request({
+								url: 'http://iflag.icube.fun:8080/onetime/deleteById/'+id,
+							
+								method: "DELETE",
+								sslVerify: false,
+								success: function(response) {
+									console.log(response.data)
+									if(response.data){
+										self.list1.splice(index, 1)
+										uni.showToast({
+											icon: "success",
+											title: '操作成功!',
+											duration: 2000
+										});
+									}
+									else{
+										uni.showModal({
+											content: "删除失败",
+											showCancel:false
+										})
+									}
+								},
+								fail: function(response) {
+									console.log(response.data);
+								}
 							});
+							
 						} else if (res.cancel) {
 							console.log('用户点击取消')
 						}
 					}
 				});
 			},
-			removeM1(index, id) {
+			removeM2(index, id) {
 				let self = this
 				console.log('点击删除')
 				uni.showModal({
@@ -516,12 +538,33 @@
 					success: function (res) {
 						if (res.confirm) {
 							console.log('用户点击确定')
-							self.list1.splice(index, 1)
-							uni.showToast({
-								icon: "success",
-								title: '操作成功!',
-								duration: 2000
+							uni.request({
+								url: 'http://iflag.icube.fun:8080/periodic/deleteById/'+id,
+							
+								method: "DELETE",
+								sslVerify: false,
+								success: function(response) {
+									console.log(response.data)
+									if(response.data){
+										self.list2.splice(index, 1)
+										uni.showToast({
+											icon: "success",
+											title: '操作成功!',
+											duration: 2000
+										});
+									}
+									else{
+										uni.showModal({
+											content: "删除失败",
+											showCancel:false
+										})
+									}
+								},
+								fail: function(response) {
+									console.log(response.data);
+								}
 							});
+							
 						} else if (res.cancel) {
 							console.log('用户点击取消')
 						}
