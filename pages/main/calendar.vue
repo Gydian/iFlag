@@ -4,7 +4,7 @@
 			<!-- 插入模式 -->
 			<uni-calendar :selected="info.selected" :showMonth="false" @change="change" @monthSwitch="monthSwitch" />
 		</view>
-		<uni-section title="今日" type="line"></uni-section>
+		<!-- <uni-section title="今日" type="line"></uni-section> -->
 
 		<view class="index" v-bind:style="[{'min-height': secondHeight + 'px' }]">
 			<uni-section title="一次性任务" type="line"></uni-section>
@@ -12,20 +12,15 @@
 			<view class="list-box">
 	<!-- 			<view style="margin-top: 90upx;"></view> -->
 	<checkbox-group class="uni-list" @change="checkboxChange1">
-	
-		
-				<view class="container_of_slide" v-for="(item,index) in list1" :key="index">
-					<view class="slide_list" @touchstart="touchStart1($event,index)" @touchend="touchEnd1($event,index)" @touchmove="touchMove1($event,index)"
-					 @tap="recover1(index)" :style="{transform:'translate3d('+item.slide_x+'px, 0, 0)'}">
-						<view class="now-message-info" hover-class="uni-list-cell-hover" :style="{width:Screen_width+'px'}" @click="getDetail(item)">
-							<checkbox :value="item.id"></checkbox>
-						
-							<view class="list-right">
-								<view class="list-title" v-if="item.content">{{item.content}}</view>
-							
-							</view>
-							
-						</view>
+		<view class="container_of_slide" v-for="(item,index) in list1" :key="index">
+			<view class="slide_list" @touchstart="touchStart1($event,index)" @touchend="touchEnd1($event,index)" @touchmove="touchMove1($event,index)"
+			 @tap="recover1(index)" :style="{transform:'translate3d('+item.slide_x+'px, 0, 0)'}">
+				<view class="now-message-info" hover-class="uni-list-cell-hover" :style="{width:Screen_width+'px'}" @click="getDetail(item)">
+					<checkbox :value="item.id"></checkbox>
+					<view class="list-right">
+						<view class="list-title" v-if="item.content">{{item.content}}</view>
+					</view>
+				</view>
 						<view class="group-btn">
 							<view class="top btn-div" @tap="top1(item.id)">
 								编辑
@@ -68,21 +63,7 @@
 						</view>
 						</checkbox-group>
 					</view>
-			<!-- 分享弹窗 -->
-			<!-- <view mode="top-right" class="scan-box" v-if="visible">
-				<view class="scan-item">
-					<view class="scan-content">
-						<view class="scan-icon">
-							<image src="../../static/slide-list/icon-scan.png" class="scan-icon-img"></image>
-						</view>
-						<image src="../../static/slide-list/fork.png" class="scan-btn" @click="cancelEvent"></image>
-						<image :src="img" class="scan-img"></image>
-						<view class="scan-text">
-							扫一扫查看分享信息
-						</view>
-					</view>
-				</view>
-			</view> -->
+			
 			
 		</view>
 	</view>
@@ -469,7 +450,7 @@
 			recover2(index) {
 				this.list2[index].slide_x = 0;
 			},
-			// 分享
+			// 编辑
 			top1(id) {
 				uni.redirectTo({
 					url: './addFlag?id=11&flagid='+id
@@ -483,6 +464,7 @@
 			},
 			// 删除
 			removeM1(index, id) {
+				console.log(id)
 				let self = this
 				console.log('点击删除')
 				uni.showModal({
@@ -493,19 +475,40 @@
 					success: function (res) {
 						if (res.confirm) {
 							console.log('用户点击确定')
-							self.list1.splice(index, 1)
-							uni.showToast({
-								icon: "success",
-								title: '操作成功!',
-								duration: 2000
+							uni.request({
+								url: 'http://iflag.icube.fun:8080/onetime/deleteById/'+id,
+							
+								method: "DELETE",
+								sslVerify: false,
+								success: function(response) {
+									console.log(response.data)
+									if(response.data){
+										self.list1.splice(index, 1)
+										uni.showToast({
+											icon: "success",
+											title: '操作成功!',
+											duration: 2000
+										});
+									}
+									else{
+										uni.showModal({
+											content: "删除失败",
+											showCancel:false
+										})
+									}
+								},
+								fail: function(response) {
+									console.log(response.data);
+								}
 							});
+							
 						} else if (res.cancel) {
 							console.log('用户点击取消')
 						}
 					}
 				});
 			},
-			removeM1(index, id) {
+			removeM2(index, id) {
 				let self = this
 				console.log('点击删除')
 				uni.showModal({
@@ -516,12 +519,33 @@
 					success: function (res) {
 						if (res.confirm) {
 							console.log('用户点击确定')
-							self.list1.splice(index, 1)
-							uni.showToast({
-								icon: "success",
-								title: '操作成功!',
-								duration: 2000
+							uni.request({
+								url: 'http://iflag.icube.fun:8080/periodic/deleteById/'+id,
+							
+								method: "DELETE",
+								sslVerify: false,
+								success: function(response) {
+									console.log(response.data)
+									if(response.data){
+										self.list2.splice(index, 1)
+										uni.showToast({
+											icon: "success",
+											title: '操作成功!',
+											duration: 2000
+										});
+									}
+									else{
+										uni.showModal({
+											content: "删除失败",
+											showCancel:false
+										})
+									}
+								},
+								fail: function(response) {
+									console.log(response.data);
+								}
 							});
+							
 						} else if (res.cancel) {
 							console.log('用户点击取消')
 						}

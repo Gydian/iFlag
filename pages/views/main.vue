@@ -10,13 +10,18 @@
 				<!-- 注释 -->
 				<!-- <view class="zs">点击对方头像可进入私聊模式</view> -->
 				<view v-for="(item, key) in list" :key="key">
-					<view class="left">
-						<view>
-							<image src="../../static/logo.png" style="width:40px;height:40px;border-radius:50%;border:1px solid #aaa;" />
-						</view>
-						<view style="margin-left:10px;">
-							<view style="font-size:12px;color:#999;">{{ header }}</view>
-							<view class="langcon">{{ item.content }}</view>
+					<view v-if="item.finish == false">
+						<view class="left">
+							<view>
+								<!-- <image src="../../static/logo.png" style="width:40px;height:40px;border-radius:50%;border:1px solid #aaa;" /> -->
+								<!-- <image src="this.partnerHead" style="width:40px;height:40px;border-radius:50%;border:1px solid #aaa;" /> -->
+								<image class="avatar" :src="partnerHead"></image>
+							</view>
+							<view style="margin-left:10px;">
+								<view style="font-size:12px;color:#999;">{{ header }}</view>
+								<!-- <view style="font-size:12px;color:#999;">{{ item.finish }}</view> -->
+								<view class="langcon">{{ item.content }}</view>
+							</view>
 						</view>
 					</view>
 				</view>
@@ -25,7 +30,8 @@
 				<view v-for="(item, key) in list2" :key="key">
 					<view class="left">
 						<view>
-							<image src="../../static/logo.png" style="width:40px;height:40px;border-radius:50%;border:1px solid #aaa;" />
+							<!-- <image src="../../static/logo.png" style="width:40px;height:40px;border-radius:50%;border:1px solid #aaa;" /> -->
+							<image class="avatar" :src="partnerHead"></image>
 						</view>
 						<view style="margin-left:10px;">
 							<view style="font-size:12px;color:#999;">{{ header }}</view>
@@ -96,6 +102,7 @@
 			uni.getStorage({
 				key: 'email',
 				success: function(res) {
+					that.token = res.data.token;
 					console.log('这是key中的内容：' + res.data.userid)
 					uni.request({
 						url: 'http://iflag.icube.fun:8080/onetime/findByUserid/' + res.data.userid,
@@ -124,9 +131,24 @@
 							console.log(response.data);
 						}
 					});
+					
+					/// 头像
+					uni.request({
+						url: 'http://iflag.icube.fun:8080/user/object/'+res.data.token,
+						method: "GET",
+						sslVerify:false,
+						success: function(response) {
+							console.log(response.data);
+							that.partnerHead = "http://59.110.64.233:8080/user/object/"+res.data.token+'?pwd='+getRandom(0, 100);
+							console.log(that.partnerHead);
+						},
+						fail: function(response) {
+						}
+					});
 				}
 			})
 		},
+		
 		
 		methods: {
 			onNavigationBarButtonTap(e) {
@@ -156,22 +178,22 @@
 				}
 			},
 
-
-
 		},
 
+	}
+	function getRandom(start, end, fixed=0) {
+	            let differ = end - start
+	            let random = Math.random()
+	            return (start + differ * random).toFixed(fixed)
 	}
 </script>
 
 <style>
 	.avatar {
-		height: 50px;
-		width: 50px;
+		height: 40px;
+		width: 40px;
 		border-radius: 50%;
-		-webkit-border-radius: 50%;
-		-moz-border-radius: 50%;
-		margin-top: 10%;
-		margin-left: 5%;
+		border: 1px solid #aaa;
 	}
 
 	
