@@ -4,10 +4,10 @@
 			<!-- 插入模式 -->
 			<uni-calendar :selected="info.selected" :showMonth="false" @change="change" @monthSwitch="monthSwitch" />
 		</view>
-		<uni-section title="今日" type="line"></uni-section>
+		<uni-section title="今日" type="line" style="height: 30px;"></uni-section>
 
 		<view class="index" v-bind:style="[{'min-height': secondHeight + 'px' }]">
-			<uni-section title="一次性任务" type="line"></uni-section>
+			<uni-section title="一次性任务" type="line" style="height: 30px;"></uni-section>
 			<!-- 数据列表 -->
 			<view class="list-box">
 	<!-- 			<view style="margin-top: 90upx;"></view> -->
@@ -18,11 +18,11 @@
 					<view class="slide_list" @touchstart="touchStart1($event,index)" @touchend="touchEnd1($event,index)" @touchmove="touchMove1($event,index)"
 					 @tap="recover1(index)" :style="{transform:'translate3d('+item.slide_x+'px, 0, 0)'}">
 						<view class="now-message-info" hover-class="uni-list-cell-hover" :style="{width:Screen_width+'px'}" @click="getDetail(item)">
-							<checkbox :value="item.id"></checkbox>
+							<checkbox :value="item.id" :checked="item.finish"></checkbox>
 						
 							<view class="list-right">
-								<view class="list-title" v-if="item.content">{{item.content}}</view>
-							
+								<view class="list-title" v-if="item.finish==true" style="color: #D3D3D3;">{{item.content}}</view>
+								<view class="list-title" v-else="item.finish==false">{{item.content}}</view>
 							</view>
 							
 						</view>
@@ -39,7 +39,7 @@
 				</view>
 				</checkbox-group>
 			</view>
-			<uni-section title="长期任务" type="line"></uni-section>
+			<uni-section title="长期任务" type="line" style="height: 30px;"></uni-section>
 			<view class="list-box">
 			<!-- 			<view style="margin-top: 90upx;"></view> -->
 			<checkbox-group class="uni-list" @change="checkboxChange2">
@@ -47,11 +47,11 @@
 							<view class="slide_list" @touchstart="touchStart2($event,index)" @touchend="touchEnd2($event,index)" @touchmove="touchMove2($event,index)"
 							 @tap="recover2(index)" :style="{transform:'translate3d('+item.slide_x+'px, 0, 0)'}">
 								<view class="now-message-info" hover-class="uni-list-cell-hover" :style="{width:Screen_width+'px'}" @click="getDetail(item)">
-									<checkbox :value="item.id"></checkbox>
+									<checkbox :value="item.id" :checked="item.finish"></checkbox>
 								
 									<view class="list-right">
-										<view class="list-title" v-if="item.content">{{item.content}}</view>
-									
+										<view class="list-title" v-if="item.finish==true" style="color: #D3D3D3;">{{item.content}}</view>
+										<view class="list-title" v-else="item.finish==false">{{item.content}}</view>
 									</view>
 									
 								</view>
@@ -68,21 +68,6 @@
 						</view>
 						</checkbox-group>
 					</view>
-			<!-- 分享弹窗 -->
-			<!-- <view mode="top-right" class="scan-box" v-if="visible">
-				<view class="scan-item">
-					<view class="scan-content">
-						<view class="scan-icon">
-							<image src="../../static/slide-list/icon-scan.png" class="scan-icon-img"></image>
-						</view>
-						<image src="../../static/slide-list/fork.png" class="scan-btn" @click="cancelEvent"></image>
-						<image :src="img" class="scan-img"></image>
-						<view class="scan-text">
-							扫一扫查看分享信息
-						</view>
-					</view>
-				</view>
-			</view> -->
 			
 		</view>
 	</view>
@@ -211,7 +196,8 @@
 					}
 				],
 				btuBottom: '0',
-				secondHeight: ''
+				secondHeight: '',
+				// checkList:[],
 			}
 		},
 		onReady() {
@@ -262,6 +248,8 @@
 								console.log("试一试")
 								console.log(that.currentDate)
 								that.list1 = response.data
+								that.list1.sort((a,b)=>{    return a.finish -b.finish
+								})
 								console.log(that.list1)
 								that.list1.forEach((item,index)=>{
 									that.$set(item,'slide_x',0)
@@ -285,6 +273,8 @@
 								console.log("这是周期性任务")
 								console.log(that.currentDate)
 								that.list2 = response.data
+								that.list2.sort((a,b)=>{    return a.finish -b.finish
+								})
 								that.list2.forEach((item,index)=>{
 									that.$set(item,'slide_x',0)
 								})
@@ -313,31 +303,76 @@
 				console.log('monthSwitchs 返回:', e)
 			},
 			checkboxChange1: function(e) {
-			    console.log(e.target.value)
-			    var checked = e.target.value
-			    // var changed = {}
-				console.log(checked);
-			    for (var i = 0; i < this.list1.length; i++) {
-			        if (checked.indexOf(this.list1[i].id) !== -1) {
-			            // changed['list1[' + i + '].checked'] = true
-						console.log(this.list1[i].id)
-			        } else {
-			            // changed['list1[' + i + '].checked'] = false
-			        }
-					
-			    }
+				var items = this.list1; 
+				var checked = e.target.value
+				for (var i = 0, lenI = this.list1.length; i < lenI; ++i) {
+					const item = this.list1[i]
+					if(checked.indexOf(this.list1[i].id) !== -1){
+						this.$set(item,'finish',true)
+						console.log("111");
+					}else{
+						this.$set(item,'finish',false)
+					}
+					console.log(this.list1[i]);
+					uni.request({
+						url: 'http://iflag.icube.fun:8080/onetime/update',
+						dataType:"JSON",
+						data: this.list1[i],
+						method: "PUT",
+						header: {
+							"Content-Type": "application/json"
+						},
+						
+						sslVerify: false,
+						success: function(res) {
+							console.log(res.data)
+						},
+						fail: function(res) {
+							console.log(res.data);
+						}
+					});
+				}
 			},
 			checkboxChange2: function(e) {
-			    console.log(e.target.value)
-			    var checked = e.target.value
-			    var changed = {}
-			    for (var i = 0; i < this.list2.length; i++) {
-			        if (checked.indexOf(this.list2[i].name) !== -1) {
-			            changed['list2[' + i + '].checked'] = true
-			        } else {
-			            changed['list2[' + i + '].checked'] = false
-			        }
-			    }
+				var items = this.list2;
+				var checked = e.target.value
+				for (var i = 0, lenI = this.list2.length; i < lenI; ++i) {
+					const item = this.list2[i]
+					if(checked.indexOf(this.list2[i].id) !== -1){
+						this.$set(item,'finish',true)
+						console.log("222");
+					}else{
+						this.$set(item,'finish',false)
+					}
+					console.log(this.list2[i]);
+					uni.request({
+						url: 'http://iflag.icube.fun:8080/periodic/update',
+						dataType:"JSON",
+						data: this.list2[i],
+						method: "PUT",
+						header: {
+							"Content-Type": "application/json"
+						},
+						
+						sslVerify: false,
+						success: function(res) {
+							console.log(res.data)
+						},
+						fail: function(res) {
+							console.log(res.data);
+						}
+					});
+				}
+			    // console.log(e.target.value)
+			    // var checked = e.target.value
+			    // var changed = {}
+			    // for (var i = 0; i < this.list2.length; i++) {
+			    //     if (checked.indexOf(this.list2[i].name) !== -1) {
+			    //         changed['list2[' + i + '].checked'] = true
+			    //     } else {
+			    //         changed['list2[' + i + '].checked'] = false
+			    //     }
+			    // }
 			},
 			
 			cancelEvent(){
@@ -579,7 +614,7 @@
 	.label-view{
 		border-bottom: 1px solid lightgray;
 		border-radius: 0;
-		height: 35px;
+		height: 15px;
 	}
 	
 	.index{
@@ -597,7 +632,7 @@
 		transition: all 100ms;
 		transition-timing-function: ease-out;
 		min-width: 200%;
-		height: 160upx;
+		height: 100upx;
 	}
 	
 	.now-message-info {
@@ -607,7 +642,7 @@
 		/* justify-content: space-between; */
 		font-size: 16px;
 		clear:both;
-		height: 160upx;
+		height: 100upx;
 		padding: 0 30upx;
 		margin-bottom: 20upx;
 		background: #FFFFFF;
@@ -620,19 +655,19 @@
 	.group-btn {
 		display: flex;
 		flex-direction: row;
-		height: 160upx;
+		height: 100upx;
 		min-width: 100upx;
 		align-items: center;
 	
 	}
 	
 	.group-btn .btn-div {
-		height: 160upx;
+		height: 100upx;
 		color: #fff;
 		text-align: center;
 		padding: 0 50upx;
 		font-size: 34upx;
-		line-height: 160upx;
+		line-height: 100upx;
 	}
 	
 	.group-btn .top {
@@ -669,7 +704,7 @@
 		width: 350upx;
 		line-height:1.5;
 		overflow:hidden;
-		margin-bottom: 10upx;
+		margin-bottom: 0upx;
 		color:#333;
 		display:-webkit-box;
 		-webkit-box-orient:vertical;
@@ -712,18 +747,6 @@
 		background: #F8F8F8;
 		color: #7fb2ff;
 	}
-	.btn-plusempty{
-		width: 110upx;
-		height: 110upx;
-		background: #007bfa;
-		position: fixed;
-		bottom: 50upx;
-		right: 20upx;
-		border-radius: 100%;
-		overflow: hidden;
-		text-align: center;
-		line-height: 110upx;
-	}
 	.empty{
 		color: #999999;
 	}
@@ -732,94 +755,13 @@
 		height: 50upx;
 		margin-top: 30upx;
 	}
-	.scan-box{
-		display:block;
-		position:fixed;
-		top:0;
-		bottom:0;
-		left:0;
-		right:0;
-		background-color:rgba(0, 0, 0, 0.3);
-		z-index:99999;
-	}
-	.scan-item{
-		display:-webkit-box;
-		display:-webkit-flex;
-		display:-ms-flexbox;
-		display:flex;
-		position:relative;
-		margin:0 auto;
-		width:80%;
-		height:100%;
-		-webkit-box-pack:center;
-		-webkit-justify-content:center;
-		-ms-flex-pack:center;
-		justify-content:center;
-		-webkit-box-align:center;
-		-webkit-align-items:center;
-		-ms-flex-align:center;
-		align-items:center;
-		-webkit-box-sizing:border-box;
-		box-sizing:border-box;
-		opacity:1;
-	
-	}
-	.scan-content{
-		position:relative;
-		width: 400upx;
-		height: 500upx;
-		background: #FFFFFF;
-		border-radius: 20upx;
-	}
-	.scan-icon{
-		position: absolute;
-		top: -50upx;
-		left: 150upx;
-		width: 100upx;
-		height: 100upx;
-		border-radius: 100%;
-		box-sizing:border-box;
-		background: #FFFFFF;
-		padding: 20upx;
-	}
-	.scan-icon-img{
-		width: 100%;
-		height: 100%;
-	}
-	.scan-text{
-		position: absolute;
-		bottom: 40upx;
-		left: 0;
-		width: 100%;
-		text-align: center;
-		font-size: 14px;
-	}
-	.scan-share{
-		width: 100%;
-		height: 100%;
-	}
-	.scan-img{
-		width: 300upx;
-		height: 300upx;
-		margin: auto;
-		display: block;
-		position: absolute;
-		top: 80upx;
-		left: 50upx;
-		z-index: 99;
-	}
-	.scan-btn{
-		top:-30upx;
-		left:auto;
-		right:-30upx;
-		bottom:auto;
-		position:absolute;
-		width:64upx;
-		height:64upx;
-		border-radius:50%;
-		z-index:99999;
-		display: flex;
-	}
+.uni-section{
+	margin-top: 0px;
+}
+
+
+
+
 	.uni-list-cell-hover {
 		background-color: #eeeeee;
 	}
