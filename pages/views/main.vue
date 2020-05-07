@@ -96,9 +96,9 @@
 			uni.getStorage({
 				key: 'email',
 				success: function(res) {
-					console.log('这是key中的内容：' + res.data.mail)
+					console.log('这是key中的内容：' + res.data.userid)
 					uni.request({
-						url: 'http://iflag.icube.fun:8080/onetime/findByUserid/' + res.data.mail,
+						url: 'http://iflag.icube.fun:8080/onetime/findByUserid/' + res.data.userid,
 						method: "GET",
 						sslVerify: false,
 						success: function(response) {
@@ -112,7 +112,7 @@
 					});
 					
 					uni.request({
-						url: 'http://iflag.icube.fun:8080/periodic/findByUserid/' + res.data.mail,
+						url: 'http://iflag.icube.fun:8080/periodic/findByUserid/' + res.data.userid,
 						method: "GET",
 						sslVerify: false,
 						success: function(response) {
