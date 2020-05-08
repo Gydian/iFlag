@@ -5,7 +5,7 @@
 			<button class="navigate-btn">
 				怎么修改角色头像?
 				<view>
-					<image class="enter-icon" src="../../static/image/向右.png"></image>
+					<image class="enter-icon" src="../../static/image/right.png"></image>
 				</view>
 			</button>
 		</navigator>
@@ -13,7 +13,7 @@
 			<button class="navigate-btn">
 				怎么新建Flag?
 				<view>
-					<image class="enter-icon" src="../../static/image/向右.png"></image>
+					<image class="enter-icon" src="../../static/image/right.png"></image>
 				</view>
 			</button>
 		</navigator>
@@ -21,14 +21,14 @@
 			<button class="navigate-btn">
 				怎么设置提醒打卡?
 				<view>
-					<image class="enter-icon" src="../../static/image/向右.png"></image>
+					<image class="enter-icon" src="../../static/image/right.png"></image>
 				</view>
 			</button>
 		</navigator>
 		<navigator url="../personal/feedback" open-type="navigate">
 			<view>
 				<button class="feedback-btn">
-					<image class="feedback-icon" src="../../static/image/反馈.png"></image>
+					<image class="feedback-icon" src="../../static/image/feedback.png"></image>
 					<text class="feedback-text">我要反馈</text>
 				</button>
 			</view>

@@ -163,22 +163,22 @@
 		"backgroundColor": "#ffffff",
 		"list": [{
 				"pagePath": "pages/views/partner",
-				"iconPath": "static/image/参赛对象-人.png",
-				"selectedIconPath": "static/image/参赛对象-人 (1).png",
+				"iconPath": "static/image/partner.png",
+				"selectedIconPath": "static/image/partner1.png",
 				"text": "对象",
 				"iconWidth": "24px"
 			},
 			{
 				"pagePath": "pages/views/main",
-				"iconPath": "static/image/聊天.png",
-				"selectedIconPath": "static/image/聊天 (1).png",
+				"iconPath": "static/image/chat.png",
+				"selectedIconPath": "static/image/chat1.png",
 				"text": "聊天",
 				"iconWidth": "20px"
 			},
 			{
 				"pagePath": "pages/views/personal",
-				"iconPath": "static/image/个人.png",
-				"selectedIconPath": "static/image/个人 (1).png",
+				"iconPath": "static/image/personal.png",
+				"selectedIconPath": "static/image/personal1.png",
 				"text": "个人",
 				"iconWidth": "20px"
 			}

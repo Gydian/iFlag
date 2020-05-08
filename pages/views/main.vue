@@ -62,19 +62,18 @@
 				vertical: 'bottom',
 				direction: 'horizontal',
 				content: [{
-						iconPath: '/static/image/一次性任务.png',
-						selectedIconPath: '/static/image/一次性任务.png',
+						iconPath: '/static/image/once.png',
+						selectedIconPath: '/static/image/once.png',
 						text: '一次性',
 						active: false
 					},
 					{
-						iconPath: '/static/image/周期性任务.png',
-						selectedIconPath: '/static/image/周期性任务.png',
+						iconPath: '/static/image/periodic.png',
+						selectedIconPath: '/static/image/periodic.png',
 						text: '周期性',
 						active: false
 					},
 				],
-
 				list: [
 					{
 					ss: '对象',
@@ -93,9 +92,11 @@
 					con: '你今日打卡内容为:'
 					},
 				],
+
 				name: '对象',
 			}
 		},
+
 		onShow: function(){
 			var that = this;
 			//接口
@@ -178,7 +179,6 @@
 			},
 			fabClick() {
 				console.log("success");
-
 			},
 			trigger(e) {
 				console.log(e)
@@ -196,9 +196,7 @@
 					});
 				}
 			},
-
 		},
-
 	}
 	function getRandom(start, end, fixed=0) {
 	            let differ = end - start
@@ -214,7 +212,6 @@
 		border-radius: 50%;
 		border: 1px solid #aaa;
 	}
-
 	
 	.center {
 		text-align: center;
@@ -223,7 +220,6 @@
 		margin-top: 10px;
 		letter-spacing: 1px;
 	}
-
 	.left {
 		display: flex;
 		flex-wrap: nowrap;
@@ -231,7 +227,6 @@
 		margin-left: 10px;
 		margin-top: 10px;
 	}
-
 	.right {
 		display: flex;
 		flex-wrap: nowrap;
@@ -239,7 +234,6 @@
 		margin-right: 10px;
 		margin-top: 10px;
 	}
-
 	.langcon {
 		border: 1px solid #333333;
 		font-size: 14px;
@@ -252,6 +246,4 @@
 		padding: 3px 10px 3px 10px;
 		background: #f8f8f8;
 	}
-
-
 </style>

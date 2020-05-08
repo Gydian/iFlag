@@ -10,14 +10,14 @@
 
 		<view class="text-view" @tap="showPicker('time1')">
 			提醒时间
-			<image class="enter-icon" src="../../static/image/向右.png"></image>
+			<image class="enter-icon" src="../../static/image/right.png"></image>
 			<text class="time-text">{{time1}}</text>
 		</view>
 		<w-picker mode="t" value="18:08:05" :current="true" @confirm="onConfirm1($event,'time1')" ref="time1"></w-picker>
 
 		<view class="text-view" @tap="showPop('cycle1')">
 			重复周期
-			<image class="enter-icon" src="../../static/image/向右.png"></image>
+			<image class="enter-icon" src="../../static/image/right.png"></image>
 			<text class="time-text">{{cycle1}}</text>
 		</view>
 		<uni-popup ref="cycle1" type="bottom">
@@ -36,14 +36,14 @@
 
 		<view class="text-view" @tap="showPicker('time2')">
 			提醒时间
-			<image class="enter-icon" src="../../static/image/向右.png"></image>
+			<image class="enter-icon" src="../../static/image/right.png"></image>
 			<text class="time-text">{{time2}}</text>
 		</view>
 		<w-picker mode="time" value="18:08:05" :current="true" @confirm="onConfirm2($event,'time2')" ref="time2"></w-picker>
 
 		<view class="text-view" @tap="showPop('cycle2')">
 			重复周期
-			<image class="enter-icon" src="../../static/image/向右.png"></image>
+			<image class="enter-icon" src="../../static/image/right.png"></image>
 			<text class="time-text">{{cycle2}}</text>
 		</view>
 		<uni-popup ref="cycle2" type="bottom">
@@ -89,9 +89,9 @@
 			uni.getStorage({
 				key: 'email',
 				success: function(res) {
-					console.log('这是key中的内容：' + res.data)
+					console.log('这是key中的内容：' + res.data.mail)
 					uni.request({
-						url: 'http://59.110.64.233:8080/notice/findByUserEmail/' + res.data,
+						url: 'http://59.110.64.233:8080/notice/findByUserEmail/' + res.data.mail,
 						method: "GET",
 						sslVerify: false,
 						success: function(response) {
@@ -196,12 +196,12 @@
 				uni.getStorage({
 					key: 'email',
 					success: function(res) {
-						console.log('这是key中的内容：' + res.data)
+						console.log('这是key中的内容：' + res.data.mail)
 						console.log(that.checkedVal1)
 						uni.request({
 							url: 'http://59.110.64.233:8080/notice/add?delRemindTime=' + that.time2 +
 								'&delRepeadPeriod=' + that.cycleVal2 + '&isDelFlag=' + that.checkedVal2 + '&isSetFlag=' + that.checkedVal1 +
-								'&setRemindTime=' + that.time1 + '&setRepeatPeriod=' + that.cycleVal1 + '&userEmail=' + res.data,
+								'&setRemindTime=' + that.time1 + '&setRepeatPeriod=' + that.cycleVal1 + '&userEmail=' + res.data.mail,
 							method: "POST",
 							sslVerify: false,
 							success: function(response) {
