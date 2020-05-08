@@ -10,68 +10,68 @@
 			<uni-section title="一次性任务" type="line" style="height: 30px;"></uni-section>
 			<!-- 数据列表 -->
 			<view class="list-box">
-				<!-- 			<view style="margin-top: 90upx;"></view> -->
-				<checkbox-group class="uni-list" @change="checkboxChange1">
+	<!-- 			<view style="margin-top: 90upx;"></view> -->
+	<checkbox-group class="uni-list" @change="checkboxChange1">
 
-
-					<view class="container_of_slide" v-for="(item,index) in list1" :key="index">
-						<view class="slide_list" @touchstart="touchStart1($event,index)" @touchend="touchEnd1($event,index)" @touchmove="touchMove1($event,index)"
-						 @tap="recover1(index)" :style="{transform:'translate3d('+item.slide_x+'px, 0, 0)'}">
-							<view class="now-message-info" hover-class="uni-list-cell-hover" :style="{width:Screen_width+'px'}" @click="getDetail(item)">
-								<checkbox :value="item.id" :checked="item.finish"></checkbox>
-
-								<view class="list-right">
-									<view class="list-title" v-if="item.finish==true" style="color: #D3D3D3;">{{item.content}}</view>
-									<view class="list-title" v-else="item.finish==false">{{item.content}}</view>
-								</view>
-
+		
+				<view class="container_of_slide" v-for="(item,index) in list1" :key="index">
+					<view class="slide_list" @touchstart="touchStart1($event,index)" @touchend="touchEnd1($event,index)" @touchmove="touchMove1($event,index)"
+					 @tap="recover1(index)" :style="{transform:'translate3d('+item.slide_x+'px, 0, 0)'}">
+						<view class="now-message-info" hover-class="uni-list-cell-hover" :style="{width:Screen_width+'px'}" @click="getDetail(item)">
+							<checkbox :value="item.id" :checked="item.finish"></checkbox>
+						
+							<view class="list-right">
+								<view class="list-title" v-if="item.finish==true" style="color: #D3D3D3;">{{item.content}}</view>
+								<view class="list-title" v-else="item.finish==false">{{item.content}}</view>
 							</view>
-
-							<view class="group-btn">
-								<view class="top btn-div" @tap="top1(item.id)">
-									编辑
-								</view>
-								<view class="removeM btn-div" @tap="removeM1(index, item.id)">
-									删除
-								</view>
-							</view>
-							<view style="clear:both"></view>
+							
 						</view>
+
+						<view class="group-btn">
+							<view class="top btn-div" @tap="top1(item.id)">
+								编辑
+							</view>
+							<view class="removeM btn-div" @tap="removeM1(index, item.id)">
+								删除
+							</view>
+						</view>
+						<view style="clear:both"></view>
 					</view>
+				</view>
 				</checkbox-group>
 			</view>
 			<uni-section title="长期任务" type="line" style="height: 30px;"></uni-section>
 			<view class="list-box">
-				<!-- 			<view style="margin-top: 90upx;"></view> -->
-				<checkbox-group class="uni-list" @change="checkboxChange2">
-
-					<view class="container_of_slide" v-for="(item,index) in list2" :key="index">
-						<view class="slide_list" @touchstart="touchStart2($event,index)" @touchend="touchEnd2($event,index)" @touchmove="touchMove2($event,index)"
-						 @tap="recover2(index)" :style="{transform:'translate3d('+item.slide_x+'px, 0, 0)'}">
-							<view class="now-message-info" hover-class="uni-list-cell-hover" :style="{width:Screen_width+'px'}" @click="getDetail(item)">
-								<checkbox :value="item.id" :checked="item.finish"></checkbox>
-
-								<view class="list-right">
-									<view class="list-title" v-if="item.finish==true" style="color: #D3D3D3;">{{item.content}}</view>
-									<view class="list-title" v-else="item.finish==false">{{item.content}}</view>
+			<!-- 			<view style="margin-top: 90upx;"></view> -->
+			<checkbox-group class="uni-list" @change="checkboxChange2">
+				
+						<view class="container_of_slide" v-for="(item,index) in list2" :key="index">
+							<view class="slide_list" @touchstart="touchStart2($event,index)" @touchend="touchEnd2($event,index)" @touchmove="touchMove2($event,index)"
+							 @tap="recover2(index)" :style="{transform:'translate3d('+item.slide_x+'px, 0, 0)'}">
+								<view class="now-message-info" hover-class="uni-list-cell-hover" :style="{width:Screen_width+'px'}" @click="getDetail(item)">
+									<checkbox :value="item.id" :checked="item.finish" :disabled="isvisible"></checkbox>
+								
+									<view class="list-right">
+										<view class="list-title" v-if="item.finish==true" style="color: #D3D3D3;">{{item.content}}</view>
+										<view class="list-title" v-else="item.finish==false">{{item.content}}</view>
+									</view>
+									
 								</view>
-
+								<view class="group-btn">
+									<view class="top btn-div" @tap="top2(item.id)">
+										编辑
+									</view>
+									<view class="removeM btn-div" @tap="removeM2(index, item.id)">
+										删除
+									</view>
+								</view>
+								<view style="clear:both"></view>
 							</view>
-							<view class="group-btn">
-								<view class="top btn-div" @tap="top2(item.id)">
-									编辑
-								</view>
-								<view class="removeM btn-div" @tap="removeM2(index, item.id)">
-									删除
-								</view>
-							</view>
-							<view style="clear:both"></view>
 						</view>
+						</checkbox-group>
 					</view>
-				</checkbox-group>
-			</view>
 
-
+			
 		</view>
 	</view>
 </template>
@@ -94,27 +94,29 @@
 			}
 		},
 		data() {
-			return {
+			return{
 				app:'',
+				isvisible:false,
 				showCalendar: false,
 				info: {
 					date: '2019-08-15',
 					insert: false,
 					selected: []
 				},
-				checkboxItems: [{
+				checkboxItems: [
+					{
 						name: 'flag1',
 						value: '写作业'
-					},
-					{
-						name: 'flag2',
-						value: '预习课本',
-						// checked: 'true'
-					}
+				    },
+				    {
+				        name: 'flag2',
+				        value: '预习课本',
+				        // checked: 'true'
+				    }
 				],
 				currentDate: new Date().toISOString().slice(0, 10),
 				selectedDate: '',
-
+				
 				img: '../../static/slide-list/qr_code.png',
 				visible: false,
 				start_slide_x: 0,
@@ -123,8 +125,9 @@
 				LastX: 0,
 				startTime: 0,
 				screenName: '',
-				slide_x: 0,
-				list1: [{
+				slide_x:0,
+				list1 : [
+					{
 						id: 1,
 						surname: '张',
 						name: '张三',
@@ -161,7 +164,8 @@
 						slide_x: 0
 					}
 				],
-				list2: [{
+				list2 : [
+					{
 						id: 1,
 						surname: '张',
 						name: '张三',
@@ -201,6 +205,10 @@
 				btuBottom: '0',
 				secondHeight: '',
 				// checkList:[],
+				
+
+
+
 			}
 		},
 		onReady() {
@@ -228,16 +236,13 @@
 			// 	]
 			// }, 500)
 		},
-
-		onShow: function() {
+		
+		onShow: function(){
 			this.init(this.currentDate);
 		},
-		onLoad:function(){
-			
-		},
-
-		methods: {
-			init(mydate) {
+		
+		methods:{
+			init(mydate){
 				var that = this;
 				//接口
 				uni.getStorage({
@@ -246,7 +251,7 @@
 					success: function(res) {
 						console.log('这是key中的内容：' + res.data)
 						uni.request({
-							url: 'http://iflag.icube.fun:8080/onetime/findByDate/' + res.data.userid + '/' + mydate,
+							url: 'http://iflag.icube.fun:8080/onetime/findByDate/'+res.data.userid + '/' + mydate,
 							method: "GET",
 							sslVerify: false,
 							success: function(response) {
@@ -254,12 +259,11 @@
 								console.log("试一试")
 								console.log(that.currentDate)
 								that.list1 = response.data
-								that.list1.sort((a, b) => {
-									return a.finish - b.finish
+								that.list1.sort((a,b)=>{    return a.finish -b.finish
 								})
 								console.log(that.list1)
-								that.list1.forEach((item, index) => {
-									that.$set(item, 'slide_x', 0)
+								that.list1.forEach((item,index)=>{
+									that.$set(item,'slide_x',0)
 								})
 								console.log(that.list1)
 
@@ -269,9 +273,9 @@
 							}
 						});
 
-
+						
 						uni.request({
-							url: 'http://iflag.icube.fun:8080/periodic/findByDate/' + res.data.userid + '/' + mydate,
+							url: 'http://iflag.icube.fun:8080/periodic/findByDate/'+res.data.userid + '/' + mydate,
 
 							method: "GET",
 							sslVerify: false,
@@ -280,11 +284,10 @@
 								console.log("这是周期性任务")
 								console.log(that.currentDate)
 								that.list2 = response.data
-								that.list2.sort((a, b) => {
-									return a.finish - b.finish
+								that.list2.sort((a,b)=>{    return a.finish -b.finish
 								})
-								that.list2.forEach((item, index) => {
-									that.$set(item, 'slide_x', 0)
+								that.list2.forEach((item,index)=>{
+									that.$set(item,'slide_x',0)
 								})
 							},
 							fail: function(response) {
@@ -294,7 +297,7 @@
 					}
 				})
 			},
-			change(e) { // 获取当日flag内容
+			change(e) {			// 获取当日flag内容
 				console.log('change 返回:', e)
 				// 模拟动态打卡
 				//if (this.info.selected.length > 5) return
@@ -302,14 +305,23 @@
 					date: e.fulldate,
 					info: '',
 					//selectedDate = e.fulldate
-
+					
 				})
 				this.selectedDate = e.fulldate
+				console.log(this.selectedDate);
+				
+				if(this.selectedDate!=this.currentDate){
+					this.isvisible = true;
+				}else{
+					this.isvisible = false;
+				}
 				this.init(this.selectedDate)
+				
 			},
 			monthSwitch(e) {
 				console.log('monthSwitchs 返回:', e)
 			},
+
 			checkboxChange1: function(e) {
 				let app = getApp()
 				var items = this.list1;

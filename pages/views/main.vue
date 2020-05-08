@@ -1,7 +1,5 @@
-
 <template>
 	<view>
-
 		<!-- <image class="avatar" :src="partnerHead"></image> -->
 		<uni-fab :content="content" :horizontal="horizontal" :vertical="vertical" :direction="direction" @trigger="trigger"
 		 @fabClick="fabClick"></uni-fab>
@@ -43,6 +41,7 @@
 				</view>
 				<!-- 已完成的 -->
 				<view v-for="(item, key) in finishList" :key="item.id">
+
 					<view class="left">
 						<view>
 							<!-- <image src="../../static/logo.png" style="width:40px;height:40px;border-radius:50%;border:1px solid #aaa;" /> -->
@@ -54,7 +53,33 @@
 						</view>
 					</view>
 				</view>
-
+				
+				<view v-for="(item, key) in remindList1">
+					<view class="left">
+						<view>
+							<!-- <image src="../../static/logo.png" style="width:40px;height:40px;border-radius:50%;border:1px solid #aaa;" /> -->
+							<image class="avatar" :src="partnerHead"></image>
+						</view>
+						<view style="margin-left:10px;">
+							<view style="font-size:12px;color:#999;">{{ name }}</view>
+							<view class="langcon">你的Flag:"{{ item.content }}"还没有完成，快去打卡吧！</view>
+						</view>
+					</view>
+				</view>
+				
+				<view v-for="(item, key) in remindList2">
+					<view class="left">
+						<view>
+							<!-- <image src="../../static/logo.png" style="width:40px;height:40px;border-radius:50%;border:1px solid #aaa;" /> -->
+							<image class="avatar" :src="partnerHead"></image>
+						</view>
+						<view style="margin-left:10px;">
+							<view style="font-size:12px;color:#999;">{{ name }}</view>
+							<view class="langcon">有长期任务:"{{ item.content }}"等待完成，快去完成吧！</view>
+						</view>
+					</view>
+				</view>
+				
 			</view>
 		</view>
 	</view>
@@ -70,8 +95,16 @@
 			uniFab, // 悬浮按钮
 		},
 		data() {
+			const currentDate = this.getDate({
+			    format: true
+			});
 			return {
+				currentDate: currentDate,
 				finishList:[],
+				timers1:[],
+				timers2:[],
+				remindList1:[],
+				remindList2:[],
 				partnerHead: "../../static/logo.png",
 				title: 'main',
 				horizontal: 'right',
@@ -90,26 +123,38 @@
 						active: false
 					},
 				],
-				list: [{
+				list: [
+					{
 					ss: '对象',
 					con: '你今日打卡内容为:'
-				}, {
+					}, {
 					ss: '对象',
 					con: '你今日打卡内容为:'
-				}, {
+					}, {
 					ss: '对象',
 					con: '你今日打卡内容为:'
-				}, ],
-				list2: [{
+					}, 
+				],
+				list2: [
+					{
 					ss: '对象',
 					con: '你今日打卡内容为:'
-				}, ],
+					},
+				],
 
 				name: '对象',
 			}
 		},
-
+				
 		onShow: function() {
+			for(var i = 0;i<this.timers1.length;i++){
+				console.log(this.timers1[i]);
+				clearInterval(this.timers1[i]);  
+			}
+			for(var i = 0;i<this.timers2.length;i++){
+				console.log(this.timers2[i]);
+				clearInterval(this.timers2[i]);  
+			}
 			console.log("111111111111")
 			let app = getApp()
 			console.log(app.globalData.finishList)
@@ -127,49 +172,116 @@
 						sslVerify: false,
 						success: function(response) {
 							console.log(response)
-							that.list = response.data
+							console.log("试一试")
+							that.list = response.data	
 						},
 						fail: function(response) {
 							console.log(response.data);
 						}
 					});
 
+					console.log(that.currentDate)
+					uni.request({
+						
+						url: 'http://iflag.icube.fun:8080/remind/'+ res.data.userid+'/' + that.currentDate,
+						method: "GET",
+						sslVerify: false,
+						success: function(response) {
+							console.log(response.data)
+							var list1 = response.data.onetimeFlagList;
+							console.log(list1.length);
+							for(var i=0;i<list1.length;i++){
+								console.log(list1[i].remindTime + list1[i].content);
+								if(list1[i].remindTime!=null){
+									console.log(list1[i].remindTime+"不是空");
+									var timer = setInterval(function(a) {
+										const date = new Date();
+										var times = a.remindTime;
+										var timearr = times.replace(" ", ":").replace(/\:/g, "-").split("-");
+										// console.log(timearr[3]+"时"+date.getHours());
+										// console.log(timearr[4]+"分"+date.getMinutes());
+										if(timearr[3] == date.getHours()&&timearr[4]==date.getMinutes()){
+											console.log("到点了");
+											that.remindList1.push(a);
+											console.log(that.remindList)
+											// that.$set(a,'remind',1)
+											clearInterval(timer);
+										}
+									}, 30000,list1[i]);
+									that.timers1.push(timer);
+									console.log(that.timers1);
+								}	
+							}
+							
+							var list2 = response.data.periodicFlagList;
+							console.log(list2.length);
+							for(var i=0;i<list2.length;i++){
+								console.log(list2[i].remindTime + list2[i].content);
+								if(list2[i].remindTime!=null){
+									console.log(list2[i].remindTime+"不是空");
+									var timer = setInterval(function(a) {
+										const date = new Date();
+										var times = a.remindTime;
+										var timearr = times.replace(" ", ":").replace(/\:/g, "-").split("-");
+										// console.log(timearr[3]+"时"+date.getHours());
+										// console.log(timearr[4]+"分"+date.getMinutes());
+										if(timearr[3] == date.getHours()&&timearr[4]==date.getMinutes()){
+											console.log("到点了");
+											that.remindList2.push(a);
+											console.log(that.remindList)
+											clearInterval(timer);
+										}
+									}, 30000,list2[i]);
+									that.timers2.push(timer);
+									console.log(that.timers2);
+								}	
+							}
+
+						},
+						fail: function(response) {
+							console.log(response.data);
+						}
+					});
+					
 					uni.request({
 						url: 'http://iflag.icube.fun:8080/periodic/findByUserid/' + res.data.userid,
 						method: "GET",
 						sslVerify: false,
 						success: function(response) {
-							console.log(response)
+							// console.log(response)
+							// console.log("试一试2")
 							that.list2 = response.data
 						},
 						fail: function(response) {
 							console.log(response.data);
 						}
 					});
-
+					
 					/// 头像
 					uni.request({
-						url: 'http://iflag.icube.fun:8080/user/object/' + res.data.token,
+						url: 'http://iflag.icube.fun:8080/user/object/'+res.data.token,
 						method: "GET",
-						sslVerify: false,
+						sslVerify:false,
 						success: function(response) {
 							console.log(response.data);
-							that.partnerHead = "http://59.110.64.233:8080/user/object/" + res.data.token + '?pwd=' + getRandom(0, 100);
+							that.partnerHead = "http://59.110.64.233:8080/user/object/"+res.data.token+'?pwd='+getRandom(0, 100);
 							console.log(that.partnerHead);
 						},
-						fail: function(response) {}
+						fail: function(response) {
+						}
 					});
-
+					
 					// 对象昵称
 					uni.request({
-						url: 'http://iflag.icube.fun:8080/ObjectCenter/' + res.data.token,
+						url: 'http://iflag.icube.fun:8080/ObjectCenter/'+res.data.token,
 						method: "GET",
-						sslVerify: false,
+						sslVerify:false,
 						success: function(response) {
 							console.log(response)
-							if (response.data.StatusCode == 0) {
+							if(response.data.StatusCode==0){
 								that.name = response.data.Messenger.nickname;
-							} else {
+							}
+							else{
 								console.log("昵称为对象")
 							}
 						},
@@ -180,12 +292,24 @@
 				}
 			})
 		},
-		onLoad: function(data) {
-			console.log("刚刚完成的flag：")
-			console.log(data.list)
-		},
-
+		
+		
 		methods: {
+			getDate(type) {
+			    const date = new Date();
+			    let year = date.getFullYear();
+			    let month = date.getMonth() + 1;
+			    let day = date.getDate();
+			
+			    if (type === 'start') {
+			        year = year - 60;
+			    } else if (type === 'end') {
+			        year = year + 10;
+			    }
+			    month = month > 9 ? month : '0' + month;;
+			    day = day > 9 ? day : '0' + day;
+			    return `${year}-${month}-${day}`;
+			},
 			onNavigationBarButtonTap(e) {
 				console.log("success");
 				uni.navigateTo({
@@ -197,7 +321,7 @@
 			},
 			trigger(e) {
 				console.log(e)
-
+				
 				this.content[e.index].active = true
 				if (e.item.text == "一次性") {
 					console.log("11");
@@ -213,11 +337,10 @@
 			},
 		},
 	}
-
-	function getRandom(start, end, fixed = 0) {
-		let differ = end - start
-		let random = Math.random()
-		return (start + differ * random).toFixed(fixed)
+	function getRandom(start, end, fixed=0) {
+	            let differ = end - start
+	            let random = Math.random()
+	            return (start + differ * random).toFixed(fixed)
 	}
 </script>
 

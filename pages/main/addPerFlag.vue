@@ -221,7 +221,7 @@
 										content: that.inputFlag,
 										endtime: that.date,
 										repeatPeriod: that.cycleVal2,
-										remindTime: that.time1,
+										remindTime: that.currentDate+" "+ that.time1,
 										hasEndtime: that.checked3,
 										period: that.cycleVal1,
 										repeat: that.checked2,
