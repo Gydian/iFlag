@@ -10,14 +10,14 @@
 
 		<view class="text-view" @tap="showPicker('time1')">
 			提醒时间
-			<image class="enter-icon" src="../../static/image/向右.png"></image>
+			<image class="enter-icon" src="../../static/image/right.png"></image>
 			<text class="time-text">{{time1}}</text>
 		</view>
 		<w-picker mode="t" value="18:08:05" :current="true" @confirm="onConfirm1($event,'time1')" ref="time1"></w-picker>
 
 		<view class="text-view" @tap="showPop('cycle1')">
 			重复周期
-			<image class="enter-icon" src="../../static/image/向右.png"></image>
+			<image class="enter-icon" src="../../static/image/right.png"></image>
 			<text class="time-text">{{cycle1}}</text>
 		</view>
 		<uni-popup ref="cycle1" type="bottom">
@@ -36,14 +36,14 @@
 
 		<view class="text-view" @tap="showPicker('time2')">
 			提醒时间
-			<image class="enter-icon" src="../../static/image/向右.png"></image>
+			<image class="enter-icon" src="../../static/image/right.png"></image>
 			<text class="time-text">{{time2}}</text>
 		</view>
 		<w-picker mode="time" value="18:08:05" :current="true" @confirm="onConfirm2($event,'time2')" ref="time2"></w-picker>
 
 		<view class="text-view" @tap="showPop('cycle2')">
 			重复周期
-			<image class="enter-icon" src="../../static/image/向右.png"></image>
+			<image class="enter-icon" src="../../static/image/right.png"></image>
 			<text class="time-text">{{cycle2}}</text>
 		</view>
 		<uni-popup ref="cycle2" type="bottom">

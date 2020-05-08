@@ -6,7 +6,7 @@
 		</view>
 		<view class="text-view"  @tap="showPop('cycle1')">
 			周期时长
-			<image class="enter-icon" src="../../static/image/向右.png"></image>
+			<image class="enter-icon" src="../../static/image/right.png"></image>
 			<text class="time-text">{{cycle1}}</text>
 		</view>
 		<uni-popup ref="cycle1" type="bottom">
@@ -24,7 +24,7 @@
 		</view>
 		<view v-if="viewre == true" class="text-view" @tap="showPicker('time1')">
 			提醒时间
-			<image class="enter-icon" src="../../static/image/向右.png"></image>
+			<image class="enter-icon" src="../../static/image/right.png"></image>
 			<text class="time-text">{{time1}}</text>
 		</view>
 		<w-picker mode="t" value="18:08:05" :current="true" @confirm="onConfirm1($event,'time1')" ref="time1"></w-picker>
@@ -35,7 +35,7 @@
 		</view>
 		<view v-if="viewvi == true" class="text-view"  @tap="showPop('cycle2')" id="alarmInterval">
 			提醒间隔
-			<image class="enter-icon" src="../../static/image/向右.png"></image>
+			<image class="enter-icon" src="../../static/image/right.png"></image>
 			<text class="time-text">{{cycle2}}</text>
 		</view>
 		<uni-popup ref="cycle2" type="bottom">
@@ -53,7 +53,7 @@
 		</view>
 		<view v-if="viewen == true" class="text-view">
 			终止时间
-			<image class="enter-icon" src="../../static/image/向右.png"></image>
+			<image class="enter-icon" src="../../static/image/right.png"></image>
 			<KXDateTime class="enddate-view" :data='date' :end='endDate' :start='startDate' @rundata='kxdatetime'></KXDateTime>
 			<!-- <picker mode="date" :value="date" :start="startDate" :end="endDate" @change="bindDateChange">
 			    <view class="enddate-view">{{date}}</view>

@@ -7,16 +7,16 @@
 				</view>
 				<view class="name" @click="changeDoc">{{name}}</view>
 				<view @click="changeDoc">
-					<image class="enter-icon" src="../../static/image/向右.png"></image>
+					<image class="enter-icon" src="../../static/image/right.png"></image>
 				</view>
 			</view>
 			<button class="navigate-btn" @click="checkUpdate()">
 				<view>
-					<image class="icon" src="../../static/image/更新.png"></image>
+					<image class="icon" src="../../static/image/refresh.png"></image>
 				</view>
 				<view class="text">检查更新</view>
 				<view>
-					<image class="enter-icon" src="../../static/image/向右.png"></image>
+					<image class="enter-icon" src="../../static/image/right.png"></image>
 				</view>
 			</button>
 			<uni-popup ref="popup" type="bottom">
@@ -29,44 +29,44 @@
 			<navigator url="../personal/help" open-type="navigate">
 				<button class="navigate-btn">
 					<view>
-						<image class="icon" src="../../static/image/帮助.png"></image>
+						<image class="icon" src="../../static/image/help.png"></image>
 					</view>
 					<view class="text">帮助与反馈</view>
 					<view>
-						<image class="enter-icon" src="../../static/image/向右.png"></image>
+						<image class="enter-icon" src="../../static/image/right.png"></image>
 					</view>
 				</button>
 			</navigator>
 			<navigator url="../personal/remind" open-type="navigate">
 				<button class="navigate-btn">
 					<view>
-						<image class="icon" src="../../static/image/闹钟.png"></image>
+						<image class="icon" src="../../static/image/clock.png"></image>
 					</view>
 					<view class="text">打卡提醒</view>
 					<view>
-						<image class="enter-icon" src="../../static/image/向右.png"></image>
+						<image class="enter-icon" src="../../static/image/right.png"></image>
 					</view>
 				</button>
 			</navigator>
 			<navigator url="../personal/about" open-type="navigate">
 				<button class="navigate-btn">
 					<view>
-						<image class="icon" src="../../static/image/关于.png"></image>
+						<image class="icon" src="../../static/image/about.png"></image>
 					</view>
 					<view class="text">关于我们</view>
 					<view>
-						<image class="enter-icon" src="../../static/image/向右.png"></image>
+						<image class="enter-icon" src="../../static/image/right.png"></image>
 					</view>
 				</button>
 			</navigator>
 			<navigator url="../personal/achievement" open-type="navigate">
 				<button class="navigate-btn">
 					<view>
-						<image class="icon" src="../../static/image/分享－理财成就.png"></image>
+						<image class="icon" src="../../static/image/share1.png"></image>
 					</view>
 					<view class="text">我的成就</view>
 					<view>
-						<image class="enter-icon" src="../../static/image/向右.png"></image>
+						<image class="enter-icon" src="../../static/image/right.png"></image>
 					</view>
 				</button>
 			</navigator>

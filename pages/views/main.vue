@@ -62,14 +62,14 @@
 				vertical: 'bottom',
 				direction: 'horizontal',
 				content: [{
-						iconPath: '/static/image/一次性任务.png',
-						selectedIconPath: '/static/image/一次性任务.png',
+						iconPath: '/static/image/once.png',
+						selectedIconPath: '/static/image/once.png',
 						text: '一次性',
 						active: false
 					},
 					{
-						iconPath: '/static/image/周期性任务.png',
-						selectedIconPath: '/static/image/周期性任务.png',
+						iconPath: '/static/image/periodic.png',
+						selectedIconPath: '/static/image/periodic.png',
 						text: '周期性',
 						active: false
 					},

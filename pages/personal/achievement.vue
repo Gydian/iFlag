@@ -17,7 +17,7 @@
 					<view class="footer-box">
 						<view @click="share">
 							<text class="footer-box__item">分享</text>
-							<image class="foot-icon" src="../../static/image/分享.png"></image>
+							<image class="foot-icon" src="../../static/image/share.png"></image>
 						</view>
 					</view>
 				</template>
@@ -82,7 +82,7 @@
 				key: 'email',
 				success: function(res) {
 					uni.request({
-						url: 'http://59.110.64.233:8080/user/achievements/' + res.data,
+						url: 'http://59.110.64.233:8080/user/achievements/' + res.data.mail,
 						method: "GET",
 						sslVerify: false,
 						success: function(response) {

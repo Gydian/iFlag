@@ -6,7 +6,7 @@
 		<view class="avatar-view">
 			<view class="text">头像</view>
 			<view>
-				<image class="enter-icon" @click="clk(1)" src="../../static/image/向右.png"></image>
+				<image class="enter-icon" @click="clk(1)" src="../../static/image/right.png"></image>
 			</view>
 			<view>
 				<image class="avatar" :src="urls[1]"></image>
