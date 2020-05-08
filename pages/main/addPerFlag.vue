@@ -326,10 +326,13 @@
 				if(this.checked2 == true){
 					this.viewvi = true;
 					console.log("viewvi = true");
+					this.cycle2 = '每天';
+					
 				}
 				else if(this.checked2 == false){
 					this.viewvi = false;
 					console.log("viewvi = false");
+					this.cycle2 = '';
 				}
 			},
 			onChagne3(e) {

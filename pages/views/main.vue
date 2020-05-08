@@ -20,7 +20,9 @@
 							<view style="margin-left:10px;">
 								<view style="font-size:12px;color:#999;">{{ name }}</view>
 								<!-- <view style="font-size:12px;color:#999;">{{ item.finish }}</view> -->
-								<view class="langcon">{{ item.content }}</view>
+								<view class="langcon">亲爱的，你还没完成的任务有：
+								{{ item.content }},
+								截止时间为：{{ item.endtime }}</view>
 							</view>
 						</view>
 					</view>
@@ -246,4 +248,9 @@
 		padding: 3px 10px 3px 10px;
 		background: #f8f8f8;
 	}
+	uni-modal .uni-modal__bd{      
+	
+	        white-space: pre-wrap;      
+	
+	    }
 </style>
