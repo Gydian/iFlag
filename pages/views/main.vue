@@ -74,7 +74,6 @@
 						active: false
 					},
 				],
-
 				list: [
 					{
 					ss: '对象',
@@ -159,7 +158,6 @@
 			},
 			fabClick() {
 				console.log("success");
-
 			},
 			trigger(e) {
 				console.log(e)
@@ -177,9 +175,7 @@
 					});
 				}
 			},
-
 		},
-
 	}
 	function getRandom(start, end, fixed=0) {
 	            let differ = end - start
@@ -195,7 +191,6 @@
 		border-radius: 50%;
 		border: 1px solid #aaa;
 	}
-
 	
 	.center {
 		text-align: center;
@@ -204,7 +199,6 @@
 		margin-top: 10px;
 		letter-spacing: 1px;
 	}
-
 	.left {
 		display: flex;
 		flex-wrap: nowrap;
@@ -212,7 +206,6 @@
 		margin-left: 10px;
 		margin-top: 10px;
 	}
-
 	.right {
 		display: flex;
 		flex-wrap: nowrap;
@@ -220,7 +213,6 @@
 		margin-right: 10px;
 		margin-top: 10px;
 	}
-
 	.langcon {
 		border: 1px solid #333333;
 		font-size: 14px;
@@ -233,6 +225,4 @@
 		padding: 3px 10px 3px 10px;
 		background: #f8f8f8;
 	}
-
-
 </style>
