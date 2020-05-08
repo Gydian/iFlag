@@ -36,7 +36,7 @@
 						</view>
 						<view style="margin-left:10px; height:auto">
 							<view style="font-size:12px;color:#999;">{{ name }}</view>
-							<view class="langcon">你的任务“{{ item.content }}”还没有完成哟，截止时间是：{{ item.endtime }}</view>
+							<view class="langcon">你的任务“{{ item.content }}”还没有完成哟，养成好习惯从每天做起！</view>
 						</view>
 					</view>
 

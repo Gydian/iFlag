@@ -35,7 +35,7 @@
 		<uni-popup ref="cycle1" type="bottom">
 			<view class="pop-view">
 				<view class="pop-text">提醒间隔</view>
-				<button class="pop-btn" @click="chooseCycle1('仅一次')">仅一次</button>
+				<!-- <button class="pop-btn" @click="chooseCycle1('仅一次')">仅一次</button> -->
 				<button class="pop-btn" @click="chooseCycle1('每天')">每天</button>
 				<button class="pop-btn" @click="chooseCycle1('周一至周五')">周一至周五</button>
 			</view>
@@ -71,8 +71,8 @@
 				inputFlag: '',
 				currentDate: currentDate,
 				date: currentDate,	// endTime
-				checked1: false,
-				checked2: false,
+				checked1: false,	// 多次提醒
+				checked2: false,	// 是否提醒
 				isfinished: false,
 				time1: null,
 				cycle1: null,
@@ -297,10 +297,12 @@
 				if(this.checked1 == true){
 					this.viewvi = true;
 					console.log("viewvi = true");
+					this.cycle1 = '每天';
 				}
 				else if(this.checked1 == false){
 					this.viewvi = false;
 					console.log("viewvi = false");
+					this.cycle1 = '仅一次';
 				}
 			},
 			onChagne2(e) {		// 是否提醒
@@ -316,6 +318,31 @@
 			},
 			onConfirm1(res, type) {	// 选择提醒时间
 				this.time1 = res.result;
+				
+				var date = new Date();
+				var seperator = "-"; // 如果想要其他格式 只需 修改这里 
+				var year = date.getFullYear();
+				var month = date.getMonth() + 1;
+				var month1 = month < 10 ? "0" + month : month;
+				var day = date.getDate() + 1;
+				var day1 = day < 10 ? "0" + day : day;
+				
+				var hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+				var minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+				var second = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+				var currentTime = hour + ":" + minute + ":" + second;
+				var currentDate2 = year + seperator + month1 + seperator + day1;
+
+				console.log("当前时间" + currentTime);
+				if(currentTime < this.time1){
+					this.time1 = this.currentDate + " " + res.result;
+					console.log("提醒时间：" + this.time1)
+				}
+				else{
+					this.time1 = currentDate2 + " " + res.result;
+					console.log("提醒时间：" + this.time1)
+				}
+				
 			},
 			chooseCycle1(msg) {		// 选择多次提醒周期
 				this.cycle1 = msg;

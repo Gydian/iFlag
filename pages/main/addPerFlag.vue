@@ -12,7 +12,6 @@
 		<uni-popup ref="cycle1" type="bottom">
 			<view class="pop-view">
 				<view class="pop-text">周期时长</view>
-				<button class="pop-btn" @click="chooseCycle1('仅一次')">仅一次</button>
 				<button class="pop-btn" @click="chooseCycle1('每天')">每天</button>
 				<button class="pop-btn" @click="chooseCycle1('周一至周五')">周一至周五</button>
 			</view>
@@ -41,7 +40,7 @@
 		<uni-popup ref="cycle2" type="bottom">
 			<view class="pop-view">
 				<view class="pop-text">提醒间隔</view>
-				<button class="pop-btn" @click="chooseCycle2('仅一次')">仅一次</button>
+				<!-- <button class="pop-btn" @click="chooseCycle2('仅一次')">仅一次</button> -->
 				<button class="pop-btn" @click="chooseCycle2('每天')">每天</button>
 				<button class="pop-btn" @click="chooseCycle2('周一至周五')">周一至周五</button>
 			</view>
@@ -179,9 +178,6 @@
 					switch (this.cycle1) {
 						case '每天':
 							this.cycleVal1 = 'everyday'
-							break;
-						case '仅一次':
-							this.cycleVal1 = 'once'
 							break;
 						case '周一至周五':
 							this.cycleVal1 = 'weekday'
@@ -332,7 +328,7 @@
 				else if(this.checked2 == false){
 					this.viewvi = false;
 					console.log("viewvi = false");
-					this.cycle2 = '';
+					this.cycle2 = '仅一次';
 				}
 			},
 			onChagne3(e) {
@@ -348,6 +344,30 @@
 			},
 			onConfirm1(res, type) {
 				this.time1 = res.result;
+				
+				var date = new Date();
+				var seperator = "-"; // 如果想要其他格式 只需 修改这里 
+				var year = date.getFullYear();
+				var month = date.getMonth() + 1;
+				var month1 = month < 10 ? "0" + month : month;
+				var day = date.getDate() + 1;
+				var day1 = day < 10 ? "0" + day : day;
+				
+				var hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+				var minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+				var second = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+				var currentTime = hour + ":" + minute + ":" + second;
+				var currentDate2 = year + seperator + month1 + seperator + day1;
+				
+				console.log("当前时间" + currentTime);
+				if(currentTime < this.time1){
+					this.time1 = this.currentDate + " " + res.result;
+					console.log("提醒时间：" + this.time1)
+				}
+				else{
+					this.time1 = currentDate2 + " " + res.result;
+					console.log("提醒时间：" + this.time1)
+				}
 			},
 			chooseCycle1(msg) {
 				this.cycle1 = msg;
