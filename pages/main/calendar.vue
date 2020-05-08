@@ -10,73 +10,74 @@
 			<uni-section title="一次性任务" type="line" style="height: 30px;"></uni-section>
 			<!-- 数据列表 -->
 			<view class="list-box">
-	<!-- 			<view style="margin-top: 90upx;"></view> -->
-	<checkbox-group class="uni-list" @change="checkboxChange1">
+				<!-- 			<view style="margin-top: 90upx;"></view> -->
+				<checkbox-group class="uni-list" @change="checkboxChange1">
 
-		
-				<view class="container_of_slide" v-for="(item,index) in list1" :key="index">
-					<view class="slide_list" @touchstart="touchStart1($event,index)" @touchend="touchEnd1($event,index)" @touchmove="touchMove1($event,index)"
-					 @tap="recover1(index)" :style="{transform:'translate3d('+item.slide_x+'px, 0, 0)'}">
-						<view class="now-message-info" hover-class="uni-list-cell-hover" :style="{width:Screen_width+'px'}" @click="getDetail(item)">
-							<checkbox :value="item.id" :checked="item.finish"></checkbox>
-						
-							<view class="list-right">
-								<view class="list-title" v-if="item.finish==true" style="color: #D3D3D3;">{{item.content}}</view>
-								<view class="list-title" v-else="item.finish==false">{{item.content}}</view>
-							</view>
-							
-						</view>
 
-						<view class="group-btn">
-							<view class="top btn-div" @tap="top1(item.id)">
-								编辑
+					<view class="container_of_slide" v-for="(item,index) in list1" :key="index">
+						<view class="slide_list" @touchstart="touchStart1($event,index)" @touchend="touchEnd1($event,index)" @touchmove="touchMove1($event,index)"
+						 @tap="recover1(index)" :style="{transform:'translate3d('+item.slide_x+'px, 0, 0)'}">
+							<view class="now-message-info" hover-class="uni-list-cell-hover" :style="{width:Screen_width+'px'}" @click="getDetail(item)">
+								<checkbox :value="item.id" :checked="item.finish"></checkbox>
+
+								<view class="list-right">
+									<view class="list-title" v-if="item.finish==true" style="color: #D3D3D3;">{{item.content}}</view>
+									<view class="list-title" v-else="item.finish==false">{{item.content}}</view>
+								</view>
+
 							</view>
-							<view class="removeM btn-div" @tap="removeM1(index, item.id)">
-								删除
+
+							<view class="group-btn">
+								<view class="top btn-div" @tap="top1(item.id)">
+									编辑
+								</view>
+								<view class="removeM btn-div" @tap="removeM1(index, item.id)">
+									删除
+								</view>
 							</view>
+							<view style="clear:both"></view>
 						</view>
-						<view style="clear:both"></view>
 					</view>
-				</view>
 				</checkbox-group>
 			</view>
 			<uni-section title="长期任务" type="line" style="height: 30px;"></uni-section>
 			<view class="list-box">
-			<!-- 			<view style="margin-top: 90upx;"></view> -->
-			<checkbox-group class="uni-list" @change="checkboxChange2">
-				
-						<view class="container_of_slide" v-for="(item,index) in list2" :key="index">
-							<view class="slide_list" @touchstart="touchStart2($event,index)" @touchend="touchEnd2($event,index)" @touchmove="touchMove2($event,index)"
-							 @tap="recover2(index)" :style="{transform:'translate3d('+item.slide_x+'px, 0, 0)'}">
-								<view class="now-message-info" hover-class="uni-list-cell-hover" :style="{width:Screen_width+'px'}" @click="getDetail(item)">
-									<checkbox :value="item.id" :checked="item.finish"></checkbox>
-								
-									<view class="list-right">
-										<view class="list-title" v-if="item.finish==true" style="color: #D3D3D3;">{{item.content}}</view>
-										<view class="list-title" v-else="item.finish==false">{{item.content}}</view>
-									</view>
-									
-								</view>
-								<view class="group-btn">
-									<view class="top btn-div" @tap="top2(item.id)">
-										编辑
-									</view>
-									<view class="removeM btn-div" @tap="removeM2(index, item.id)">
-										删除
-									</view>
-								</view>
-								<view style="clear:both"></view>
-							</view>
-						</view>
-						</checkbox-group>
-					</view>
+				<!-- 			<view style="margin-top: 90upx;"></view> -->
+				<checkbox-group class="uni-list" @change="checkboxChange2">
 
-			
+					<view class="container_of_slide" v-for="(item,index) in list2" :key="index">
+						<view class="slide_list" @touchstart="touchStart2($event,index)" @touchend="touchEnd2($event,index)" @touchmove="touchMove2($event,index)"
+						 @tap="recover2(index)" :style="{transform:'translate3d('+item.slide_x+'px, 0, 0)'}">
+							<view class="now-message-info" hover-class="uni-list-cell-hover" :style="{width:Screen_width+'px'}" @click="getDetail(item)">
+								<checkbox :value="item.id" :checked="item.finish"></checkbox>
+
+								<view class="list-right">
+									<view class="list-title" v-if="item.finish==true" style="color: #D3D3D3;">{{item.content}}</view>
+									<view class="list-title" v-else="item.finish==false">{{item.content}}</view>
+								</view>
+
+							</view>
+							<view class="group-btn">
+								<view class="top btn-div" @tap="top2(item.id)">
+									编辑
+								</view>
+								<view class="removeM btn-div" @tap="removeM2(index, item.id)">
+									删除
+								</view>
+							</view>
+							<view style="clear:both"></view>
+						</view>
+					</view>
+				</checkbox-group>
+			</view>
+
+
 		</view>
 	</view>
 </template>
 
 <script>
+	import uniNavBar from "@/components/uni-nav-bar/uni-nav-bar.vue"
 	import uniCalendar from '@/components/uni-calendar/uni-calendar.vue'
 	import uniSection from '@/components/uni-section/uni-section.vue'
 	import mSearch from '@/components/m-search/m-search.vue'
@@ -84,7 +85,8 @@
 		components: {
 			uniCalendar,
 			uniSection,
-			mSearch
+			mSearch,
+			uniNavBar,
 		},
 		computed: {
 			Screen_width() {
@@ -92,27 +94,27 @@
 			}
 		},
 		data() {
-			return{
+			return {
+				app:'',
 				showCalendar: false,
 				info: {
 					date: '2019-08-15',
 					insert: false,
 					selected: []
 				},
-				checkboxItems: [
-					{
+				checkboxItems: [{
 						name: 'flag1',
 						value: '写作业'
-				    },
-				    {
-				        name: 'flag2',
-				        value: '预习课本',
-				        // checked: 'true'
-				    }
+					},
+					{
+						name: 'flag2',
+						value: '预习课本',
+						// checked: 'true'
+					}
 				],
 				currentDate: new Date().toISOString().slice(0, 10),
 				selectedDate: '',
-				
+
 				img: '../../static/slide-list/qr_code.png',
 				visible: false,
 				start_slide_x: 0,
@@ -121,9 +123,8 @@
 				LastX: 0,
 				startTime: 0,
 				screenName: '',
-				slide_x:0,
-				list1 : [
-					{
+				slide_x: 0,
+				list1: [{
 						id: 1,
 						surname: '张',
 						name: '张三',
@@ -160,8 +161,7 @@
 						slide_x: 0
 					}
 				],
-				list2 : [
-					{
+				list2: [{
 						id: 1,
 						surname: '张',
 						name: '张三',
@@ -228,13 +228,16 @@
 			// 	]
 			// }, 500)
 		},
-		
-		onShow: function(){
+
+		onShow: function() {
 			this.init(this.currentDate);
 		},
-		
-		methods:{
-			init(mydate){
+		onLoad:function(){
+			
+		},
+
+		methods: {
+			init(mydate) {
 				var that = this;
 				//接口
 				uni.getStorage({
@@ -243,7 +246,7 @@
 					success: function(res) {
 						console.log('这是key中的内容：' + res.data)
 						uni.request({
-							url: 'http://iflag.icube.fun:8080/onetime/findByDate/'+res.data.userid + '/' + mydate,
+							url: 'http://iflag.icube.fun:8080/onetime/findByDate/' + res.data.userid + '/' + mydate,
 							method: "GET",
 							sslVerify: false,
 							success: function(response) {
@@ -251,11 +254,12 @@
 								console.log("试一试")
 								console.log(that.currentDate)
 								that.list1 = response.data
-								that.list1.sort((a,b)=>{    return a.finish -b.finish
+								that.list1.sort((a, b) => {
+									return a.finish - b.finish
 								})
 								console.log(that.list1)
-								that.list1.forEach((item,index)=>{
-									that.$set(item,'slide_x',0)
+								that.list1.forEach((item, index) => {
+									that.$set(item, 'slide_x', 0)
 								})
 								console.log(that.list1)
 
@@ -265,9 +269,9 @@
 							}
 						});
 
-						
+
 						uni.request({
-							url: 'http://iflag.icube.fun:8080/periodic/findByDate/'+res.data.userid + '/' + mydate,
+							url: 'http://iflag.icube.fun:8080/periodic/findByDate/' + res.data.userid + '/' + mydate,
 
 							method: "GET",
 							sslVerify: false,
@@ -276,10 +280,11 @@
 								console.log("这是周期性任务")
 								console.log(that.currentDate)
 								that.list2 = response.data
-								that.list2.sort((a,b)=>{    return a.finish -b.finish
+								that.list2.sort((a, b) => {
+									return a.finish - b.finish
 								})
-								that.list2.forEach((item,index)=>{
-									that.$set(item,'slide_x',0)
+								that.list2.forEach((item, index) => {
+									that.$set(item, 'slide_x', 0)
 								})
 							},
 							fail: function(response) {
@@ -289,7 +294,7 @@
 					}
 				})
 			},
-			change(e) {			// 获取当日flag内容
+			change(e) { // 获取当日flag内容
 				console.log('change 返回:', e)
 				// 模拟动态打卡
 				//if (this.info.selected.length > 5) return
@@ -297,35 +302,43 @@
 					date: e.fulldate,
 					info: '',
 					//selectedDate = e.fulldate
-					
+
 				})
 				this.selectedDate = e.fulldate
-				this.init(this.selectedDate)	
+				this.init(this.selectedDate)
 			},
 			monthSwitch(e) {
 				console.log('monthSwitchs 返回:', e)
 			},
 			checkboxChange1: function(e) {
-				var items = this.list1; 
+				let app = getApp()
+				var items = this.list1;
 				var checked = e.target.value
 				for (var i = 0, lenI = this.list1.length; i < lenI; ++i) {
 					const item = this.list1[i]
-					if(checked.indexOf(this.list1[i].id) !== -1){
-						this.$set(item,'finish',true)
-						console.log("111");
-					}else{
-						this.$set(item,'finish',false)
+					if (checked.indexOf(this.list1[i].id) !== -1) {
+						if(item.finish==false){
+							app.globalData.finishList.push(item);
+						}
+						this.$set(item, 'finish', true)
+					} else {
+						// if(item.finish==true)
+						// this.finishList = this.finishList.filter(o => o.id != item.id);
+						this.$set(item, 'finish', false)
 					}
 					console.log(this.list1[i]);
+					console.log("完成：")
+					console.log(app.globalData.finishList);
+					
 					uni.request({
 						url: 'http://iflag.icube.fun:8080/onetime/update',
-						dataType:"JSON",
+						dataType: "JSON",
 						data: this.list1[i],
 						method: "PUT",
 						header: {
 							"Content-Type": "application/json"
 						},
-						
+
 						sslVerify: false,
 						success: function(res) {
 							console.log(res.data)
@@ -337,26 +350,33 @@
 				}
 			},
 			checkboxChange2: function(e) {
+				let app = getApp()
 				var items = this.list2;
 				var checked = e.target.value
 				for (var i = 0, lenI = this.list2.length; i < lenI; ++i) {
 					const item = this.list2[i]
-					if(checked.indexOf(this.list2[i].id) !== -1){
-						this.$set(item,'finish',true)
-						console.log("222");
-					}else{
-						this.$set(item,'finish',false)
+					if (checked.indexOf(this.list2[i].id) !== -1) {
+						if(item.finish==false){
+							app.globalData.finishList.push(item);
+						}
+						this.$set(item, 'finish', true)
+					} else {
+						// if(item.finish==true)
+						// this.finishList = this.finishList.filter(o => o.id != item.id);
+						this.$set(item, 'finish', false)
 					}
 					console.log(this.list2[i]);
+					console.log("完成：")
+					console.log(app.globalData.finishList);
 					uni.request({
 						url: 'http://iflag.icube.fun:8080/periodic/update',
-						dataType:"JSON",
+						dataType: "JSON",
 						data: this.list2[i],
 						method: "PUT",
 						header: {
 							"Content-Type": "application/json"
 						},
-						
+
 						sslVerify: false,
 						success: function(res) {
 							console.log(res.data)
@@ -366,29 +386,29 @@
 						}
 					});
 				}
-			    // console.log(e.target.value)
-			    // var checked = e.target.value
-			    // var changed = {}
-			    // for (var i = 0; i < this.list2.length; i++) {
-			    //     if (checked.indexOf(this.list2[i].name) !== -1) {
-			    //         changed['list2[' + i + '].checked'] = true
-			    //     } else {
-			    //         changed['list2[' + i + '].checked'] = false
-			    //     }
-			    // }
+				// console.log(e.target.value)
+				// var checked = e.target.value
+				// var changed = {}
+				// for (var i = 0; i < this.list2.length; i++) {
+				//     if (checked.indexOf(this.list2[i].name) !== -1) {
+				//         changed['list2[' + i + '].checked'] = true
+				//     } else {
+				//         changed['list2[' + i + '].checked'] = false
+				//     }
+				// }
 			},
-			
-			cancelEvent(){
-					this.visible = false
+
+			cancelEvent() {
+				this.visible = false
 			},
 			search(e, val) {
 				this.screenName = e
 				console.log('点击搜索')
 			},
-			addCustomer(){
+			addCustomer() {
 				console.log('点击添加按钮')
 			},
-			getDetail(item){
+			getDetail(item) {
 				console.log('查看详情')
 			},
 			// 滑动开始
@@ -510,13 +530,13 @@
 			// 编辑
 			top1(id) {
 				uni.redirectTo({
-					url: './addFlag?id=11&flagid='+id
+					url: './addFlag?id=11&flagid=' + id
 				});
 			},
 			top2(id) {
 				console.log(id)
 				uni.redirectTo({
-					url: './addPerFlag?id=11&flagid='+id
+					url: './addPerFlag?id=11&flagid=' + id
 				});
 			},
 			// 删除
@@ -529,28 +549,27 @@
 					content: '确定要删除该信息吗？',
 					confirmText: '删除',
 					confirmColor: '#ff3b32',
-					success: function (res) {
+					success: function(res) {
 						if (res.confirm) {
 							console.log('用户点击确定')
 							uni.request({
-								url: 'http://iflag.icube.fun:8080/onetime/deleteById/'+id,
-							
+								url: 'http://iflag.icube.fun:8080/onetime/deleteById/' + id,
+
 								method: "DELETE",
 								sslVerify: false,
 								success: function(response) {
 									console.log(response.data)
-									if(response.data){
+									if (response.data) {
 										self.list1.splice(index, 1)
 										uni.showToast({
 											icon: "success",
 											title: '操作成功!',
 											duration: 2000
 										});
-									}
-									else{
+									} else {
 										uni.showModal({
 											content: "删除失败",
-											showCancel:false
+											showCancel: false
 										})
 									}
 								},
@@ -558,7 +577,7 @@
 									console.log(response.data);
 								}
 							});
-							
+
 						} else if (res.cancel) {
 							console.log('用户点击取消')
 						}
@@ -573,28 +592,27 @@
 					content: '确定要删除该信息吗？',
 					confirmText: '删除',
 					confirmColor: '#ff3b32',
-					success: function (res) {
+					success: function(res) {
 						if (res.confirm) {
 							console.log('用户点击确定')
 							uni.request({
-								url: 'http://iflag.icube.fun:8080/periodic/deleteById/'+id,
-							
+								url: 'http://iflag.icube.fun:8080/periodic/deleteById/' + id,
+
 								method: "DELETE",
 								sslVerify: false,
 								success: function(response) {
 									console.log(response.data)
-									if(response.data){
+									if (response.data) {
 										self.list2.splice(index, 1)
 										uni.showToast({
 											icon: "success",
 											title: '操作成功!',
 											duration: 2000
 										});
-									}
-									else{
+									} else {
 										uni.showModal({
 											content: "删除失败",
-											showCancel:false
+											showCancel: false
 										})
 									}
 								},
@@ -602,68 +620,71 @@
 									console.log(response.data);
 								}
 							});
-							
+
 						} else if (res.cancel) {
 							console.log('用户点击取消')
 						}
 					}
 				});
 			}
-		}		
+		}
 	}
 </script>
 
 <style scoped>
-	.label-view{
+	.label-view {
 		border-bottom: 1px solid lightgray;
 		border-radius: 0;
 		height: 15px;
 	}
-	
-	.index{
+
+	.index {
 		background: #F8F8F8;
 	}
-	.list-box{
+
+	.list-box {
 		padding: 20upx 0;
 	}
+
 	.container_of_slide {
 		width: 100%;
 		overflow: hidden;
 	}
-	
+
 	.slide_list {
 		transition: all 100ms;
 		transition-timing-function: ease-out;
 		min-width: 200%;
 		height: 100upx;
 	}
-	
+
 	.now-message-info {
-		box-sizing:border-box;
+		box-sizing: border-box;
 		display: flex;
 		align-items: center;
 		/* justify-content: space-between; */
 		font-size: 16px;
-		clear:both;
+		clear: both;
 		height: 100upx;
 		padding: 0 30upx;
 		margin-bottom: 20upx;
 		background: #FFFFFF;
 	}
+
 	.now-message-info,
 	.group-btn {
 		float: left;
 	}
-	
+
 	.group-btn {
 		display: flex;
 		flex-direction: row;
 		height: 100upx;
 		min-width: 100upx;
 		align-items: center;
-	
+
 	}
-	
+
 	.group-btn .btn-div {
 		height: 100upx;
 		color: #fff;
@@ -672,58 +693,63 @@
 		font-size: 34upx;
 		line-height: 100upx;
 	}
-	
+
 	.group-btn .top {
 		background-color: #c4c7cd;
 	}
-	
+
 	.group-btn .removeM {
 		background-color: #ff3b32;
 	}
-	
-	
-	.icon-circle{
+
+
+	.icon-circle {
 		background: #3396fb;
 		border-radius: 100%;
-		width:100upx;
+		width: 100upx;
 		height: 100upx;
-		line-height:100upx;
-		text-align:center;
+		line-height: 100upx;
+		text-align: center;
 		color: #FFFFFF;
 		font-weight: bold;
 		font-size: 20px;
 		float: left;
 	}
-	.list-right{
+
+	.list-right {
 		float: left;
 		margin-left: 25upx;
 		margin-right: 30upx;
 	}
-	.list-right-1{
+
+	.list-right-1 {
 		float: right;
 		color: #A9A9A9;
 	}
-	.list-title{
+
+	.list-title {
 		width: 350upx;
-		line-height:1.5;
-		overflow:hidden;
+		line-height: 1.5;
+		overflow: hidden;
 		margin-bottom: 0upx;
-		color:#333;
-		display:-webkit-box;
-		-webkit-box-orient:vertical;
-		-webkit-line-clamp:1;
-		overflow:hidden;
+		color: #333;
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 1;
+		overflow: hidden;
 	}
-	.list-detail{
+
+	.list-detail {
 		width: 350upx;
 		font-size: 14px;
 		color: #a9a9a9;
-		display:-webkit-box;
-		-webkit-box-orient:vertical;
-		-webkit-line-clamp:1;
-		overflow:hidden;
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 1;
+		overflow: hidden;
 	}
-	.button-box{
+
+	.button-box {
 		box-sizing: border-box;
 		position: fixed;
 		left: 0;
@@ -732,7 +758,8 @@
 		z-index: 998;
 		background: #F8F8F8;
 	}
-	.btn-sub{
+
+	.btn-sub {
 		display: -webkit-box;
 		display: -webkit-flex;
 		display: flex;
@@ -750,17 +777,20 @@
 		background: #F8F8F8;
 		color: #7fb2ff;
 	}
-	.empty{
+
+	.empty {
 		color: #999999;
 	}
-	.plusempty-img{
+
+	.plusempty-img {
 		width: 50upx;
 		height: 50upx;
 		margin-top: 30upx;
 	}
-.uni-section{
-	margin-top: 0px;
-}
+
+	.uni-section {
+		margin-top: 0px;
+	}
 
 
 
@@ -768,7 +798,9 @@
 	.uni-list-cell-hover {
 		background-color: #eeeeee;
 	}
-	.bottom-btn-hover{
-		background: #0564c7!important;;
+
+	.bottom-btn-hover {
+		background: #0564c7 !important;
+		;
 	}
 </style>
