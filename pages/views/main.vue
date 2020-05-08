@@ -1,6 +1,5 @@
 <template>
 	<view>
-
 		<!-- <image class="avatar" :src="partnerHead"></image> -->
 		<uni-fab :content="content" :horizontal="horizontal" :vertical="vertical" :direction="direction" @trigger="trigger"
 		 @fabClick="fabClick"></uni-fab>
@@ -17,10 +16,10 @@
 								<!-- <image src="this.partnerHead" style="width:40px;height:40px;border-radius:50%;border:1px solid #aaa;" /> -->
 								<image class="avatar" :src="partnerHead"></image>
 							</view>
-							<view style="margin-left:10px;">
+							<view style="margin-left:10px; height:auto">
 								<view style="font-size:12px;color:#999;">{{ name }}</view>
 								<!-- <view style="font-size:12px;color:#999;">{{ item.finish }}</view> -->
-								<view class="langcon">{{ item.content }}</view>
+								<view class="langcon">你的任务“{{ item.content }}”还没有完成哟，截止时间是：{{ item.endtime }}</view>
 							</view>
 						</view>
 					</view>
@@ -33,9 +32,24 @@
 							<!-- <image src="../../static/logo.png" style="width:40px;height:40px;border-radius:50%;border:1px solid #aaa;" /> -->
 							<image class="avatar" :src="partnerHead"></image>
 						</view>
-						<view style="margin-left:10px;">
+						<view style="margin-left:10px; height:auto">
 							<view style="font-size:12px;color:#999;">{{ name }}</view>
-							<view class="langcon">{{ item.content }}</view>
+							<view class="langcon">你的任务“{{ item.content }}”还没有完成哟，养成好习惯从每天做起！</view>
+						</view>
+					</view>
+
+				</view>
+				<!-- 已完成的 -->
+				<view v-for="(item, key) in finishList" :key="item.id">
+
+					<view class="left">
+						<view>
+							<!-- <image src="../../static/logo.png" style="width:40px;height:40px;border-radius:50%;border:1px solid #aaa;" /> -->
+							<image class="avatar" :src="partnerHead"></image>
+						</view>
+						<view style="margin-left:10px; height:auto">
+							<view style="font-size:12px;color:#999;">{{ name }}</view>
+							<view class="langcon">恭喜你啦！已经完成了"{{ item.content }}"这一Flag，再接再厉哦！</view>
 						</view>
 					</view>
 				</view>
@@ -72,6 +86,7 @@
 			//     format: true
 			// });
 			return {
+				finishList:[],
 				timers:[],
 				remindList:[],
 				partnerHead: "../../static/logo.png",
@@ -114,16 +129,16 @@
 				name: '对象',
 			}
 		},
-
-		onShow: function(){
+				
+		onShow: function() {
 			for(var i = 0;i<this.timers.length;i++){
 				console.log(this.timers[i]);
 				clearInterval(this.timers[i]);  
 			}
-			
-			// this.timers = null;  
-			
-			// this.remind();
+			console.log("111111111111")
+			let app = getApp()
+			console.log(app.globalData.finishList)
+			this.finishList = app.globalData.finishList
 			var that = this;
 			//接口
 			uni.getStorage({
@@ -144,7 +159,7 @@
 							console.log(response.data);
 						}
 					});
-					
+
 					uni.request({
 						url: 'http://iflag.icube.fun:8080/onetime/findByUserid/' + res.data.userid,
 						method: "GET",
@@ -174,6 +189,7 @@
 									console.log(that.timers);
 								}	
 							}
+
 						},
 						fail: function(response) {
 							console.log(response.data);
@@ -232,44 +248,6 @@
 		
 		
 		methods: {
-			// remind(obj) {
-			// 	var that = this;
-			// 	uni.getStorage({
-			// 		key: 'email',
-			// 		success: function(res) {
-			// 			that.token = res.data.token;
-			// 			console.log('这是key中的内容：' + res.data.userid)
-			// 			uni.request({
-			// 				url: 'http://iflag.icube.fun:8080/onetime/findByUserid/' + res.data.userid,
-			// 				method: "GET",
-			// 				sslVerify: false,
-			// 				success: function(response) {
-			// 					that.list = response.data	
-			// 					console.log(response.data.length);
-			// 					for(var i=0;i<response.data.length;i++){
-			// 						console.log(that.list[i].remindTime + that.list[i].content);
-			// 						if(that.list[i].remindTime!=null){
-			// 							console.log(that.list[i].remindTime+"不是空");										
-			// 							var timer = setInterval(function(a) {
-			// 								const date = new Date();
-			// 								var times = a.remindTime;
-			// 								var timearr = times.replace(" ", ":").replace(/\:/g, "-").split("-");
-			// 								console.log(timearr[3]+"时"+date.getHours());
-			// 								console.log(timearr[4]+"分"+date.getMinutes());
-			// 								if(timearr[3] == date.getHours()&&timearr[4]==date.getMinutes()){
-			// 									console.log("到点了");
-			// 								}
-			// 							}, 10000,that.list[i]);
-			// 						}	
-			// 					}
-			// 				},
-			// 				fail: function(response) {
-			// 					console.log(response.data);
-			// 				}
-			// 			});
-			// 		}
-			// 	})
-			// },
 			onNavigationBarButtonTap(e) {
 				console.log("success");
 				uni.navigateTo({
@@ -311,7 +289,7 @@
 		border-radius: 50%;
 		border: 1px solid #aaa;
 	}
-	
+
 	.center {
 		text-align: center;
 		font-size: 12px;
@@ -319,13 +297,16 @@
 		margin-top: 10px;
 		letter-spacing: 1px;
 	}
+
 	.left {
 		display: flex;
 		flex-wrap: nowrap;
 		justify-content: flex-start;
 		margin-left: 10px;
+		margin-right: 10px;
 		margin-top: 10px;
 	}
+
 	.right {
 		display: flex;
 		flex-wrap: nowrap;
@@ -333,16 +314,18 @@
 		margin-right: 10px;
 		margin-top: 10px;
 	}
+
 	.langcon {
 		border: 1px solid #333333;
 		font-size: 14px;
 		color: #414141;
-		height: 30px;
+		height: auto;
 		line-height: 30px;
 		border-radius: 7px;
 		margin-top: 5px;
-		text-align: right;
+		text-align: left;
 		padding: 3px 10px 3px 10px;
 		background: #f8f8f8;
 	}
 </style>
+

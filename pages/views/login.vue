@@ -5,7 +5,7 @@
 		</view>
 		<view class="input-box">
 			<text class="text">邮箱：</text>
-			<input class="login-input" v-model="loginInfo.mail" focus placeholder="请输入邮箱" />
+			<input class="login-input" v-model="loginInfo.mail" placeholder="请输入邮箱" />
 		</view>
 		<!-- 		<input class="line" /> -->
 		<view class="input-box2">

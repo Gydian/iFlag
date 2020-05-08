@@ -77,6 +77,7 @@
 </template>
 
 <script>
+	import uniNavBar from "@/components/uni-nav-bar/uni-nav-bar.vue"
 	import uniCalendar from '@/components/uni-calendar/uni-calendar.vue'
 	import uniSection from '@/components/uni-section/uni-section.vue'
 	import mSearch from '@/components/m-search/m-search.vue'
@@ -84,7 +85,8 @@
 		components: {
 			uniCalendar,
 			uniSection,
-			mSearch
+			mSearch,
+			uniNavBar,
 		},
 		computed: {
 			Screen_width() {
@@ -93,6 +95,7 @@
 		},
 		data() {
 			return{
+				app:'',
 				isvisible:false,
 				showCalendar: false,
 				info: {
@@ -202,6 +205,10 @@
 				btuBottom: '0',
 				secondHeight: '',
 				// checkList:[],
+				
+
+
+
 			}
 		},
 		onReady() {
@@ -314,27 +321,36 @@
 			monthSwitch(e) {
 				console.log('monthSwitchs 返回:', e)
 			},
+
 			checkboxChange1: function(e) {
-				var items = this.list1; 
+				let app = getApp()
+				var items = this.list1;
 				var checked = e.target.value
 				for (var i = 0, lenI = this.list1.length; i < lenI; ++i) {
 					const item = this.list1[i]
-					if(checked.indexOf(this.list1[i].id) !== -1){
-						this.$set(item,'finish',true)
-						console.log("111");
-					}else{
-						this.$set(item,'finish',false)
+					if (checked.indexOf(this.list1[i].id) !== -1) {
+						if(item.finish==false){
+							app.globalData.finishList.push(item);
+						}
+						this.$set(item, 'finish', true)
+					} else {
+						// if(item.finish==true)
+						// this.finishList = this.finishList.filter(o => o.id != item.id);
+						this.$set(item, 'finish', false)
 					}
 					console.log(this.list1[i]);
+					console.log("完成：")
+					console.log(app.globalData.finishList);
+					
 					uni.request({
 						url: 'http://iflag.icube.fun:8080/onetime/update',
-						dataType:"JSON",
+						dataType: "JSON",
 						data: this.list1[i],
 						method: "PUT",
 						header: {
 							"Content-Type": "application/json"
 						},
-						
+
 						sslVerify: false,
 						success: function(res) {
 							console.log(res.data)
@@ -346,26 +362,33 @@
 				}
 			},
 			checkboxChange2: function(e) {
+				let app = getApp()
 				var items = this.list2;
 				var checked = e.target.value
 				for (var i = 0, lenI = this.list2.length; i < lenI; ++i) {
 					const item = this.list2[i]
-					if(checked.indexOf(this.list2[i].id) !== -1){
-						this.$set(item,'finish',true)
-						console.log("222");
-					}else{
-						this.$set(item,'finish',false)
+					if (checked.indexOf(this.list2[i].id) !== -1) {
+						if(item.finish==false){
+							app.globalData.finishList.push(item);
+						}
+						this.$set(item, 'finish', true)
+					} else {
+						// if(item.finish==true)
+						// this.finishList = this.finishList.filter(o => o.id != item.id);
+						this.$set(item, 'finish', false)
 					}
 					console.log(this.list2[i]);
+					console.log("完成：")
+					console.log(app.globalData.finishList);
 					uni.request({
 						url: 'http://iflag.icube.fun:8080/periodic/update',
-						dataType:"JSON",
+						dataType: "JSON",
 						data: this.list2[i],
 						method: "PUT",
 						header: {
 							"Content-Type": "application/json"
 						},
-						
+
 						sslVerify: false,
 						success: function(res) {
 							console.log(res.data)
@@ -375,29 +398,29 @@
 						}
 					});
 				}
-			    // console.log(e.target.value)
-			    // var checked = e.target.value
-			    // var changed = {}
-			    // for (var i = 0; i < this.list2.length; i++) {
-			    //     if (checked.indexOf(this.list2[i].name) !== -1) {
-			    //         changed['list2[' + i + '].checked'] = true
-			    //     } else {
-			    //         changed['list2[' + i + '].checked'] = false
-			    //     }
-			    // }
+				// console.log(e.target.value)
+				// var checked = e.target.value
+				// var changed = {}
+				// for (var i = 0; i < this.list2.length; i++) {
+				//     if (checked.indexOf(this.list2[i].name) !== -1) {
+				//         changed['list2[' + i + '].checked'] = true
+				//     } else {
+				//         changed['list2[' + i + '].checked'] = false
+				//     }
+				// }
 			},
-			
-			cancelEvent(){
-					this.visible = false
+
+			cancelEvent() {
+				this.visible = false
 			},
 			search(e, val) {
 				this.screenName = e
 				console.log('点击搜索')
 			},
-			addCustomer(){
+			addCustomer() {
 				console.log('点击添加按钮')
 			},
-			getDetail(item){
+			getDetail(item) {
 				console.log('查看详情')
 			},
 			// 滑动开始
@@ -519,13 +542,13 @@
 			// 编辑
 			top1(id) {
 				uni.redirectTo({
-					url: './addFlag?id=11&flagid='+id
+					url: './addFlag?id=11&flagid=' + id
 				});
 			},
 			top2(id) {
 				console.log(id)
 				uni.redirectTo({
-					url: './addPerFlag?id=11&flagid='+id
+					url: './addPerFlag?id=11&flagid=' + id
 				});
 			},
 			// 删除
@@ -538,28 +561,27 @@
 					content: '确定要删除该信息吗？',
 					confirmText: '删除',
 					confirmColor: '#ff3b32',
-					success: function (res) {
+					success: function(res) {
 						if (res.confirm) {
 							console.log('用户点击确定')
 							uni.request({
-								url: 'http://iflag.icube.fun:8080/onetime/deleteById/'+id,
-							
+								url: 'http://iflag.icube.fun:8080/onetime/deleteById/' + id,
+
 								method: "DELETE",
 								sslVerify: false,
 								success: function(response) {
 									console.log(response.data)
-									if(response.data){
+									if (response.data) {
 										self.list1.splice(index, 1)
 										uni.showToast({
 											icon: "success",
 											title: '操作成功!',
 											duration: 2000
 										});
-									}
-									else{
+									} else {
 										uni.showModal({
 											content: "删除失败",
-											showCancel:false
+											showCancel: false
 										})
 									}
 								},
@@ -567,7 +589,7 @@
 									console.log(response.data);
 								}
 							});
-							
+
 						} else if (res.cancel) {
 							console.log('用户点击取消')
 						}
@@ -582,28 +604,27 @@
 					content: '确定要删除该信息吗？',
 					confirmText: '删除',
 					confirmColor: '#ff3b32',
-					success: function (res) {
+					success: function(res) {
 						if (res.confirm) {
 							console.log('用户点击确定')
 							uni.request({
-								url: 'http://iflag.icube.fun:8080/periodic/deleteById/'+id,
-							
+								url: 'http://iflag.icube.fun:8080/periodic/deleteById/' + id,
+
 								method: "DELETE",
 								sslVerify: false,
 								success: function(response) {
 									console.log(response.data)
-									if(response.data){
+									if (response.data) {
 										self.list2.splice(index, 1)
 										uni.showToast({
 											icon: "success",
 											title: '操作成功!',
 											duration: 2000
 										});
-									}
-									else{
+									} else {
 										uni.showModal({
 											content: "删除失败",
-											showCancel:false
+											showCancel: false
 										})
 									}
 								},
@@ -611,68 +632,71 @@
 									console.log(response.data);
 								}
 							});
-							
+
 						} else if (res.cancel) {
 							console.log('用户点击取消')
 						}
 					}
 				});
 			}
-		}		
+		}
 	}
 </script>
 
 <style scoped>
-	.label-view{
+	.label-view {
 		border-bottom: 1px solid lightgray;
 		border-radius: 0;
 		height: 15px;
 	}
-	
-	.index{
+
+	.index {
 		background: #F8F8F8;
 	}
-	.list-box{
+
+	.list-box {
 		padding: 20upx 0;
 	}
+
 	.container_of_slide {
 		width: 100%;
 		overflow: hidden;
 	}
-	
+
 	.slide_list {
 		transition: all 100ms;
 		transition-timing-function: ease-out;
 		min-width: 200%;
 		height: 100upx;
 	}
-	
+
 	.now-message-info {
-		box-sizing:border-box;
+		box-sizing: border-box;
 		display: flex;
 		align-items: center;
 		/* justify-content: space-between; */
 		font-size: 16px;
-		clear:both;
+		clear: both;
 		height: 100upx;
 		padding: 0 30upx;
 		margin-bottom: 20upx;
 		background: #FFFFFF;
 	}
+
 	.now-message-info,
 	.group-btn {
 		float: left;
 	}
-	
+
 	.group-btn {
 		display: flex;
 		flex-direction: row;
 		height: 100upx;
 		min-width: 100upx;
 		align-items: center;
-	
+
 	}
-	
+
 	.group-btn .btn-div {
 		height: 100upx;
 		color: #fff;
@@ -681,58 +705,63 @@
 		font-size: 34upx;
 		line-height: 100upx;
 	}
-	
+
 	.group-btn .top {
 		background-color: #c4c7cd;
 	}
-	
+
 	.group-btn .removeM {
 		background-color: #ff3b32;
 	}
-	
-	
-	.icon-circle{
+
+
+	.icon-circle {
 		background: #3396fb;
 		border-radius: 100%;
-		width:100upx;
+		width: 100upx;
 		height: 100upx;
-		line-height:100upx;
-		text-align:center;
+		line-height: 100upx;
+		text-align: center;
 		color: #FFFFFF;
 		font-weight: bold;
 		font-size: 20px;
 		float: left;
 	}
-	.list-right{
+
+	.list-right {
 		float: left;
 		margin-left: 25upx;
 		margin-right: 30upx;
 	}
-	.list-right-1{
+
+	.list-right-1 {
 		float: right;
 		color: #A9A9A9;
 	}
-	.list-title{
+
+	.list-title {
 		width: 350upx;
-		line-height:1.5;
-		overflow:hidden;
+		line-height: 1.5;
+		overflow: hidden;
 		margin-bottom: 0upx;
-		color:#333;
-		display:-webkit-box;
-		-webkit-box-orient:vertical;
-		-webkit-line-clamp:1;
-		overflow:hidden;
+		color: #333;
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 1;
+		overflow: hidden;
 	}
-	.list-detail{
+
+	.list-detail {
 		width: 350upx;
 		font-size: 14px;
 		color: #a9a9a9;
-		display:-webkit-box;
-		-webkit-box-orient:vertical;
-		-webkit-line-clamp:1;
-		overflow:hidden;
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 1;
+		overflow: hidden;
 	}
-	.button-box{
+
+	.button-box {
 		box-sizing: border-box;
 		position: fixed;
 		left: 0;
@@ -741,7 +770,8 @@
 		z-index: 998;
 		background: #F8F8F8;
 	}
-	.btn-sub{
+
+	.btn-sub {
 		display: -webkit-box;
 		display: -webkit-flex;
 		display: flex;
@@ -759,17 +789,20 @@
 		background: #F8F8F8;
 		color: #7fb2ff;
 	}
-	.empty{
+
+	.empty {
 		color: #999999;
 	}
-	.plusempty-img{
+
+	.plusempty-img {
 		width: 50upx;
 		height: 50upx;
 		margin-top: 30upx;
 	}
-.uni-section{
-	margin-top: 0px;
-}
+
+	.uni-section {
+		margin-top: 0px;
+	}
 
 
 
@@ -777,7 +810,9 @@
 	.uni-list-cell-hover {
 		background-color: #eeeeee;
 	}
-	.bottom-btn-hover{
-		background: #0564c7!important;;
+
+	.bottom-btn-hover {
+		background: #0564c7 !important;
+		;
 	}
 </style>
