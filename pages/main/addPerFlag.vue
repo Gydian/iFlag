@@ -433,4 +433,7 @@
 		margin-right: 2%;
 		margin-top: 0%;
 	}
+	button::after {
+		border: none;
+	}
 </style>

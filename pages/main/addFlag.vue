@@ -393,4 +393,7 @@
 		border-radius: 0;
 		border-top: 1px solid lightgray;
 	}
+	button::after {
+		border: none;
+	}
 </style>
