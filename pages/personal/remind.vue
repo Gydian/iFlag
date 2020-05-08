@@ -89,9 +89,9 @@
 			uni.getStorage({
 				key: 'email',
 				success: function(res) {
-					console.log('这是key中的内容：' + res.data)
+					console.log('这是key中的内容：' + res.data.mail)
 					uni.request({
-						url: 'http://59.110.64.233:8080/notice/findByUserEmail/' + res.data,
+						url: 'http://59.110.64.233:8080/notice/findByUserEmail/' + res.data.mail,
 						method: "GET",
 						sslVerify: false,
 						success: function(response) {
@@ -196,12 +196,12 @@
 				uni.getStorage({
 					key: 'email',
 					success: function(res) {
-						console.log('这是key中的内容：' + res.data)
+						console.log('这是key中的内容：' + res.data.mail)
 						console.log(that.checkedVal1)
 						uni.request({
 							url: 'http://59.110.64.233:8080/notice/add?delRemindTime=' + that.time2 +
 								'&delRepeadPeriod=' + that.cycleVal2 + '&isDelFlag=' + that.checkedVal2 + '&isSetFlag=' + that.checkedVal1 +
-								'&setRemindTime=' + that.time1 + '&setRepeatPeriod=' + that.cycleVal1 + '&userEmail=' + res.data,
+								'&setRemindTime=' + that.time1 + '&setRepeatPeriod=' + that.cycleVal1 + '&userEmail=' + res.data.mail,
 							method: "POST",
 							sslVerify: false,
 							success: function(response) {
