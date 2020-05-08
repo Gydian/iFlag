@@ -33,43 +33,45 @@
 			return {
 				name: '昵称',
 				src: '../../static/logo.png',
-				list: [{
-					id: 0,
-					title: '标题文字',
-					content: '这是一个完整配置的基础卡片示例。内容样式可自定义。',
-					shadow: true,
-					note: 'Tips',
-					extra: '额外信息',
-					thumbnail: 'https://img-cdn-qiniu.dcloud.net.cn/new-page/uni.png',
-					src: 'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/shuijiao.jpg'
-				}, {
-					id: 1,
-					title: '标题文字',
-					content: '这是一个完整配置的基础卡片示例。内容样式可自定义。',
-					shadow: true,
-					note: 'Tips',
-					extra: '额外信息',
-					thumbnail: 'https://img-cdn-qiniu.dcloud.net.cn/new-page/uni.png',
-					src: 'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/shuijiao.jpg'
-				}, {
-					id: 2,
-					title: '标题文字',
-					content: '这是一个完整配置的基础卡片示例。内容样式可自定义。',
-					shadow: true,
-					note: 'Tips',
-					extra: '额外信息',
-					thumbnail: 'https://img-cdn-qiniu.dcloud.net.cn/new-page/uni.png',
-					src: 'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/shuijiao.jpg'
-				}, {
-					id: 3,
-					title: '标题文字',
-					content: '这是一个完整配置的基础卡片示例。内容样式可自定义。',
-					shadow: true,
-					note: 'Tips',
-					extra: '额外信息',
-					thumbnail: 'https://img-cdn-qiniu.dcloud.net.cn/new-page/uni.png',
-					src: 'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/shuijiao.jpg'
-				}],
+				list: [
+				// 	{
+				// 	id: 0,
+				// 	title: '标题文字',
+				// 	content: '这是一个完整配置的基础卡片示例。内容样式可自定义。',
+				// 	shadow: true,
+				// 	note: 'Tips',
+				// 	extra: '额外信息',
+				// 	thumbnail: 'https://img-cdn-qiniu.dcloud.net.cn/new-page/uni.png',
+				// 	src: 'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/shuijiao.jpg'
+				// }, {
+				// 	id: 1,
+				// 	title: '标题文字',
+				// 	content: '这是一个完整配置的基础卡片示例。内容样式可自定义。',
+				// 	shadow: true,
+				// 	note: 'Tips',
+				// 	extra: '额外信息',
+				// 	thumbnail: 'https://img-cdn-qiniu.dcloud.net.cn/new-page/uni.png',
+				// 	src: 'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/shuijiao.jpg'
+				// }, {
+				// 	id: 2,
+				// 	title: '标题文字',
+				// 	content: '这是一个完整配置的基础卡片示例。内容样式可自定义。',
+				// 	shadow: true,
+				// 	note: 'Tips',
+				// 	extra: '额外信息',
+				// 	thumbnail: 'https://img-cdn-qiniu.dcloud.net.cn/new-page/uni.png',
+				// 	src: 'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/shuijiao.jpg'
+				// }, {
+				// 	id: 3,
+				// 	title: '标题文字',
+				// 	content: '这是一个完整配置的基础卡片示例。内容样式可自定义。',
+				// 	shadow: true,
+				// 	note: 'Tips',
+				// 	extra: '额外信息',
+				// 	thumbnail: 'https://img-cdn-qiniu.dcloud.net.cn/new-page/uni.png',
+				// 	src: 'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/shuijiao.jpg'
+				// }
+				],
 				test:''
 			}
 		},
@@ -99,6 +101,12 @@
 					});
 				}
 			})
+			if(this.list==''||this.list==null){
+				uni.showModal({
+					content: '您还没有达成成就哦！',
+					showCancel: false
+				})
+			}
 		},
 		methods: {
 			share() {
