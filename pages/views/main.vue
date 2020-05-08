@@ -242,6 +242,7 @@
 		flex-wrap: nowrap;
 		justify-content: flex-start;
 		margin-left: 10px;
+		margin-right: 10px;
 		margin-top: 10px;
 	}
 
