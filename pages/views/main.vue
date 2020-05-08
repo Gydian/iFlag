@@ -9,7 +9,7 @@
 			<view style="margin-bottom:70px;">
 				<!-- 注释 -->
 				<!-- <view class="zs">点击对方头像可进入私聊模式</view> -->
-				<view v-for="(item, key) in list" :key="key">
+				<view v-for="(item, key) in list" :key="item.id">
 					<view v-if="item.finish == false">
 						<view class="left">
 							<view>
@@ -27,7 +27,7 @@
 				</view>
 				<!-- 注释 -->
 				<!-- <view class="zs">点击对方头像可进入私聊模式</view> -->
-				<view v-for="(item, key) in list2" :key="key">
+				<view v-for="(item, key) in list2" :key="item.id">
 					<view class="left">
 						<view>
 							<!-- <image src="../../static/logo.png" style="width:40px;height:40px;border-radius:50%;border:1px solid #aaa;" /> -->
@@ -36,6 +36,19 @@
 						<view style="margin-left:10px;">
 							<view style="font-size:12px;color:#999;">{{ name }}</view>
 							<view class="langcon">{{ item.content }}</view>
+						</view>
+					</view>
+				</view>
+				
+				<view v-for="(item, key) in remindList">
+					<view class="left">
+						<view>
+							<!-- <image src="../../static/logo.png" style="width:40px;height:40px;border-radius:50%;border:1px solid #aaa;" /> -->
+							<image class="avatar" :src="partnerHead"></image>
+						</view>
+						<view style="margin-left:10px;">
+							<view style="font-size:12px;color:#999;">{{ name }}</view>
+							<view class="langcon">你的Flag:"{{ item.content }}"还没有完成，快去打卡吧！</view>
 						</view>
 					</view>
 				</view>
@@ -55,7 +68,12 @@
 			uniFab, // 悬浮按钮
 		},
 		data() {
+			// const currentDate = this.getDate({
+			//     format: true
+			// });
 			return {
+				timers:[],
+				remindList:[],
 				partnerHead: "../../static/logo.png",
 				title: 'main',
 				horizontal: 'right',
@@ -98,6 +116,14 @@
 		},
 
 		onShow: function(){
+			for(var i = 0;i<this.timers.length;i++){
+				console.log(this.timers[i]);
+				clearInterval(this.timers[i]);  
+			}
+			
+			// this.timers = null;  
+			
+			// this.remind();
 			var that = this;
 			//接口
 			uni.getStorage({
@@ -112,7 +138,42 @@
 						success: function(response) {
 							console.log(response)
 							console.log("试一试")
-							that.list = response.data
+							that.list = response.data	
+						},
+						fail: function(response) {
+							console.log(response.data);
+						}
+					});
+					
+					uni.request({
+						url: 'http://iflag.icube.fun:8080/onetime/findByUserid/' + res.data.userid,
+						method: "GET",
+						sslVerify: false,
+						success: function(response) {
+							var list = response.data	
+							console.log(response.data.length);
+							for(var i=0;i<response.data.length;i++){
+								console.log(list[i].remindTime + list[i].content);
+								if(list[i].remindTime!=null){
+									console.log(list[i].remindTime+"不是空");
+									var timer = setInterval(function(a) {
+										const date = new Date();
+										var times = a.remindTime;
+										var timearr = times.replace(" ", ":").replace(/\:/g, "-").split("-");
+										// console.log(timearr[3]+"时"+date.getHours());
+										console.log(timearr[4]+"分"+date.getMinutes());
+										if(timearr[3] == date.getHours()&&timearr[4]==date.getMinutes()){
+											console.log("到点了");
+											that.remindList.push(a);
+											console.log(that.remindList)
+											// that.$set(a,'remind',1)
+											clearInterval(timer);
+										}
+									}, 30000,list[i]);
+									that.timers.push(timer);
+									console.log(that.timers);
+								}	
+							}
 						},
 						fail: function(response) {
 							console.log(response.data);
@@ -124,8 +185,8 @@
 						method: "GET",
 						sslVerify: false,
 						success: function(response) {
-							console.log(response)
-							console.log("试一试2")
+							// console.log(response)
+							// console.log("试一试2")
 							that.list2 = response.data
 						},
 						fail: function(response) {
@@ -171,6 +232,44 @@
 		
 		
 		methods: {
+			// remind(obj) {
+			// 	var that = this;
+			// 	uni.getStorage({
+			// 		key: 'email',
+			// 		success: function(res) {
+			// 			that.token = res.data.token;
+			// 			console.log('这是key中的内容：' + res.data.userid)
+			// 			uni.request({
+			// 				url: 'http://iflag.icube.fun:8080/onetime/findByUserid/' + res.data.userid,
+			// 				method: "GET",
+			// 				sslVerify: false,
+			// 				success: function(response) {
+			// 					that.list = response.data	
+			// 					console.log(response.data.length);
+			// 					for(var i=0;i<response.data.length;i++){
+			// 						console.log(that.list[i].remindTime + that.list[i].content);
+			// 						if(that.list[i].remindTime!=null){
+			// 							console.log(that.list[i].remindTime+"不是空");										
+			// 							var timer = setInterval(function(a) {
+			// 								const date = new Date();
+			// 								var times = a.remindTime;
+			// 								var timearr = times.replace(" ", ":").replace(/\:/g, "-").split("-");
+			// 								console.log(timearr[3]+"时"+date.getHours());
+			// 								console.log(timearr[4]+"分"+date.getMinutes());
+			// 								if(timearr[3] == date.getHours()&&timearr[4]==date.getMinutes()){
+			// 									console.log("到点了");
+			// 								}
+			// 							}, 10000,that.list[i]);
+			// 						}	
+			// 					}
+			// 				},
+			// 				fail: function(response) {
+			// 					console.log(response.data);
+			// 				}
+			// 			});
+			// 		}
+			// 	})
+			// },
 			onNavigationBarButtonTap(e) {
 				console.log("success");
 				uni.navigateTo({

@@ -49,7 +49,7 @@
 							<view class="slide_list" @touchstart="touchStart2($event,index)" @touchend="touchEnd2($event,index)" @touchmove="touchMove2($event,index)"
 							 @tap="recover2(index)" :style="{transform:'translate3d('+item.slide_x+'px, 0, 0)'}">
 								<view class="now-message-info" hover-class="uni-list-cell-hover" :style="{width:Screen_width+'px'}" @click="getDetail(item)">
-									<checkbox :value="item.id" :checked="item.finish"></checkbox>
+									<checkbox :value="item.id" :checked="item.finish" :disabled="isvisible"></checkbox>
 								
 									<view class="list-right">
 										<view class="list-title" v-if="item.finish==true" style="color: #D3D3D3;">{{item.content}}</view>
@@ -93,6 +93,7 @@
 		},
 		data() {
 			return{
+				isvisible:false,
 				showCalendar: false,
 				info: {
 					date: '2019-08-15',
@@ -300,7 +301,15 @@
 					
 				})
 				this.selectedDate = e.fulldate
-				this.init(this.selectedDate)	
+				console.log(this.selectedDate);
+				
+				if(this.selectedDate!=this.currentDate){
+					this.isvisible = true;
+				}else{
+					this.isvisible = false;
+				}
+				this.init(this.selectedDate)
+				
 			},
 			monthSwitch(e) {
 				console.log('monthSwitchs 返回:', e)
