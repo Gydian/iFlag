@@ -34,79 +34,84 @@
 				name: '昵称',
 				src: '../../static/logo.png',
 				list: [
-				// 	{
-				// 	id: 0,
-				// 	title: '标题文字',
-				// 	content: '这是一个完整配置的基础卡片示例。内容样式可自定义。',
-				// 	shadow: true,
-				// 	note: 'Tips',
-				// 	extra: '额外信息',
-				// 	thumbnail: 'https://img-cdn-qiniu.dcloud.net.cn/new-page/uni.png',
-				// 	src: 'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/shuijiao.jpg'
-				// }, {
-				// 	id: 1,
-				// 	title: '标题文字',
-				// 	content: '这是一个完整配置的基础卡片示例。内容样式可自定义。',
-				// 	shadow: true,
-				// 	note: 'Tips',
-				// 	extra: '额外信息',
-				// 	thumbnail: 'https://img-cdn-qiniu.dcloud.net.cn/new-page/uni.png',
-				// 	src: 'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/shuijiao.jpg'
-				// }, {
-				// 	id: 2,
-				// 	title: '标题文字',
-				// 	content: '这是一个完整配置的基础卡片示例。内容样式可自定义。',
-				// 	shadow: true,
-				// 	note: 'Tips',
-				// 	extra: '额外信息',
-				// 	thumbnail: 'https://img-cdn-qiniu.dcloud.net.cn/new-page/uni.png',
-				// 	src: 'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/shuijiao.jpg'
-				// }, {
-				// 	id: 3,
-				// 	title: '标题文字',
-				// 	content: '这是一个完整配置的基础卡片示例。内容样式可自定义。',
-				// 	shadow: true,
-				// 	note: 'Tips',
-				// 	extra: '额外信息',
-				// 	thumbnail: 'https://img-cdn-qiniu.dcloud.net.cn/new-page/uni.png',
-				// 	src: 'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/shuijiao.jpg'
-				// }
+					// 	{
+					// 	id: 0,
+					// 	title: '标题文字',
+					// 	content: '这是一个完整配置的基础卡片示例。内容样式可自定义。',
+					// 	shadow: true,
+					// 	note: 'Tips',
+					// 	extra: '额外信息',
+					// 	thumbnail: 'https://img-cdn-qiniu.dcloud.net.cn/new-page/uni.png',
+					// 	src: 'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/shuijiao.jpg'
+					// }, {
+					// 	id: 1,
+					// 	title: '标题文字',
+					// 	content: '这是一个完整配置的基础卡片示例。内容样式可自定义。',
+					// 	shadow: true,
+					// 	note: 'Tips',
+					// 	extra: '额外信息',
+					// 	thumbnail: 'https://img-cdn-qiniu.dcloud.net.cn/new-page/uni.png',
+					// 	src: 'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/shuijiao.jpg'
+					// }, {
+					// 	id: 2,
+					// 	title: '标题文字',
+					// 	content: '这是一个完整配置的基础卡片示例。内容样式可自定义。',
+					// 	shadow: true,
+					// 	note: 'Tips',
+					// 	extra: '额外信息',
+					// 	thumbnail: 'https://img-cdn-qiniu.dcloud.net.cn/new-page/uni.png',
+					// 	src: 'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/shuijiao.jpg'
+					// }, {
+					// 	id: 3,
+					// 	title: '标题文字',
+					// 	content: '这是一个完整配置的基础卡片示例。内容样式可自定义。',
+					// 	shadow: true,
+					// 	note: 'Tips',
+					// 	extra: '额外信息',
+					// 	thumbnail: 'https://img-cdn-qiniu.dcloud.net.cn/new-page/uni.png',
+					// 	src: 'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/shuijiao.jpg'
+					// }
 				],
-				test:''
+				test: ''
 			}
 		},
 		components: {
 			uniCard
 		},
-		onLoad:function(){
+		onLoad: function() {
 			var that = this
 			uni.getStorage({
 				key: 'email',
 				success: function(res) {
-					uni.request({
-						url: 'http://59.110.64.233:8080/user/achievements/' + res.data.mail,
-						method: "GET",
-						sslVerify: false,
-						success: function(response) {
-							console.log(response)
-							that.list=response.data
-							for(let i=0;i<that.list.length;i++){
-								that.list[i].thumbnail="http://iflag.icube.fun:8080/"+response.data[i].thumbnail
-							}
-							console.log(that.list)
-							if(that.list==''||that.list==null){
-								uni.showModal({
-									content: '您还没有达成成就哦！',
-									showCancel: false
-								})
-							}
-						},
-						fail: function(response) {
-							console.log(response.data);
+					uni.getStorage({
+						key: 'email',
+						success: function(res) {
+							uni.request({
+								url: 'http://59.110.64.233:8080/user/achievements/' + res.data.mail,
+								method: "GET",
+								sslVerify: false,
+								success: function(response) {
+									console.log(response)
+									that.list = response.data
+									for (let i = 0; i < that.list.length; i++) {
+										that.list[i].thumbnail = 'http://59.110.64.233:8080/user/image/' + res.data.token;
+									}
+									console.log(that.list)
+									if (that.list == '' || that.list == null) {
+										uni.showModal({
+											content: '您还没有达成成就哦！',
+											showCancel: false
+										})
+									}
+								},
+								fail: function(response) {
+									console.log(response.data);
+								}
+							});
 						}
-					});
-				}
-			})
+					})
+				},
+			});
 		},
 		methods: {
 			share() {
@@ -122,7 +127,7 @@
 						that.test = bitmap.toBase64Data();
 						/* 加载base64编码 */
 						bitmap.loadBase64Data(
-							bitmap.toBase64Data(), 
+							bitmap.toBase64Data(),
 							function() {
 								console.log('加载Base64图片数据成功');
 								/* 保存图片 */
@@ -136,14 +141,14 @@
 													/* 清除 */
 													bitmap.clear();
 													uni.showModal({
-														content:'已成功保存到本地相册，可以去分享啦！',
-														showCancel:false
+														content: '已成功保存到本地相册，可以去分享啦！',
+														showCancel: false
 													});
 												},
 												fail(e) {
 													uni.showModal({
-														content:'失败了！',
-														showCancel:false
+														content: '失败了！',
+														showCancel: false
 													});
 												}
 											});
