@@ -94,6 +94,12 @@
 								that.list[i].thumbnail="http://iflag.icube.fun:8080/"+response.data[i].thumbnail
 							}
 							console.log(that.list)
+							if(that.list==''||that.list==null){
+								uni.showModal({
+									content: '您还没有达成成就哦！',
+									showCancel: false
+								})
+							}
 						},
 						fail: function(response) {
 							console.log(response.data);
@@ -101,12 +107,6 @@
 					});
 				}
 			})
-			if(this.list==''||this.list==null){
-				uni.showModal({
-					content: '您还没有达成成就哦！',
-					showCancel: false
-				})
-			}
 		},
 		methods: {
 			share() {
