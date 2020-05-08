@@ -18,7 +18,7 @@
 								<image class="avatar" :src="partnerHead"></image>
 							</view>
 							<view style="margin-left:10px;">
-								<view style="font-size:12px;color:#999;">{{ header }}</view>
+								<view style="font-size:12px;color:#999;">{{ name }}</view>
 								<!-- <view style="font-size:12px;color:#999;">{{ item.finish }}</view> -->
 								<view class="langcon">{{ item.content }}</view>
 							</view>
@@ -34,7 +34,7 @@
 							<image class="avatar" :src="partnerHead"></image>
 						</view>
 						<view style="margin-left:10px;">
-							<view style="font-size:12px;color:#999;">{{ header }}</view>
+							<view style="font-size:12px;color:#999;">{{ name }}</view>
 							<view class="langcon">{{ item.content }}</view>
 						</view>
 					</view>
@@ -93,7 +93,7 @@
 					con: '你今日打卡内容为:'
 					},
 				],
-				header: '对象',
+				name: '对象',
 			}
 		},
 		onShow: function(){
@@ -143,6 +143,25 @@
 							console.log(that.partnerHead);
 						},
 						fail: function(response) {
+						}
+					});
+					
+					// 对象昵称
+					uni.request({
+						url: 'http://iflag.icube.fun:8080/ObjectCenter/'+res.data.token,
+						method: "GET",
+						sslVerify:false,
+						success: function(response) {
+							console.log(response)
+							if(response.data.StatusCode==0){
+								that.name = response.data.Messenger.nickname;
+							}
+							else{
+								console.log("昵称为对象")
+							}
+						},
+						fail: function(response) {
+							// console.log(response.data);
 						}
 					});
 				}
