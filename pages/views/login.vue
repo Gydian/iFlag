@@ -26,7 +26,7 @@
 	export default {
 		data() {
 			return {
-				src: 'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/shuijiao.jpg',
+				src: '../../static/logo.png',
 				loginInfo: {
 					mail: '',
 					password: ''
