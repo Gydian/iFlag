@@ -193,7 +193,7 @@
 										content: that.inputFlag,
 										endtime: that.date,
 										repeatPeriod: that.cycleVal1,
-										remindTime: that.currentDate+" "+ that.time1,
+										remindTime:  that.time1,
 										repeat: that.checked1,
 										remind: that.checked2,
 										finish: that.isfinished
@@ -232,7 +232,7 @@
 										content: that.inputFlag,
 										endtime: that.date,
 										repeatPeriod: that.cycleVal1,
-										remindTime: that.currentDate+" "+ that.time1,
+										remindTime: that.time1,
 										repeat: that.checked1,
 										remind: that.checked2,
 										finish: that.isfinished

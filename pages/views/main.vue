@@ -54,7 +54,7 @@
 					</view>
 				</view>
 				
-				<view v-for="(item, key) in remindList">
+				<view v-for="(item, key) in remindList1">
 					<view class="left">
 						<view>
 							<!-- <image src="../../static/logo.png" style="width:40px;height:40px;border-radius:50%;border:1px solid #aaa;" /> -->
@@ -63,6 +63,19 @@
 						<view style="margin-left:10px;">
 							<view style="font-size:12px;color:#999;">{{ name }}</view>
 							<view class="langcon">你的Flag:"{{ item.content }}"还没有完成，快去打卡吧！</view>
+						</view>
+					</view>
+				</view>
+				
+				<view v-for="(item, key) in remindList2">
+					<view class="left">
+						<view>
+							<!-- <image src="../../static/logo.png" style="width:40px;height:40px;border-radius:50%;border:1px solid #aaa;" /> -->
+							<image class="avatar" :src="partnerHead"></image>
+						</view>
+						<view style="margin-left:10px;">
+							<view style="font-size:12px;color:#999;">{{ name }}</view>
+							<view class="langcon">有长期任务:"{{ item.content }}"等待完成，快去完成吧！</view>
 						</view>
 					</view>
 				</view>
@@ -82,13 +95,16 @@
 			uniFab, // 悬浮按钮
 		},
 		data() {
-			// const currentDate = this.getDate({
-			//     format: true
-			// });
+			const currentDate = this.getDate({
+			    format: true
+			});
 			return {
+				currentDate: currentDate,
 				finishList:[],
-				timers:[],
-				remindList:[],
+				timers1:[],
+				timers2:[],
+				remindList1:[],
+				remindList2:[],
 				partnerHead: "../../static/logo.png",
 				title: 'main',
 				horizontal: 'right',
@@ -131,9 +147,13 @@
 		},
 				
 		onShow: function() {
-			for(var i = 0;i<this.timers.length;i++){
-				console.log(this.timers[i]);
-				clearInterval(this.timers[i]);  
+			for(var i = 0;i<this.timers1.length;i++){
+				console.log(this.timers1[i]);
+				clearInterval(this.timers1[i]);  
+			}
+			for(var i = 0;i<this.timers2.length;i++){
+				console.log(this.timers2[i]);
+				clearInterval(this.timers2[i]);  
 			}
 			console.log("111111111111")
 			let app = getApp()
@@ -160,33 +180,60 @@
 						}
 					});
 
+					console.log(that.currentDate)
 					uni.request({
-						url: 'http://iflag.icube.fun:8080/onetime/findByUserid/' + res.data.userid,
+						
+						url: 'http://iflag.icube.fun:8080/remind/'+ res.data.userid+'/' + that.currentDate,
 						method: "GET",
 						sslVerify: false,
 						success: function(response) {
-							var list = response.data	
-							console.log(response.data.length);
-							for(var i=0;i<response.data.length;i++){
-								console.log(list[i].remindTime + list[i].content);
-								if(list[i].remindTime!=null){
-									console.log(list[i].remindTime+"不是空");
+							console.log(response.data)
+							var list1 = response.data.onetimeFlagList;
+							console.log(list1.length);
+							for(var i=0;i<list1.length;i++){
+								console.log(list1[i].remindTime + list1[i].content);
+								if(list1[i].remindTime!=null){
+									console.log(list1[i].remindTime+"不是空");
 									var timer = setInterval(function(a) {
 										const date = new Date();
 										var times = a.remindTime;
 										var timearr = times.replace(" ", ":").replace(/\:/g, "-").split("-");
 										// console.log(timearr[3]+"时"+date.getHours());
-										console.log(timearr[4]+"分"+date.getMinutes());
+										// console.log(timearr[4]+"分"+date.getMinutes());
 										if(timearr[3] == date.getHours()&&timearr[4]==date.getMinutes()){
 											console.log("到点了");
-											that.remindList.push(a);
+											that.remindList1.push(a);
 											console.log(that.remindList)
 											// that.$set(a,'remind',1)
 											clearInterval(timer);
 										}
-									}, 30000,list[i]);
-									that.timers.push(timer);
-									console.log(that.timers);
+									}, 30000,list1[i]);
+									that.timers1.push(timer);
+									console.log(that.timers1);
+								}	
+							}
+							
+							var list2 = response.data.periodicFlagList;
+							console.log(list2.length);
+							for(var i=0;i<list2.length;i++){
+								console.log(list2[i].remindTime + list2[i].content);
+								if(list2[i].remindTime!=null){
+									console.log(list2[i].remindTime+"不是空");
+									var timer = setInterval(function(a) {
+										const date = new Date();
+										var times = a.remindTime;
+										var timearr = times.replace(" ", ":").replace(/\:/g, "-").split("-");
+										// console.log(timearr[3]+"时"+date.getHours());
+										// console.log(timearr[4]+"分"+date.getMinutes());
+										if(timearr[3] == date.getHours()&&timearr[4]==date.getMinutes()){
+											console.log("到点了");
+											that.remindList2.push(a);
+											console.log(that.remindList)
+											clearInterval(timer);
+										}
+									}, 30000,list2[i]);
+									that.timers2.push(timer);
+									console.log(that.timers2);
 								}	
 							}
 
@@ -248,6 +295,21 @@
 		
 		
 		methods: {
+			getDate(type) {
+			    const date = new Date();
+			    let year = date.getFullYear();
+			    let month = date.getMonth() + 1;
+			    let day = date.getDate();
+			
+			    if (type === 'start') {
+			        year = year - 60;
+			    } else if (type === 'end') {
+			        year = year + 10;
+			    }
+			    month = month > 9 ? month : '0' + month;;
+			    day = day > 9 ? day : '0' + day;
+			    return `${year}-${month}-${day}`;
+			},
 			onNavigationBarButtonTap(e) {
 				console.log("success");
 				uni.navigateTo({
