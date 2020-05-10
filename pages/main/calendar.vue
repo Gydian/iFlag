@@ -238,12 +238,14 @@
 		},
 		
 		onShow: function(){
+			this.currentDate =  new Date().toISOString().slice(0, 10);
 			this.init(this.currentDate);
 		},
 		
 		methods:{
 			init(mydate){
 				var that = this;
+				that.currentDate =  new Date().toISOString().slice(0, 10);
 				//接口
 				uni.getStorage({
 					key: 'email',
@@ -309,7 +311,7 @@
 				})
 				this.selectedDate = e.fulldate
 				console.log(this.selectedDate);
-				
+				this.currentDate =  new Date().toISOString().slice(0, 10);
 				if(this.selectedDate!=this.currentDate){
 					this.isvisible = true;
 				}else{
