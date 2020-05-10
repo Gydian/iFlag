@@ -4,7 +4,7 @@
 			<view class="shenfen">
 				<view>身份</view>
 			  <button class="button" @tap="handleTap('picker1')">{{ value1 }}</button>
-			  <lb-picker ref="picker1"
+			  <lb-picker class="lbpicker1" ref="picker1"
 			    v-model="value1"
 			    mode="selector"
 			    :list="list1"
@@ -199,25 +199,36 @@
 	margin-left: 5%;
 	display: flex;
 	flex-direction: row; 
-	justify-content: center;
+/* 	justify-content: center; */
 	align-items:center;
 }
 .button{
 /* 	margin-left: 20%; */
-	margin-right: 10%;
+/* 	margin-right: 10%; */
 	width: 70%;
-	height: 80rpx;
+	height: 85rpx;
+	margin-left: 10%;
+	background-color: #f8f8f8;
+	border-radius: 5px;
+	border: 1px;
+	text-align: center;
+	font-size: 18px;
+	align-items: center;
+	justify-content: center;
 	/* border: 1px solid #d8d8d8; */
 }
 .input-box{
 	/* margin-right: 10%; */
 	width: 70%;
+	font-size: 18px;
 	background-color: #f8f8f8;
 	margin-left: 10%;
-	height: 80rpx;
+	height: 85rpx;
 	border-radius: 5px;
 	border: 1px solid #dedede;
 	text-align: center;
+	align-items: center;
+	justify-content: center;
 }
 .nicheng{
 	margin-top: 10%;
@@ -247,5 +258,14 @@
 		height: 100upx;
 		border-radius: 100%;
 		margin: 40px;
+	}
+.lbpicker1{
+	/* width: 70%;
+	background-color: #f8f8f8; */
+	/* margin-left: 10%; */
+/* 	height: 80rpx;
+	border-radius: 5px;
+	border: 1px solid #dedede;
+	text-align: center; */
 	}
 </style>
