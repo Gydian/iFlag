@@ -4,7 +4,7 @@
 			<uni-nav-bar left-icon="back" left-text="返回" right-text="保存" title="打卡提醒" @clickLeft="back()" @clickRight="save()"></uni-nav-bar>
 		</view>
 		<view class="text-view">
-			主Flag提醒
+			立Flag提醒
 			<evan-switch class="switch" @change="onChagne1" v-model="checked1"></evan-switch>
 		</view>
 

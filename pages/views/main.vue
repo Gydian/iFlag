@@ -188,6 +188,7 @@
 					});
 
 					console.log(that.currentDate)
+					that.currentDate =  new Date().toISOString().slice(0, 10);
 					uni.request({
 						
 						url: 'http://iflag.icube.fun:8080/remind/'+ res.data.userid+'/' + that.currentDate,
