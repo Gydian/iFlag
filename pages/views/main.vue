@@ -6,30 +6,37 @@
 		<view class="info-1">
 			<!-- 布局 -->
 			<view style="margin-bottom:70px;">
+				
+				<view class="left">
+					<view>
+						<image class="avatar" :src="partnerHead"></image>
+					</view>
+					<view style="margin-left:10px; height:auto">
+						<view style="font-size:12px;color:#999;">{{ name }}</view>
+						<view class="langcon">记得去完成任务哟～</view>
+					</view>
+				</view>
+				
 				<!-- 注释 -->
 				<!-- <view class="zs">点击对方头像可进入私聊模式</view> -->
-				<view v-for="(item, key) in list" :key="item.id">
+				<!-- <view v-for="(item, key) in list" :key="item.id">
 					<view v-if="item.finish == false">
 						<view class="left">
 							<view>
-								<!-- <image src="../../static/logo.png" style="width:40px;height:40px;border-radius:50%;border:1px solid #aaa;" /> -->
-								<!-- <image src="this.partnerHead" style="width:40px;height:40px;border-radius:50%;border:1px solid #aaa;" /> -->
 								<image class="avatar" :src="partnerHead"></image>
 							</view>
 							<view style="margin-left:10px; height:auto">
 								<view style="font-size:12px;color:#999;">{{ name }}</view>
-								<!-- <view style="font-size:12px;color:#999;">{{ item.finish }}</view> -->
 								<view class="langcon">你的任务“{{ item.content }}”还没有完成哟，截止时间是：{{ item.endtime }}</view>
 							</view>
 						</view>
 					</view>
-				</view>
+				</view> -->
 				<!-- 注释 -->
 				<!-- <view class="zs">点击对方头像可进入私聊模式</view> -->
-				<view v-for="(item, key) in list2" :key="item.id">
+				<!-- <view v-for="(item, key) in list2" :key="item.id">
 					<view class="left">
 						<view>
-							<!-- <image src="../../static/logo.png" style="width:40px;height:40px;border-radius:50%;border:1px solid #aaa;" /> -->
 							<image class="avatar" :src="partnerHead"></image>
 						</view>
 						<view style="margin-left:10px; height:auto">
@@ -38,7 +45,7 @@
 						</view>
 					</view>
 
-				</view>
+				</view> -->
 				<!-- 已完成的 -->
 				<view v-for="(item, key) in finishList" :key="item.id">
 
@@ -54,7 +61,7 @@
 					</view>
 				</view>
 				
-				<view v-for="(item, key) in remindList1">
+				<view v-for="(item, key) in remindList1" :key="item.id">
 					<view class="left">
 						<view>
 							<!-- <image src="../../static/logo.png" style="width:40px;height:40px;border-radius:50%;border:1px solid #aaa;" /> -->
@@ -67,7 +74,7 @@
 					</view>
 				</view>
 				
-				<view v-for="(item, key) in remindList2">
+				<view v-for="(item, key) in remindList2" :key="item.id">
 					<view class="left">
 						<view>
 							<!-- <image src="../../static/logo.png" style="width:40px;height:40px;border-radius:50%;border:1px solid #aaa;" /> -->
