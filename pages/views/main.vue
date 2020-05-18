@@ -202,6 +202,9 @@
 								console.log(list1[i].remindTime + list1[i].content);
 								if(list1[i].remindTime!=null){
 									console.log(list1[i].remindTime+"不是空");
+									var hasremind = -1;
+									that.$set(list1[i],'remind',0)
+									
 									var timer = setInterval(function(a) {
 										const date = new Date();
 										var times = a.remindTime;
@@ -209,15 +212,32 @@
 										// console.log(timearr[3]+"时"+date.getHours());
 										// console.log(timearr[4]+"分"+date.getMinutes());
 										if(timearr[3] == date.getHours()&&timearr[4]==date.getMinutes()){
-											console.log("到点了");
-											that.remindList1.push(a);
-											console.log(that.remindList)
-											// that.$set(a,'remind',1)
+											
+											if(a.remind == 0){
+												console.log("到点了");
+												that.remindList1.push(a);
+												clearInterval(timer);
+												// console.log(that.remindList)
+											}
+											// console.log("到点了");
+											// that.remindList1.push(a);
+											// console.log(that.remindList)
+											that.$set(a,'remind',2)
+											// clearInterval(timer);
+											hasremind = timer;
+											console.log(timer)
 											clearInterval(timer);
 										}
-									}, 30000,list1[i]);
-									that.timers1.push(timer);
-									console.log(that.timers1);
+									}, 59000,list1[i]);
+									console.log(timer);
+									if(timer!=null){
+										that.timers1.push(timer);
+										console.log(that.timers1);
+									}
+									if(hasremind!=-1){
+										clearInterval(hasremind);
+									}
+									// clearInterval(timer);
 								}	
 							}
 							
@@ -227,6 +247,7 @@
 								console.log(list2[i].remindTime + list2[i].content);
 								if(list2[i].remindTime!=null){
 									console.log(list2[i].remindTime+"不是空");
+									that.$set(list2[i],'remind',0)
 									var timer = setInterval(function(a) {
 										const date = new Date();
 										var times = a.remindTime;
@@ -234,12 +255,19 @@
 										// console.log(timearr[3]+"时"+date.getHours());
 										// console.log(timearr[4]+"分"+date.getMinutes());
 										if(timearr[3] == date.getHours()&&timearr[4]==date.getMinutes()){
-											console.log("到点了");
-											that.remindList2.push(a);
-											console.log(that.remindList)
+											if(a.remind == 0){
+												console.log("到点了");
+												that.remindList2.push(a);
+												clearInterval(timer);
+												// console.log(that.remindList)
+											}
+											// console.log("到点了");
+											// that.remindList2.push(a);
+											// console.log(that.remindList)
+											that.$set(a,'remind',2)
 											clearInterval(timer);
 										}
-									}, 30000,list2[i]);
+									}, 59000,list2[i]);
 									that.timers2.push(timer);
 									console.log(that.timers2);
 								}	
