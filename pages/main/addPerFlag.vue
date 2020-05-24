@@ -208,6 +208,9 @@
 							console.log(that.cycleVal1),
 							console.log(that.checked2),
 							console.log(that.checked1),
+							console.log(that.flagid),
+							console.log(res.data.userid),
+							console.log(that.currentDate+" "+ that.time1),
 
 							console.log(that.isfinished);
 							if(that.pageid == 11){
@@ -221,7 +224,7 @@
 										content: that.inputFlag,
 										endtime: that.date,
 										repeatPeriod: that.cycleVal2,
-										remindTime: that.currentDate+" "+ that.time1,
+										remindTime: that.time1,
 										hasEndtime: that.checked3,
 										period: that.cycleVal1,
 										repeat: that.checked2,

@@ -182,7 +182,7 @@
 							console.log(that.checked2),
 
 							console.log(that.isfinished);
-							if(this.pageid == 11){
+							if(that.pageid == 11){
 								uni.request({
 									url: 'http://iflag.icube.fun:8080/onetime/update',
 									dataType:"JSON",
